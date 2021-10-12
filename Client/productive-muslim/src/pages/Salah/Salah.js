@@ -18,7 +18,7 @@ const Salah = () => {
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                         <Navbar.Collapse id="responsive-navbar-nav">
                             <Nav className="ms-auto">
-                            <Nav.Link href="../../pages/Salah">Home</Nav.Link>
+                            <Nav.Link href="../../pages/Homepage">Home</Nav.Link>
                                 <Nav.Link href="../../pages/Dua">Dua</Nav.Link>
                                 <Nav.Link className="active" href="#">Salah</Nav.Link>
                                 <Nav.Link href="../../pages/Sawm">Sawm</Nav.Link>
