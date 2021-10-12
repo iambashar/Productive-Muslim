@@ -2,7 +2,10 @@ import React from 'react';
 import { Navbar, Container, Nav } from 'react-bootstrap';
 import textIcon from '../../Images/textIcon.svg'
 import mainIcon from '../../Images/mainIcon.svg'
-import SideMenu from './SideMenu/SideMenu'
+import emotionIcon from '../../Images/emotionActive.svg'
+import recomIcon from '../../Images/recomInactive.svg'
+import favIcon from '../../Images/favInactive.svg'
+import './Dua.css'
 import {
     BrowserRouter as Router,
     Switch,
@@ -42,14 +45,45 @@ const Dua = () => {
                         </Container>
                     </Navbar>
                 </header>
-                <SideMenu></SideMenu>
+
             </div>
+
             <Switch>
                 <Route path="/pages/Dua/recommendation">
                     <Recommendation></Recommendation>
                 </Route>
                 <Route path="/pages/Dua/favourites">
                     <Favourites></Favourites>
+                </Route>
+                <Route path="/">
+                    <div class="sideMenuDua">
+
+                        <div class="menuItem">
+                            <a className="menuItem activeNav" href="#">
+                                <div className="menuIcon" >
+                                    <img src={emotionIcon} width="20"></img>
+                                </div>
+                                Emotions
+                            </a>
+                        </div>
+                        <div class="menuItem">
+                            <a className="menuItem" href="../../pages/Dua/recommendation">
+                                <div className="menuIcon">
+                                    <img src={recomIcon} width="20"></img>
+                                </div>
+                                Recommendations
+                            </a>
+                        </div>
+                        <div class="menuItem">
+                            <a className="menuItem" href="../../pages/Dua/favourites">
+                                <div className="menuIcon">
+                                    <img src={favIcon} width="20"></img>
+                                </div>
+                                Favourites
+                            </a>
+                        </div>
+
+                    </div>
                 </Route>
 
             </Switch>
