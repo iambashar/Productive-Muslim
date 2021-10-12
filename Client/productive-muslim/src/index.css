@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=El+Messiri&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=El+Messiri');
 body {
   margin: 0;
-  font-family: 'El Messiri', sans-serif;
+  font-family: 'El Messiri';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-image: url('Images/bg.png');
@@ -9,5 +9,10 @@ body {
 }
 
 code {
-  font-family: 'El Messiri', sans-serif;
+  font-family: 'El Messiri';
+}
+
+@fontface {
+  font-family: 'El Messiri', cursive;
+  src: url('https://fonts.googleapis.com/css2?family=El+Messiri');
 }

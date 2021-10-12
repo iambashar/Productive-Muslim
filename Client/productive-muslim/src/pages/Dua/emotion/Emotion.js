@@ -4,18 +4,15 @@ import recomIcon from '../../../Images/recomInactive.svg'
 import favIcon from '../../../Images/favInactive.svg'
 import './Emotion.css'
 import { Dropdown, Stack } from 'react-bootstrap';
+import duas from '../../../apis/duas'
 
 
 const Emotion = () => {
-    const [duas, setDuas] = useState([]);
-
     useEffect(() => {
-        fetch('./duas.JSON')
-            .then(res => res.json())
-            .then(data => {
-                setDuas(data);
-            });
-    }, []);
+            const resp = duas.get(``);
+            console.log(resp);
+        
+    })
 
 
     return (
@@ -62,18 +59,21 @@ const Emotion = () => {
                     </Dropdown.Menu>
                 </Dropdown>
                 <div>
-                    <Stack gap={2} className="col-md-2 mx-auto emotionBox">
-                        <h1>Title</h1>
-                        <h2>Arabic</h2>
-                        <h2>Pronunciation</h2>
-                        <h2>Translation</h2>
-                        <div>
-                        <div className="menuIcon">
-                            <img src={emotionIcon} width="20"></img>
-                        </div>
-                        </div>
+                    {
                         
-                    </Stack>
+                        <Stack gap={2} className="col-md-2 mx-auto emotionBox">
+                            <h1>resp.title</h1>
+                            <h2>dua.arabic</h2>
+                            <h2>dua.pronunciation</h2>
+                            <h2>dua.translation</h2>
+                            <div>
+                                <div className="menuIcon">
+                                    <img src={emotionIcon} width="20"></img>
+                                </div>
+                                <p>dua.favouritecount</p>
+                            </div>
+                        </Stack>
+                    }
                 </div>
             </div>
         </div>
