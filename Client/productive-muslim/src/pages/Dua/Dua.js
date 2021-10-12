@@ -16,6 +16,7 @@ import {
 } from "react-router-dom";
 import Recommendation from './recommendation/Recommendation';
 import Favourites from './favourites/Favourites';
+import Emotion from './emotion/Emotion';
 
 const Dua = () => {
     return (
@@ -56,34 +57,7 @@ const Dua = () => {
                     <Favourites></Favourites>
                 </Route>
                 <Route path="/">
-                    <div class="sideMenuDua">
-
-                        <div class="menuItem">
-                            <a className="menuItem activeNav" href="#">
-                                <div className="menuIcon" >
-                                    <img src={emotionIcon} width="20"></img>
-                                </div>
-                                Emotions
-                            </a>
-                        </div>
-                        <div class="menuItem">
-                            <a className="menuItem" href="../../pages/Dua/recommendation">
-                                <div className="menuIcon">
-                                    <img src={recomIcon} width="20"></img>
-                                </div>
-                                Recommendations
-                            </a>
-                        </div>
-                        <div class="menuItem">
-                            <a className="menuItem" href="../../pages/Dua/favourites">
-                                <div className="menuIcon">
-                                    <img src={favIcon} width="20"></img>
-                                </div>
-                                Favourites
-                            </a>
-                        </div>
-
-                    </div>
+                    <Emotion></Emotion>
                 </Route>
 
             </Switch>

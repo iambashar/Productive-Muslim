@@ -7,7 +7,7 @@ const Recommendation = () => {
     return (
         <div class="sideMenuDua">
             <div class="menuItem">
-                <a className="menuItem" href="../../../pages/Dua">
+                <a className="menuItem" href="../../../pages/Dua/emotion">
                     <div className="menuIcon" >
                         <img src={emotionIcon} width="20"></img>
                     </div>
