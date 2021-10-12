@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=El+Messiri&display=swap');
 .App {
   text-align: center;
+  font-family: 'El Messiri', sans-serif;
 }
 
 .App-logo {

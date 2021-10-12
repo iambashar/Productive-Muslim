@@ -18,6 +18,7 @@ import Sawm from './pages/Sawm/Sawm';
 import Tracker from './pages/Tracker/Tracker';
 import Challenges from './pages/Challenges/Challenges';
 import Forum from './pages/Forum/Forum';
+import Recommendation from './pages/Dua/recommendation/Recommendation';
 
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
           <Route path="/">
             <Homepage></Homepage>
           </Route>
+          
         </Switch>
       </Router>
   );
