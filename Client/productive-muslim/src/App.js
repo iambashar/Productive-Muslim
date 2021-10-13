@@ -22,7 +22,6 @@ import Forum from './pages/Forum/Forum';
 
 function App() {
   return (
-    
       <Router>
         <Switch>
           <Route path="/pages/Dua">

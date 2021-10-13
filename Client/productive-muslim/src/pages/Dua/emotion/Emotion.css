@@ -1,7 +1,7 @@
 .sideMenuDua{
     position: fixed;
     background: #044444;
-    width: 15%;
+    width: 18%;
     height: 100%;
     display: inline-block;
     font-family: 'El Messiri';
@@ -23,6 +23,11 @@
     margin-right: 8px;
 }
 
+.menuText{
+    display: inline-block;
+    font-size: 20px;
+}
+
 .activeNav{
     color: #e0d2b4;
 }
@@ -37,8 +42,8 @@ a:hover, a:visited, a:link, a:active
 }
 
 .emotionBox{
-    background-color: rgba(0, 144, 142, .6);
-    width: 50%;
+    background-color: rgba(3, 51, 51, 0.5);
+    width: 70%;
     margin: 0 auto;
     margin-top: 30px;
     justify-content: center;
@@ -64,30 +69,90 @@ a:hover, a:visited, a:link, a:active
     font-family: 'El Messiri';
     font-weight: bold;
     font-size: 1.5rem;
+    width: 300px;
 }
 .searchButton:hover{
     background-color: #ad976a;
     color: #044444;
+    border: #044444
 }
+.searchButton:focus, .searchButton:focus-visible, .searchButton:checked{
+    background-color: #e0d2b4;
+    color: #044444;
+    border: #044444;
+}
+
 
 .searchButtonDiv{
     align-self:flex-end;
     width: fit-content;
     margin: 50px auto;
+}
 
+
+.searchMenu{
+    background-color: #e0d2b4;
+    text-transform: capitalize;
+    font-family: 'El Messiri';
+    max-height:250px;
+    overflow:auto;
+    width: 290px;
+}
+#searchItem:hover{
+    background-color: #caba93;
+}
+::-webkit-scrollbar {
+    width: 0;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
 }
 
 h1{
     color: rgb(168, 223, 215);
+    font-weight: bold;
 }
 
-h2{
+.arabic{
     color: #e0d2b4;
+    font-size: 23px;
+    margin-top: 30px;
 }
+
+.english{
+    background-color: rgba(224, 210, 180, .2);
+    font-size: 23px;
+    color: rgb(168, 223, 215);
+    padding: 5px;
+    margin-top: 30px;
+}
+
 .likes{
     font-size: 15px;
     color: #e0d2b4;
     margin-top: 40px;
+}
+
+@media screen and (max-width: 500px) {
+  .menuText{
+      display: none;
+  }
+  .sideMenuDua{
+      width: 14%;
+  }
+  .arabic{
+      font-size: 15px;
+  }
+  .english{
+      font-size: 15px;
+  }
+  h1{
+      font-size: 20px;
+  }
+  .searchButton{
+      font-size: 20px;
+  }
+  .searchMenu{
+      width: 245px;
+  }
 }
 
 

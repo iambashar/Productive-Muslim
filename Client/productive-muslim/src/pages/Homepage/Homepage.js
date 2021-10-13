@@ -5,7 +5,7 @@ import textIcon from '../../Images/textIcon.svg'
 import mainIcon from '../../Images/mainIcon.svg'
 const Homepage = () => {
     return (
-        <div>
+        <div className="bdy">
             <header class="headerDiv">
                 <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
                     <Container>

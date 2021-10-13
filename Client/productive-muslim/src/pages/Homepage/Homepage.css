@@ -1,13 +1,13 @@
-
+.bdy{
+  overflow: hidden;
+}
 .headerDiv{
-  font-family: 'El Messiri';
-  opacity: 70%;
-}
+    font-family: 'El Messiri';
+  }
 
-.navBar{
-  background-color:rgbA(0,0,0,0.6);
-}
-
+  .navBar{
+    background-color:rgba(0,0,0,0.6);
+  }
 
 .quranAyah{
   margin: 10px;

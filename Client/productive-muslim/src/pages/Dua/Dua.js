@@ -21,9 +21,9 @@ import Emotion from './emotion/Emotion';
 const Dua = () => {
     return (
         <Router>
-            <div>
-                <header className="duaHeader">
-                    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+            <div >
+                <header  className="duaHeader">
+                    <Navbar collapseOnSelect expand="lg" variant="dark">
                         <Container>
                             <Navbar.Brand href="#">
                                 <img src={mainIcon} alt="logo" width="50" />
@@ -31,7 +31,7 @@ const Dua = () => {
                             </Navbar.Brand>
                         </Container>
                         <Container>
-                            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                            <Navbar.Toggle aria-controls="responsive-navbar-nav" className="toggle-nav"/>
                             <Navbar.Collapse id="responsive-navbar-nav">
                                 <Nav className="ms-auto">
                                     <Nav.Link href="../../pages/Homepage">Home</Nav.Link>
@@ -46,24 +46,23 @@ const Dua = () => {
                         </Container>
                     </Navbar>
                 </header>
-
             </div>
 
-            <Switch>
-                <Route path="/pages/Dua/recommendation">
-                    <Recommendation></Recommendation>
-                </Route>
-                <Route path="/pages/Dua/favourites">
-                    <Favourites></Favourites>
-                </Route>
-                <Route path="/">
-                    <Emotion></Emotion>
-                </Route>
+            <div className="pageContent">
+                <Switch>
+                    <Route path="/pages/Dua/recommendation">
+                        <Recommendation></Recommendation>
+                    </Route>
+                    <Route path="/pages/Dua/favourites">
+                        <Favourites></Favourites>
+                    </Route>
+                    <Route path="/">
+                        <Emotion></Emotion>
+                    </Route>
 
-            </Switch>
-
+                </Switch>
+            </div>
         </Router>
-
 
     );
 };
