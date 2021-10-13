@@ -2,12 +2,12 @@
   overflow: hidden;
 }
 .headerDiv{
-    font-family: 'El Messiri';
-  }
+  font-family: 'El Messiri';
+}
 
-  .navBar{
-    background-color:rgba(0,0,0,0.6);
-  }
+.navBar{
+  background-color:rgba(0,0,0,0.6);
+}
 
 .quranAyah{
   margin: 10px;

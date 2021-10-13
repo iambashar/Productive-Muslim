@@ -11,8 +11,8 @@ const Emotion = () => {
     const [displayDuaInfos, setDisplayDuaInfos] = useState([]);
     const [displayOptions, setDisplayOptions] = useState([]);
 
-    const showRandomDua = () => {
-        fetch("http://127.0.0.1:3000/duas")
+    const showRandomDua = async () => {
+        await fetch("http://127.0.0.1:3000/duas")
             .then(res => res.json())
             .then(
                 (result) => {
@@ -22,11 +22,11 @@ const Emotion = () => {
             )
     };
 
-    const showSearchedDua = (selectedEmotion) => {
+    const showSearchedDua = async (selectedEmotion) => {
         var link = "http://127.0.0.1:3000/emotiondua/";
         link = link.concat(selectedEmotion.target.outerText).toLowerCase();
         document.getElementById("dropdown-basic").innerHTML = selectedEmotion.target.outerText;
-        fetch(link)
+        await fetch(link)
             .then(res => res.json())
             .then(
                 (result) => {
@@ -35,20 +35,6 @@ const Emotion = () => {
             )
     };
 
-    useEffect(() => {
-        fetch("http://127.0.0.1:3000/duas")
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    setIsLoaded(true);
-                    setItems(result.data.duas);
-                },
-                (error) => {
-                    setIsLoaded(true);
-                    setError(error);
-                }
-            )
-    }, []);
     return (
         <div onLoad={showRandomDua}>
             <div class="sideMenuDua">
