@@ -1,42 +1,43 @@
 
 .headerDiv{
-    font-family: 'El Messiri';
-    opacity: 70%;
-  }
+  font-family: 'El Messiri';
+  opacity: 70%;
+}
 
-  .navBar{
-    background-color:rgbA(0,0,0,0.6);
-  }
+.navBar{
+  background-color:rgbA(0,0,0,0.6);
+}
 
-  .quranAyah{
-    margin: 10px;
-    color: #e0d2b4;
-    font-size: 25px;
-    font-family: 'El Messiri';
-  }
 
-  .salahTime{
-    margin: 10px;
-    color: rgb(168, 223, 215);
-    font-size: 25px;
-    font-family: 'El Messiri';
-  }
+.quranAyah{
+  margin: 10px;
+  color: #e0d2b4;
+  font-size: 25px;
+  font-family: 'El Messiri';
+}
 
-  .hadith{
-    font-size: 20px;
-    font-family: 'El Messiri';
-    width: fit-content;
-    padding: 2px;
-    margin: 10px;
-  }
-  #btnHadithofDay{
-    background-color: #02706e;
-    border: #00908e;
-    color:#e0d2b4;
-    border-radius: 5px;
-    padding: 5px;
-  }
+.salahTime{
+  margin: 10px;
+  color: rgb(168, 223, 215);
+  font-size: 25px;
+  font-family: 'El Messiri';
+}
 
-  .quranAyahPara{
-    width: 70%;
-  }
+.hadith{
+  font-size: 20px;
+  font-family: 'El Messiri';
+  width: fit-content;
+  padding: 2px;
+  margin: 10px;
+}
+#btnHadithofDay{
+  background-color: #02706e;
+  border: #00908e;
+  color:#e0d2b4;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.quranAyahPara{
+  width: 70%;
+}

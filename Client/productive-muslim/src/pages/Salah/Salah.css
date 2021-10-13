@@ -1,0 +1,25 @@
+thead{
+    background-color: #00908E
+}
+
+tr{
+    color:#E0D2B4;
+}
+
+tr:hover{
+    background-color:rgb(1, 1, 1, 0.3);
+}
+
+td, th{
+    width: 20%;
+    text-align: center;
+}
+
+.salahdiv{
+    background-color: rgb(0, 0, 0, 0.3);
+    margin: auto;
+    width: 60%;
+    padding: 10px;
+    margin-top: 100px;
+    border-radius: 10px;
+}

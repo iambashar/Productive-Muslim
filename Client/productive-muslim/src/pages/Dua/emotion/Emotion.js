@@ -1,16 +1,31 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import emotionIcon from '../../../Images/emotionActive.svg'
 import recomIcon from '../../../Images/recomInactive.svg'
 import favIcon from '../../../Images/favInactive.svg'
 import likedIcon from '../../../Images/liked.svg'
 import './Emotion.css'
-import { Dropdown, Stack } from 'react-bootstrap';
-import duas from '../../../apis/duas'
-
+import { Dropdown } from 'react-bootstrap';
 
 
 const Emotion = () => {
+    const [error, setError] = useState(null);
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [displayDuaInfos, setItems] = useState([]);
 
+    useEffect(() => {
+        fetch("http://127.0.0.1:3000/duas")
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    setIsLoaded(true);
+                    setItems(result.data.duas);
+                },
+                (error) => {
+                    setIsLoaded(true);
+                    setError(error);
+                }
+            )
+    }, []);
     return (
         <div>
             <div class="sideMenuDua">
@@ -42,7 +57,7 @@ const Emotion = () => {
 
             </div>
 
-            <div class="rightDiv">
+            <div className="rightDiv">
                 <div className="searchButtonDiv" >
                     <Dropdown>
                         <Dropdown.Toggle className="searchButton" id="dropdown-basic">
@@ -56,18 +71,23 @@ const Emotion = () => {
                         </Dropdown.Menu>
                     </Dropdown>
                 </div>
-
-                <div className="emotionBox">
-                    <h1>Resp.title</h1>
-                    <h2>dua.arabic</h2>
-                    <h2>dua.pronunciation</h2>
-                    <h2>dua.translation</h2>
-                    <div className="likes">
-                        <div className="menuIcon">
-                            <img src={likedIcon} width="20"></img>
+                <div>
+                    {
+                        displayDuaInfos.map(dua => <div className="emotionBox">
+                            <h1>{dua.title}</h1>
+                            <h2>{dua.arabic}</h2>
+                            <h2>{dua.pronunciation}</h2>
+                            <h2>{dua.translation}</h2>
+                            <div className="likes">
+                                <div className="menuIcon">
+                                    <img src={likedIcon} width="20"></img>
+                                </div>
+                                1200
+                            </div>
                         </div>
-                        1200
-                    </div>
+                        )
+                    }
+
                 </div>
             </div>
         </div>
