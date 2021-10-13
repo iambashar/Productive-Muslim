@@ -22,11 +22,11 @@ const Emotion = () => {
             )
     };
 
-    const showSearchedDua = (selectedEmotion) => {
+    const showSearchedDua = async (selectedEmotion) => {
         var link = "http://127.0.0.1:3000/emotiondua/";
         link = link.concat(selectedEmotion.target.outerText).toLowerCase();
         document.getElementById("dropdown-basic").innerHTML = selectedEmotion.target.outerText;
-        fetch(link)
+        await fetch(link)
             .then(res => res.json())
             .then(
                 (result) => {

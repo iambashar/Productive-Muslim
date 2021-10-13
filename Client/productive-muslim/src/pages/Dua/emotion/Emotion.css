@@ -77,7 +77,7 @@ a:hover, a:visited, a:link, a:active
     color: #044444;
     border: #044444
 }
-.searchButton:focus, .searchButton:focus-visible, .searchButton:checked{
+.searchButton:focus, .searchButton:focus-visible, .searchButton:checked {
     background-color: #e0d2b4;
     color: #044444;
     border: #044444;

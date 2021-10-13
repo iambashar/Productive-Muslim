@@ -14,13 +14,20 @@
     color: #e0d2b4;
     font-size: 25px;
     font-family: 'El Messiri';
+    display: inline-block;
+    width: 60%;
+    float: left;
   }
 
   .salahTime{
-    margin: 10px;
     color: rgb(168, 223, 215);
     font-size: 25px;
     font-family: 'El Messiri';
+    float: right;
+    padding: 60px;
+    background: linear-gradient(45deg,rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 1));
+    box-shadow: 40px 40px 40px rgba(0, 0, 0, 0);
+
   }
 
   .hadith{
@@ -31,7 +38,7 @@
     margin: 10px;
   }
   #btnHadithofDay{
-    background-color: #02706e;
+    background-color: #105f5e;
     border: #00908e;
     color:#e0d2b4;
     border-radius: 5px;
@@ -39,5 +46,5 @@
   }
 
   .quranAyahPara{
-    width: 70%;
+   
   }

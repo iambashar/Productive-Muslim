@@ -1,9 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Homepage.css'
 import { Navbar, Container, Nav, Row, Col } from 'react-bootstrap';
 import textIcon from '../../Images/textIcon.svg'
 import mainIcon from '../../Images/mainIcon.svg'
 const Homepage = () => {
+    const [ayah, setAyah] = useState();
+    const [surah, setSurah] = useState();
+    const [ayahNo, setAyahNo] = useState();
+
+    useEffect(() => {
+        var id = Math.floor(Math.random() * 6236) + 1;
+        var link = "http://api.alquran.cloud/v1/ayah/";
+        link = link.concat(id, "/en.asad");
+        fetch(link)
+            .then(res => res.json())
+            .then(data => {
+                setAyah(data.data.text);
+                setSurah(data.data.surah.englishName);
+                setAyahNo(data.data.surah.numberOfAyahs);
+            });
+        }, []);
+
     return (
         <div className="bdy">
             <header class="headerDiv">
@@ -30,21 +47,20 @@ const Homepage = () => {
                     </Container>
                 </Navbar>
             </header>
-            <Row>
-                <Col md={9} className="quranAyah">
-                <p className="quranAyahPara">Rather, your souls have enticed you to something, so patience is most fitting. And Allah is the one sought for help against that which you describe.<br />(Suratul Yousuf, Verse: 111)
-                    </p>
-                </Col>
-                <Col md={2} className="salahTime">
-                <p>Next Salah: <br /> Ashr, 4:50pm</p>
-                </Col>
-                
-            </Row>
-            <Row className="hadith">
+            <div>
+                <div className="quranAyah">
+                    <p className="quranAyahPara">{ayah}<br />-Surah {surah}, Verse: {ayahNo}</p>
+                </div>
+                <div className="salahTime">
+                    <p>Next Salah: <br /> Ashr, 4:50pm</p>
+                </div>
+
+            </div>
+            <div className="hadith">
                 <button id="btnHadithofDay">
                     Hadith of the Day
                 </button>
-            </Row>
+            </div>
         </div>
 
     );
