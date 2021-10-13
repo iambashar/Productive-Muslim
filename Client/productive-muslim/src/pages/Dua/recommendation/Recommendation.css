@@ -1,8 +1,11 @@
 .sideMenuDua{
     position: fixed;
-    background: #043b3b;
-    width: 200px;
+    background: #044444;
+    width: 15%;
     height: 100%;
+    display: inline-block;
+    float: left;
+    font-family: 'El Messiri';
 }
 
 
@@ -32,4 +35,25 @@
 a:hover, a:visited, a:link, a:active
 {
     text-decoration: none;
+}
+
+.emotionBox{
+    background-color: rgba(0, 144, 142, .4);
+    width: 50%;
+    margin: 0 auto;
+    margin-top: 30px;
+    justify-content: center;
+    text-align: center;
+    border: 4px;
+    border-style: solid;
+    border-color: rgb(168, 223, 215);;
+    font-family: 'El Messiri';
+    padding: 20px;
+}
+
+.rightDiv{
+    width: 85%;
+    float:right;
+    align-items: center;
+    justify-content: center;
 }

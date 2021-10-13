@@ -22,7 +22,7 @@ const Dua = () => {
     return (
         <Router>
             <div>
-                <header>
+                <header className="duaHeader">
                     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
                         <Container>
                             <Navbar.Brand href="#">

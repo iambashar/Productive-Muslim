@@ -2,18 +2,14 @@ import React, { useEffect, useState } from 'react';
 import emotionIcon from '../../../Images/emotionActive.svg'
 import recomIcon from '../../../Images/recomInactive.svg'
 import favIcon from '../../../Images/favInactive.svg'
+import likedIcon from '../../../Images/liked.svg'
 import './Emotion.css'
 import { Dropdown, Stack } from 'react-bootstrap';
 import duas from '../../../apis/duas'
 
 
-const Emotion = () => {
-    useEffect(() => {
-            const resp = duas.get(``);
-            console.log(resp);
-        
-    })
 
+const Emotion = () => {
 
     return (
         <div>
@@ -47,33 +43,31 @@ const Emotion = () => {
             </div>
 
             <div class="rightDiv">
-                <Dropdown>
-                    <Dropdown.Toggle className="searchButton" id="dropdown-basic">
-                        Dropdown Button
-                    </Dropdown.Toggle>
+                <div className="searchButtonDiv" >
+                    <Dropdown>
+                        <Dropdown.Toggle className="searchButton" id="dropdown-basic">
+                            Find out your relief here
+                        </Dropdown.Toggle>
 
-                    <Dropdown.Menu>
-                        <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                        <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                    </Dropdown.Menu>
-                </Dropdown>
-                <div>
-                    {
-                        
-                        <Stack gap={2} className="col-md-2 mx-auto emotionBox">
-                            <h1>resp.title</h1>
-                            <h2>dua.arabic</h2>
-                            <h2>dua.pronunciation</h2>
-                            <h2>dua.translation</h2>
-                            <div>
-                                <div className="menuIcon">
-                                    <img src={emotionIcon} width="20"></img>
-                                </div>
-                                <p>dua.favouritecount</p>
-                            </div>
-                        </Stack>
-                    }
+                        <Dropdown.Menu>
+                            <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                            <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                            <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
+                </div>
+
+                <div className="emotionBox">
+                    <h1>Resp.title</h1>
+                    <h2>dua.arabic</h2>
+                    <h2>dua.pronunciation</h2>
+                    <h2>dua.translation</h2>
+                    <div className="likes">
+                        <div className="menuIcon">
+                            <img src={likedIcon} width="20"></img>
+                        </div>
+                        1200
+                    </div>
                 </div>
             </div>
         </div>
