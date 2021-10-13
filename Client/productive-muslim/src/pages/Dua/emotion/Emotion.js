@@ -11,13 +11,20 @@ const Emotion = () => {
     const [displayDuaInfos, setDisplayDuaInfos] = useState([]);
     const [displayOptions, setDisplayOptions] = useState([]);
 
-    const showRandomDua = () => {
-        fetch("http://127.0.0.1:3000/duas")
+    const showRandomDua = async () => {
+        await fetch("http://127.0.0.1:3000/duas")
             .then(res => res.json())
             .then(
                 (result) => {
                     setDisplayDuaInfos(result.data.duas);
-                    setDisplayOptions(result.data.duas);
+                }
+            )
+            await fetch("http://127.0.0.1:3000/emotions")
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    setDisplayOptions(result.data.emotions);
+                    console.log(result);
                 }
             )
     };

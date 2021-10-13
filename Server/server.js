@@ -27,6 +27,25 @@ app.get("/duas", async (req, res) => {
   }
 });
 
+// Get all emotions
+app.get("/emotions", async (req, res) => {
+  try{
+    const allemotions = await db.query(
+      "select * from emotions;"
+    );
+
+    res.status(200).json({
+      status: "success",
+      results: allemotions.rows.length,
+      data: {
+        emotions : allemotions.rows,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 //Get dua by emotion
 app.get("/emotiondua/:emo", async (req, res) => {
   try{
