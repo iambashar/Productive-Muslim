@@ -1,3 +1,18 @@
 .duaHeader{
     font-family: 'El Messiri';
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 10;
+    display: inline;
+    background-color:rgba(0,0,0,0.6);
+}
+.pageContent{
+    margin-top: 76px;
+}
+
+.toggle-nav{
+    position: fixed;
+    right: 15px;
+    top: 15px
 }

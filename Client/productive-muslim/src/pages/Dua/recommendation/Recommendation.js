@@ -36,9 +36,9 @@ const Recommendation = () => {
         <div class="rightDiv">
                 <div className="emotionBox">
                     <h1>Resp.title</h1>
-                    <h2>dua.arabic</h2>
-                    <h2>dua.pronunciation</h2>
-                    <h2>dua.translation</h2>
+                    <h2 className="arabic">dua.arabic</h2>
+                    <h2 className="arabic">dua.pronunciation</h2>
+                    <h2 className="english">dua.translation</h2>
                     <div className="likes">
                         <div className="menuIcon">
                             <img src={likedIcon} width="20"></img>

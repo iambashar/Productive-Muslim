@@ -1,73 +1,104 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import emotionIcon from '../../../Images/emotionActive.svg'
 import recomIcon from '../../../Images/recomInactive.svg'
 import favIcon from '../../../Images/favInactive.svg'
 import likedIcon from '../../../Images/liked.svg'
 import './Emotion.css'
-import { Dropdown, Stack } from 'react-bootstrap';
-import duas from '../../../apis/duas'
-
+import { Dropdown } from 'react-bootstrap';
 
 
 const Emotion = () => {
+    const [displayDuaInfos, setDisplayDuaInfos] = useState([]);
+    const [displayOptions, setDisplayOptions] = useState([]);
+
+    const showRandomDua = () => {
+        fetch("http://127.0.0.1:3000/duas")
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    setDisplayDuaInfos(result.data.duas);
+                    setDisplayOptions(result.data.duas);
+                }
+            )
+    };
+
+    const showSearchedDua = (selectedEmotion) => {
+        var link = "http://127.0.0.1:3000/emotiondua/";
+        link = link.concat(selectedEmotion.target.outerText).toLowerCase();
+        document.getElementById("dropdown-basic").innerHTML = selectedEmotion.target.outerText;
+        fetch(link)
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    setDisplayDuaInfos(result.data.duas);
+                }
+            )
+    };
 
     return (
-        <div>
+        <div onLoad={showRandomDua}>
             <div class="sideMenuDua">
 
                 <div class="menuItem">
                     <a className="menuItem activeNav" href="#">
                         <div className="menuIcon" >
-                            <img src={emotionIcon} width="20"></img>
+                            <img src={emotionIcon} width="25"></img>
                         </div>
-                        Emotions
+                        <div className="menuText">Emotions</div>
                     </a>
                 </div>
                 <div class="menuItem">
                     <a className="menuItem" href="../../pages/Dua/recommendation">
                         <div className="menuIcon">
-                            <img src={recomIcon} width="20"></img>
+                            <img src={recomIcon} width="25"></img>
                         </div>
-                        Recommendations
+                        <div className="menuText">Recommendations</div>
                     </a>
                 </div>
                 <div class="menuItem">
                     <a className="menuItem" href="../../pages/Dua/favourites">
                         <div className="menuIcon">
-                            <img src={favIcon} width="20"></img>
+                            <img src={favIcon} width="25"></img>
                         </div>
-                        Favourites
+                        <div className="menuText">Favourites</div>
                     </a>
                 </div>
 
             </div>
 
-            <div class="rightDiv">
+            <div className="rightDiv">
                 <div className="searchButtonDiv" >
                     <Dropdown>
-                        <Dropdown.Toggle className="searchButton" id="dropdown-basic">
+                        <Dropdown.Toggle className="searchButton" variant="success" id="dropdown-basic">
                             Find out your relief here
                         </Dropdown.Toggle>
 
-                        <Dropdown.Menu>
-                            <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                            <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                            <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                        <Dropdown.Menu className="searchMenu" >
+                            {
+                                displayOptions.map(emotion => 
+                                    <Dropdown.Item onClick={showSearchedDua} id="searchItem">{emotion.emotion}</Dropdown.Item>
+                                    )
+                            }
                         </Dropdown.Menu>
                     </Dropdown>
                 </div>
-
-                <div className="emotionBox">
-                    <h1>Resp.title</h1>
-                    <h2>dua.arabic</h2>
-                    <h2>dua.pronunciation</h2>
-                    <h2>dua.translation</h2>
-                    <div className="likes">
-                        <div className="menuIcon">
-                            <img src={likedIcon} width="20"></img>
+                <div >
+                    {
+                        displayDuaInfos.map(dua => <div className="emotionBox">
+                            <h1>{dua.title}</h1>
+                            <h2 className="arabic">{dua.arabic}</h2>
+                            <h2 className="arabic">{dua.pronunciation}</h2>
+                            <h2 className="english">{dua.translation}</h2>
+                            <div className="likes">
+                                <div className="menuIcon">
+                                    <img src={likedIcon} width="20"></img>
+                                </div>
+                                1200
+                            </div>
                         </div>
-                        1200
-                    </div>
+                        )
+                    }
+
                 </div>
             </div>
         </div>
