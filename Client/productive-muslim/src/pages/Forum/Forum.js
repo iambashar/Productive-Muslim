@@ -2,12 +2,13 @@ import React from 'react';
 import { Navbar, Container, Nav } from 'react-bootstrap';
 import textIcon from '../../Images/textIcon.svg'
 import mainIcon from '../../Images/mainIcon.svg'
+import './Forum.css'
 
 const Forum = () => {
     return (
         <div>
-            <header>
-                <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+            <header className="forumHeader">
+                <Navbar collapseOnSelect expand="lg" variant="dark">
                     <Container>
                     <Navbar.Brand href="#">
                     <img src={mainIcon} alt="logo" width="50"/>

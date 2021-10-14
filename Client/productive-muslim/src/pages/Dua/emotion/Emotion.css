@@ -96,7 +96,7 @@ a:hover, a:visited, a:link, a:active
     font-family: 'El Messiri';
     max-height:250px;
     overflow:auto;
-    width: 290px;
+    width: 300px;
 }
 #searchItem:hover{
     background-color: #caba93;
@@ -154,5 +154,3 @@ h1{
       width: 245px;
   }
 }
-
-
