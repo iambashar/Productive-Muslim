@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Homepage.css'
-import { Navbar, Container, Nav, Row, Col } from 'react-bootstrap';
+import { Navbar, Container, Nav, Row, Col, Carousel, CarouselItem } from 'react-bootstrap';
 import textIcon from '../../Images/textIcon.svg'
 import mainIcon from '../../Images/mainIcon.svg'
 
@@ -8,6 +8,14 @@ const Homepage = () => {
     const [ayah, setAyah] = useState();
     const [surah, setSurah] = useState();
     const [ayahNo, setAyahNo] = useState();
+    const [currentWakt, setCurrentWakt] = useState();
+    const [nextWakt, setNextWakt] = useState();
+    const [remMin, setRemMin] = useState();
+    const [remHr, setRemHr] = useState();
+    const [nextMin, setNextMin] = useState();
+    const [nextHr, setNextHr] = useState();
+    const [meridian, setMeridian] = useState();
+    var remTime;
 
     useEffect(() => {
         var id = Math.floor(Math.random() * 6236) + 1;
@@ -20,7 +28,113 @@ const Homepage = () => {
                 setSurah(data.data.surah.englishName);
                 setAyahNo(data.data.surah.numberOfAyahs);
             });
-        }, []);
+    }, []);
+
+    useEffect(() => {
+        // if does not work then turn off your browser ad blocker :)
+        fetch("http://ip-api.com/json")
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    const link = "https://api.pray.zone/v2/times/today.json?ip=".concat(result.query);
+                    return fetch(link)
+                }
+            ).then(res => res.json())
+            .then(
+                (result) => {
+                    //setdisplaySalahTime(result.results.datetime);
+                    getSalahTimes(result.results.datetime);
+                });
+    }, []);
+
+    function retrieveTime() {
+        var today = new Date();
+        var hr = today.getHours();
+        var min = today.getMinutes();
+        var time = hr * 60 + min;
+        return time;
+    };
+
+    function getSalahTimes(salahTimes) {
+        const times = [];
+        times["Fajr"] = salahTimes[0].times.Fajr;
+        times["Dhuhr"] = salahTimes[0].times.Dhuhr;
+        times["Asr"] = salahTimes[0].times.Asr;
+        times["Maghrib"] = salahTimes[0].times.Maghrib;
+        times["Isha"] = salahTimes[0].times.Isha;
+
+        var fajr = times["Fajr"].split(':');
+        var dhuhr = times["Dhuhr"].split(':');
+        var asr = times["Asr"].split(':');
+        var maghrib = times["Maghrib"].split(':');
+        var isha = times["Isha"].split(':');
+
+        var fajrMin = parseInt(fajr[0]) * 60 + parseInt(fajr[1]);
+        var dhuhrMin = parseInt(dhuhr[0]) * 60 + parseInt(dhuhr[1]);
+        var asrMin = parseInt(asr[0]) * 60 + parseInt(asr[1]);
+        var maghribMin = parseInt(maghrib[0]) * 60 + parseInt(maghrib[1]);
+        var ishaMin = parseInt(isha[0]) * 60 + parseInt(isha[1]);
+
+        var currentTime = retrieveTime();
+        if (currentTime => ishaMin) {
+            setCurrentWakt("Isha");
+            setNextWakt("Fajr");
+            remTime = fajrMin + 1440 - currentTime;
+            setRemHr(Math.floor(remTime / 60));
+            setRemMin(remTime % 60);
+            setNextHr(fajr[0]);
+            setNextMin(fajr[1]);
+            
+        }
+        else if (currentTime => maghribMin && currentTime < ishaMin) {
+            setCurrentWakt("Maghrib");
+            setNextWakt("Isha");
+            remTime = ishaMin - currentTime;
+            setRemHr(Math.floor(remTime / 60));
+            setRemMin(remTime % 60);
+            setNextHr(isha[0]);
+            setNextMin(isha[1]);
+        }
+        else if (currentTime => asrMin && currentTime < maghribMin) {
+            setCurrentWakt("Asr");
+            setNextWakt("Maghrib");
+            remTime = ishaMin - currentTime;
+            setRemHr(Math.floor(remTime / 60));
+            setRemMin(remTime % 60);
+            setNextHr(maghrib[0]);
+            setNextMin(maghrib[1]);
+        }
+        else if (currentTime => dhuhrMin && currentTime < asrMin) {
+            setCurrentWakt("Dhuhr");
+            nextWakt = "Asr";
+            remTime = ishaMin - currentTime;
+            setRemHr(Math.floor(remTime / 60));
+            setRemMin(remTime % 60);
+            setNextHr(asr[0]);
+            setNextMin(asr[1]);
+        }
+        else if (currentTime >= fajrMin && currentTime < dhuhrMin) {
+            setCurrentWakt("Fajr");
+            setNextWakt("Dhuhr");
+            remTime = ishaMin - currentTime;
+            setRemHr(Math.floor(remTime / 60));
+            setRemMin(remTime % 60);
+            setNextHr(dhuhr[0]);
+            setNextMin(dhuhr[1]);
+
+        }
+
+        if(nextHr < 12)
+        {
+            setMeridian("am");
+        }
+        else
+        {
+            setMeridian("pm");
+        }
+        
+    };
+    
 
     return (
         <div className="bdy">
@@ -33,7 +147,7 @@ const Homepage = () => {
                         </Navbar.Brand>
                     </Container>
                     <Container>
-                        <Navbar.Toggle aria-controls="responsive-navbar-nav"  className="toggle-nav"/>
+                        <Navbar.Toggle aria-controls="responsive-navbar-nav" className="toggle-nav" />
                         <Navbar.Collapse id="responsive-navbar-nav">
                             <Nav className="ms-auto">
                                 <Nav.Link className="active" href="#">Home</Nav.Link>
@@ -53,7 +167,14 @@ const Homepage = () => {
                     <p className="quranAyahPara">{ayah}<br />-Surah {surah}, Verse: {ayahNo}</p>
                 </div>
                 <div className="salahTime">
-                    <p>Next Salah: <br /> Ashr, 4:50pm</p>
+                    <Carousel indicators={false} prevIcon={<span aria-hidden="false" />} nextIcon={<span aria-hidden="false" />} indicatorLabels="[0]" className="">
+                        <Carousel.Item interval={4000}>
+                            <p>Next Salah: <br /> {nextWakt}, {nextHr}:{nextMin}{meridian}</p>
+                        </Carousel.Item>
+                        <Carousel.Item interval={4000}>
+                            <p>{currentWakt} remaining: <br /> {remHr}hr, {remMin}min</p>
+                        </Carousel.Item>
+                    </Carousel>
                 </div>
 
             </div>

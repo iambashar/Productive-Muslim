@@ -24,6 +24,7 @@ const Salah = () => {
                 });
         }, []);
 
+
     return (
             <div >
                 <header  className="salahHeader">
