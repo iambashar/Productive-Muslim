@@ -5,7 +5,7 @@
     top: 0;
     z-index: 10;
     display: inline;
-    background-color:rgba(0,0,0,0.6);
+    background-color:rgba(0, 0, 0, 0.6);
 }
 .pageContent{
     margin-top: 76px;

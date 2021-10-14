@@ -3,10 +3,10 @@
 }
 .headerDiv{
     font-family: 'El Messiri';
+    background-color:rgba(0, 0, 0, 0.6);
   }
 
   .navBar{
-    background-color:rgba(0,0,0,0.6);
   }
 
   .quranAyah{
@@ -48,3 +48,22 @@
   .quranAyahPara{
    
   }
+
+  .toggle-nav{
+    position: fixed;
+    right: 15px;
+    top: 15px
+}
+
+@media screen and (max-width: 500px) {
+.salahTime{
+  padding: 20px;
+  font-size: 20px;
+}
+.quranAyah{
+  font-size: 15px;
+}
+.hadith{
+  font-size: 15px;
+}
+}

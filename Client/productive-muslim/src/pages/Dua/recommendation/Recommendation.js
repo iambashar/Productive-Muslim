@@ -3,6 +3,7 @@ import emotionIcon from '../../../Images/emotionInactive.svg'
 import recomIcon from '../../../Images/recomActive.svg'
 import favIcon from '../../../Images/favInactive.svg'
 import likedIcon from '../../../Images/liked.svg'
+import './Recommendation.css'
 
 const Recommendation = () => {
     return (
@@ -11,25 +12,25 @@ const Recommendation = () => {
             <div class="menuItem">
                 <a className="menuItem" href="../../../pages/Dua/emotion">
                     <div className="menuIcon" >
-                        <img src={emotionIcon} width="20"></img>
+                        <img src={emotionIcon} width="25"></img>
                     </div>
-                    Emotions
+                    <div className="menuText">Emotions</div>
                 </a>
             </div>
             <div class="menuItem">
                 <a className="menuItem activeNav" href="#">
                     <div className="menuIcon">
-                        <img src={recomIcon} width="20"></img>
+                        <img src={recomIcon} width="25"></img>
                     </div>
-                    Recommendations
+                    <div className="menuText">Recommendations</div>
                 </a>
             </div>
             <div class="menuItem">
                 <a className="menuItem" href="../../../pages/Dua/favourites">
                     <div className="menuIcon">
-                        <img src={favIcon} width="20"></img>
+                        <img src={favIcon} width="25"></img>
                     </div>
-                    Favourites
+                    <div className="menuText">Emotions</div>
                 </a>
             </div>
         </div>

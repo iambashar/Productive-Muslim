@@ -24,7 +24,7 @@ const Homepage = () => {
     return (
         <div className="bdy">
             <header class="headerDiv">
-                <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+                <Navbar collapseOnSelect expand="lg" variant="dark">
                     <Container>
                         <Navbar.Brand href="#">
                             <img src={mainIcon} alt="logo" width="50" />
@@ -32,7 +32,7 @@ const Homepage = () => {
                         </Navbar.Brand>
                     </Container>
                     <Container>
-                        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                        <Navbar.Toggle aria-controls="responsive-navbar-nav"  className="toggle-nav"/>
                         <Navbar.Collapse id="responsive-navbar-nav">
                             <Nav className="ms-auto">
                                 <Nav.Link className="active" href="#">Home</Nav.Link>

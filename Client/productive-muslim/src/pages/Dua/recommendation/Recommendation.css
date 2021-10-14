@@ -1,10 +1,9 @@
 .sideMenuDua{
     position: fixed;
     background: #044444;
-    width: 15%;
+    width: 18%;
     height: 100%;
     display: inline-block;
-    float: left;
     font-family: 'El Messiri';
 }
 
@@ -22,6 +21,11 @@
 .menuIcon{
     display: inline-block;
     margin-right: 8px;
+}
+
+.menuText{
+    display: inline-block;
+    font-size: 20px;
 }
 
 .activeNav{
@@ -71,3 +75,27 @@ a:hover, a:visited, a:link, a:active
     padding: 5px;
     margin-top: 30px;
 }
+
+@media screen and (max-width: 500px) {
+    .menuText{
+        display: none;
+    }
+    .sideMenuDua{
+        width: 14%;
+    }
+    .arabic{
+        font-size: 15px;
+    }
+    .english{
+        font-size: 15px;
+    }
+    h1{
+        font-size: 20px;
+    }
+    .searchButton{
+        font-size: 20px;
+    }
+    .searchMenu{
+        width: 245px;
+    }
+  }
