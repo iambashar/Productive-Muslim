@@ -29,31 +29,44 @@
     background: linear-gradient(45deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
     box-shadow: 40px 40px 40px rgba(0, 0, 0, 0);
 
-  }
+.quranAyah{
+  margin: 10px;
+  color: #e0d2b4;
+  font-size: 25px;
+  font-family: 'El Messiri';
+  display: inline-block;
+  width: 60%;
+}
 
-  .hadith{
-    font-size: 20px;
-    font-family: 'El Messiri';
-    width: fit-content;
-    padding: 2px;
-    margin: 10px;
-  }
-  #btnHadithofDay{
-    background-color: #105f5e;
-    border: #00908e;
-    color:#e0d2b4;
-    border-radius: 5px;
-    padding: 5px;
-  }
+.salahTime{
+  color: rgb(168, 223, 215);
+  font-size: 40px;
+  font-family: 'El Messiri';
+  float: right;
+  padding: 60px;
+  background: linear-gradient(45deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 1));
+  box-shadow: 40px 40px 40px rgba(0, 0, 0, 0);
+}
 
-  .quranAyahPara{
-   
-  }
+.hadith{
+  font-size: 20px;
+  font-family: 'El Messiri';
+  width: fit-content;
+  padding: 2px;
+  margin: 10px;
+}
+#btnHadithofDay{
+  background-color: #105f5e;
+  border: #00908e;
+  color:#e0d2b4;
+  border-radius: 5px;
+  padding: 5px;
+}
 
-  .toggle-nav{
-    position: fixed;
-    right: 15px;
-    top: 15px
+.toggle-nav{
+  position: fixed;
+  right: 15px;
+  top: 15px
 }
 
 @media screen and (max-width: 500px) {

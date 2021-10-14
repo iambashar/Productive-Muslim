@@ -7,3 +7,77 @@
     display: inline;
     background-color:rgba(0,0,0,0.6);
 }
+
+.trackerdiv{
+    color: rgb(168, 223, 215);
+    font-size: 25px;
+    font-family: 'El Messiri';
+    background: rgba(0, 0, 0, 0.3);
+    width: 60%;
+    margin: 0 auto;
+    margin-top: 100px;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    border-width: 3px;
+    border-style: solid;
+    border-color: rgb(168, 223, 215);
+}
+
+.taskdiv{
+    color: rgb(168, 223, 215);
+    font-size: 20px;
+    font-family: 'El Messiri';
+    background: rgba(0, 0, 0, 0.3);
+    width: 60%;
+    margin: 0 auto;
+    margin-top: 20px;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    border-width: 3px;
+    border-style: solid;
+    border-color: rgb(168, 223, 215);
+}
+
+.btnjoin{
+    font-size: 20px;
+    color: bisque;
+    border-width: 3px;
+}
+
+.Ashras{
+    background: rgba(	224, 210, 180, 0.5);
+    width: 90%;
+    margin: auto;
+    padding: 20px;
+    text-align: center;
+    margin-top: 20px;
+    border-style: solid;
+    border-color: rgb(168, 223, 215);
+}
+
+.deeds{
+    background: rgba(168, 223, 215, 0.3);
+    width: 90%;
+    margin: auto;
+    padding: 20px;
+    text-align: left;
+    margin-top: 20px;
+}
+
+.deedItem{
+    display: inline-block;
+    margin-left: 40px;
+}
+
+.deedimg{  
+    display: inline-block;
+    padding-left: 20px;
+}
+
+.ck{
+    display: inline-block;
+    float: right;
+    padding: 20px;
+}
