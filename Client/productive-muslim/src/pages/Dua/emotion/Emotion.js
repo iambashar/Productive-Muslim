@@ -10,22 +10,21 @@ const Emotion = () => {
     const [displayDuaInfos, setDisplayDuaInfos] = useState([]);
     const [displayOptions, setDisplayOptions] = useState([]);
 
-    const showRandomDua = async () => {
-        await fetch("http://127.0.0.1:3000/duas")
+    useEffect(() => {
+        fetch("http://127.0.0.1:3000/duas")
             .then(res => res.json())
             .then(
                 (result) => {
                     setDisplayDuaInfos(result.data.duas);
-                }
-            )
-            await fetch("http://127.0.0.1:3000/emotions")
+                    return fetch("http://127.0.0.1:3000/emotions")
+                })
             .then(res => res.json())
             .then(
                 (result) => {
                     setDisplayOptions(result.data.emotions);
-                }
-            )
-    };
+                });
+    }, []);
+
 
     const showSearchedDua = async (selectedEmotion) => {
         var link = "http://127.0.0.1:3000/emotiondua/";
@@ -41,7 +40,7 @@ const Emotion = () => {
     };
 
     return (
-        <div onLoad={showRandomDua}>
+        <div>
             <div class="sideMenuDua">
 
                 <div class="menuItem">
@@ -80,9 +79,9 @@ const Emotion = () => {
 
                         <Dropdown.Menu className="searchMenu" >
                             {
-                                displayOptions.map(emotion => 
+                                displayOptions.map(emotion =>
                                     <Dropdown.Item onClick={showSearchedDua} id="searchItem">{emotion.emotion}</Dropdown.Item>
-                                    )
+                                )
                             }
                         </Dropdown.Menu>
                     </Dropdown>
