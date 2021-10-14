@@ -12,7 +12,7 @@ app.use(cors());
 app.get("/duas", async (req, res) => {
   try{
     const allduas = await db.query(
-      "select * from duas;"
+      "select * from duas order by random();"
     );
 
     res.status(200).json({

@@ -6,7 +6,6 @@ import likedIcon from '../../../Images/liked.svg'
 import './Emotion.css'
 import { Dropdown } from 'react-bootstrap';
 
-
 const Emotion = () => {
     const [displayDuaInfos, setDisplayDuaInfos] = useState([]);
     const [displayOptions, setDisplayOptions] = useState([]);
