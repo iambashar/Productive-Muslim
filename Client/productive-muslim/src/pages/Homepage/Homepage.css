@@ -3,10 +3,11 @@
 }
 .headerDiv{
     font-family: 'El Messiri';
+    background-color:rgba(0,0,0,0.6);
   }
 
   .navBar{
-    background-color:rgba(0,0,0,0.6);
+    
   }
 
   .quranAyah{

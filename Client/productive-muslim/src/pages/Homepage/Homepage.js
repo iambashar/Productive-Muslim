@@ -3,6 +3,7 @@ import './Homepage.css'
 import { Navbar, Container, Nav, Row, Col } from 'react-bootstrap';
 import textIcon from '../../Images/textIcon.svg'
 import mainIcon from '../../Images/mainIcon.svg'
+
 const Homepage = () => {
     const [ayah, setAyah] = useState();
     const [surah, setSurah] = useState();
@@ -24,7 +25,7 @@ const Homepage = () => {
     return (
         <div className="bdy">
             <header class="headerDiv">
-                <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+                <Navbar collapseOnSelect expand="lg" variant="dark">
                     <Container>
                         <Navbar.Brand href="#">
                             <img src={mainIcon} alt="logo" width="50" />

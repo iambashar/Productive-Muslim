@@ -24,7 +24,6 @@ const Emotion = () => {
             .then(
                 (result) => {
                     setDisplayOptions(result.data.emotions);
-                    console.log(result);
                 }
             )
     };
