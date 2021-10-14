@@ -30,7 +30,7 @@ const Recommendation = () => {
                     <div className="menuIcon">
                         <img src={favIcon} width="25"></img>
                     </div>
-                    <div className="menuText">Emotions</div>
+                    <div className="menuText">Favourites</div>
                 </a>
             </div>
         </div>
