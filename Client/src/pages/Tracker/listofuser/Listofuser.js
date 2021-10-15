@@ -35,6 +35,30 @@ const Myday = () => {
                
 
             </div>
+
+            <div className="rightDiv">
+                <div className="taskBox">
+                    <div class="taskCheckBox">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                    </div>
+                    <h2 className="taskText">Reading 10 pages of Quran</h2>
+                </div>
+
+                <div className="taskBox">
+                    <div class="taskCheckBox">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                    </div>
+                    <h2 className="taskText">Listening Khutbah</h2>
+                </div>
+
+                <div className="taskBox">
+                    <div class="taskCheckBox">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                    </div>
+                    <h2 className="taskText">Practicing Calligraphy</h2>
+                </div>
+
+            </div>
         </div>
     );
 };

@@ -1,4 +1,5 @@
 import React from 'react';
+import './Planned.css'
 import mydayIcon from '../../../Images/mydayInactive.svg'
 import planIcon from '../../../Images/planActive.svg'
 import listIcon from '../../../Images/listInactive.svg'
@@ -33,6 +34,33 @@ const Myday = () => {
                     </a>
                 </div>
                
+
+            </div>
+
+            <div className="rightDiv">
+                <div className="taskBox">
+                    <div class="taskCheckBox">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                    </div>
+                    <h2 className="taskText">Reading 10 pages of Quran</h2>
+                    <h3 className="taskDate">Mon, Oct 18</h3>
+                </div>
+
+                <div className="taskBox">
+                    <div class="taskCheckBox">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                    </div>
+                    <h2 className="taskText">Listening Khutbah</h2>
+                    <h3 className="taskDate">Fri, Oct 15</h3>
+                </div>
+
+                <div className="taskBox">
+                    <div class="taskCheckBox">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                    </div>
+                    <h2 className="taskText">Practicing Calligraphy</h2>
+                    <h3 className="taskDate">Sat, Oct 16</h3>
+                </div>
 
             </div>
         </div>

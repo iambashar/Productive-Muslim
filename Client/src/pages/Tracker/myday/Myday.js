@@ -1,4 +1,6 @@
 import React from 'react';
+import { Form } from 'react-bootstrap'
+import './Myday.css'
 import mydayIcon from '../../../Images/mydayActive.svg'
 import planIcon from '../../../Images/planInactive.svg'
 import listIcon from '../../../Images/listInactive.svg'
@@ -11,7 +13,7 @@ const Myday = () => {
                 <div class="menuItem">
                     <a className="menuItem activeNav" href="#">
                         <div className="menuIcon" >
-                            <img  src={mydayIcon} width="25"></img>
+                            <img src={mydayIcon} width="25"></img>
                         </div>
                         <div className="menuText">My Day</div>
                     </a>
@@ -19,7 +21,7 @@ const Myday = () => {
                 <div class="menuItem">
                     <a className="menuItem" href="../../pages/Tracker/planned">
                         <div className="menuIcon">
-                            <img  src={planIcon} width="25"></img>
+                            <img src={planIcon} width="25"></img>
                         </div>
                         <div className="menuText">Planned</div>
                     </a>
@@ -32,7 +34,30 @@ const Myday = () => {
                         <div className="menuText">Lists</div>
                     </a>
                 </div>
-               
+
+
+            </div>
+            <div className="rightDiv">
+                <div className="taskBox">
+                    <div class="taskCheckBox">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                    </div>
+                    <h2 className="taskText">Reading 10 pages of Quran</h2>
+                </div>
+
+                <div className="taskBox">
+                    <div class="taskCheckBox">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                    </div>
+                    <h2 className="taskText">Listening Khutbah</h2>
+                </div>
+
+                <div className="taskBox">
+                    <div class="taskCheckBox">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                    </div>
+                    <h2 className="taskText">Practicing Calligraphy</h2>
+                </div>
 
             </div>
         </div>

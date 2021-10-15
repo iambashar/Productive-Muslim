@@ -1,0 +1,27 @@
+.taskBox{
+    background: rgba(0, 0, 0, 0.3);
+    width: 70%;
+    margin: 0 auto;
+    margin-top: 30px;
+    font-family: 'El Messiri';
+    padding: 20px;
+}
+
+.taskBox:hover{
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0);
+
+}
+.taskCheckBox{
+    color: aquamarine;
+    border-radius: 50%;
+    display: inline-block;
+    float: left;
+    margin-top: 2px;
+}
+.taskText{
+    display: inline-block;
+    margin-left: 10px;
+    font-size: 20px;
+}
