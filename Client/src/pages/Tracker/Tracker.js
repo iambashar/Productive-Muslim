@@ -3,9 +3,21 @@ import { Navbar, Container, Nav } from 'react-bootstrap';
 import textIcon from '../../Images/textIcon.svg'
 import mainIcon from '../../Images/mainIcon.svg'
 import './Tracker.css'
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+    useRouteMatch,
+    useParams
+} from "react-router-dom";
+import Myday from './myday/Myday';
+import Planned from './planned/Planned';
+import Listofuser from './listofuser/Listofuser'
 
 const Tracker = () => {
     return (
+        <Router> 
         <div>
             <header className="trackerHeader">
                 <Navbar collapseOnSelect expand="lg" variant="dark">
@@ -32,6 +44,24 @@ const Tracker = () => {
                 </Navbar>
             </header>
         </div>
+        <div className="pageContent">
+                <Switch>
+                    <Route path="/pages/Tracker/myday">
+                        <Myday></Myday>
+                    </Route>
+                    <Route path="/pages/Tracker/planned">
+                        <Planned></Planned>
+                    </Route>
+                    <Route path="/pages/Tracker/listofuser">
+                        <Listofuser></Listofuser>
+                    </Route>
+                    <Route path="/">
+                        <Myday></Myday>
+                    </Route>
+
+                </Switch>
+            </div>
+        </Router>
     );
 };
 
