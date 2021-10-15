@@ -11127,12 +11127,6 @@ Client/node_modules/core-js-pure/features/array-buffer/constructor.js
 Client/node_modules/core-js-pure/features/array-buffer/index.js
 Client/node_modules/core-js-pure/features/array-buffer/is-view.js
 Client/node_modules/core-js-pure/features/array-buffer/slice.js
-Client/public/favicon.ico
-Client/public/index.html
-Client/public/logo192.png
-Client/public/logo512.png
-Client/public/manifest.json
-Client/public/robots.txt
 Server/node_modules/buffer-writer/.travis.yml
 Server/node_modules/buffer-writer/index.js
 Server/node_modules/buffer-writer/LICENSE
