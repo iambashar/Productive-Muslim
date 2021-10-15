@@ -9,9 +9,7 @@
 
 .taskBox:hover{
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
-    border-style: solid;
-    border-color: rgba(0, 0, 0, 0);
-
+    background-color: rgba(0, 0, 0, 0.5);
 }
 .taskCheckBox{
     color: aquamarine;
@@ -24,4 +22,12 @@
     display: inline-block;
     margin-left: 10px;
     font-size: 20px;
+}
+
+.addBtn{
+    color: #647c73;
+    margin-left: 20px;
+}
+.addBtn:hover{
+    color: #647c73;
 }

@@ -4,6 +4,7 @@ import './Myday.css'
 import mydayIcon from '../../../Images/mydayActive.svg'
 import planIcon from '../../../Images/planInactive.svg'
 import listIcon from '../../../Images/listInactive.svg'
+import addIcon from '../../../Images/addIcon.svg'
 
 const Myday = () => {
     return (
@@ -33,6 +34,13 @@ const Myday = () => {
                         </div>
                         <div className="menuText">Lists</div>
                     </a>
+                </div>
+                <div class="menuItem addBtn">
+                        <div className="menuIcon">
+                            <img src={addIcon} width="25"></img>
+                        </div>
+                        <div className="menuText">Add</div>
+                    
                 </div>
 
 
