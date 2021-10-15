@@ -2,33 +2,37 @@
   overflow: hidden;
 }
 .headerDiv{
-    font-family: 'El Messiri';
-    background-color:rgba(0, 0, 0, 0.6);
-  }
+  font-family: 'El Messiri';
+  background-color:rgba(0, 0, 0, 0.6);
+}
 
-  .navBar{
-  }
+.quranAyah{
+  margin: 10px;
+  color: #e0d2b4;
+  font-size: 25px;
+  font-family: 'El Messiri';
+  display: inline-block;
+  width: 60%;
+}
 
-  .quranAyah{
-    margin: 10px;
-    color: #e0d2b4;
-    font-size: 25px;
-    font-family: 'El Messiri';
-    display: inline-block;
-    width: 60%;
-    float: left;
-  }
+.carousel-control-prev{
+  display: none;
+}
 
-  .salahTime{
-    color: rgb(168, 223, 215);
-    font-size: 40px;
-    font-family: 'El Messiri';
-    float: right;
-    padding: 60px;
-    width: 35%;
-    background: linear-gradient(45deg, rgba(0, 0, 0, 0),rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6));
-    box-shadow: 40px 40px 40px rgba(0, 0, 0, 0);
-  }
+.carousel-control-next{
+  display: none;
+}
+
+.salahTime{
+  color: rgb(168, 223, 215);
+  font-size: 40px;
+  font-family: 'El Messiri';
+  float: right;
+  padding: 60px;
+  width: 35%;
+  background: linear-gradient(45deg, rgba(0, 0, 0, 0),rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6));
+  box-shadow: 40px 40px 40px rgba(0, 0, 0, 0);
+}
 
 .quranAyah{
   margin: 10px;

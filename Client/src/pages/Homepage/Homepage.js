@@ -167,7 +167,7 @@ const Homepage = () => {
                     <p className="quranAyahPara">{ayah}<br />-Surah {surah}, Verse: {ayahNo}</p>
                 </div>
                 <div className="salahTime">
-                    <Carousel indicators={false} prevIcon={<span aria-hidden="false" />} nextIcon={<span aria-hidden="false" />} indicatorLabels="[0]" className="">
+                    <Carousel indicators={false} indicatorLabels="[0]">
                         <Carousel.Item interval={4000}>
                             <p>Next Salah: <br /> {nextWakt}, {nextHr}:{nextMin}{meridian}</p>
                         </Carousel.Item>
