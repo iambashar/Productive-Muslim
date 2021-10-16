@@ -80,10 +80,15 @@ const Homepage = () => {
             setCurrentWakt("Isha");
             setNextWakt("Fajr");
             remTime = fajrMin + 1440 - currentTime;
+            if(remTime > 1440)
+            {
+                remTime = remTime - 1440;
+            }
             setRemHr(Math.floor(remTime / 60));
             setRemMin(remTime % 60);
             setNextHr(fajr[0]);
             setNextMin(fajr[1]);
+            console.log(currentTime);
             
         }
         else if (currentTime => maghribMin && currentTime < ishaMin) {
