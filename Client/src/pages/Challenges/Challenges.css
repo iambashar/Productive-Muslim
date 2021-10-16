@@ -47,14 +47,12 @@
 }
 
 .Ashras{
-    background: rgba(	224, 210, 180, 0.5);
+    background: rgba(	224, 210, 180, 0.2);
     width: 90%;
     margin: auto;
     padding: 20px;
     text-align: center;
     margin-top: 20px;
-    border-style: solid;
-    border-color: rgb(168, 223, 215);
 }
 
 .deeds{
@@ -77,7 +75,6 @@
 }
 
 .ck{
-    display: inline-block;
     float: right;
     padding: 20px;
 }
