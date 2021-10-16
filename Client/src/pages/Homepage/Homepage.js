@@ -76,7 +76,49 @@ const Homepage = () => {
         var ishaMin = parseInt(isha[0]) * 60 + parseInt(isha[1]);
 
         var currentTime = retrieveTime();
-        if (currentTime => ishaMin) {
+        console.log(currentTime);
+        console.log(ishaMin);
+        
+        
+       
+        if (currentTime >= fajrMin && currentTime < dhuhrMin) {
+            setCurrentWakt("Fajr");
+            setNextWakt("Dhuhr");
+            remTime = dhuhrMin - currentTime;
+            setRemHr(Math.floor(remTime / 60));
+            setRemMin(remTime % 60);
+            setNextHr(dhuhr[0]);
+            setNextMin(dhuhr[1]);
+
+        }
+        else if (currentTime => dhuhrMin && currentTime < asrMin) {
+            setCurrentWakt("Dhuhr");
+            nextWakt = "Asr";
+            remTime = asrMin - currentTime;
+            setRemHr(Math.floor(remTime / 60));
+            setRemMin(remTime % 60);
+            setNextHr(asr[0]);
+            setNextMin(asr[1]);
+        }
+        else if (currentTime => asrMin && currentTime < maghribMin) {
+            setCurrentWakt("Asr");
+            setNextWakt("Maghrib");
+            remTime = maghribMin - currentTime;
+            setRemHr(Math.floor(remTime / 60));
+            setRemMin(remTime % 60);
+            setNextHr(maghrib[0]);
+            setNextMin(maghrib[1]);
+        }
+        else if (currentTime => maghribMin && currentTime < ishaMin) {
+            setCurrentWakt("Maghrib");
+            setNextWakt("Isha");
+            remTime = ishaMin - currentTime;
+            setRemHr(Math.floor(remTime / 60));
+            setRemMin(remTime % 60);
+            setNextHr(isha[0]);
+            setNextMin(isha[1]);
+        }
+        else if (currentTime => ishaMin) {
             setCurrentWakt("Isha");
             setNextWakt("Fajr");
             remTime = fajrMin + 1440 - currentTime;
@@ -91,45 +133,10 @@ const Homepage = () => {
             console.log(currentTime);
             
         }
-        else if (currentTime => maghribMin && currentTime < ishaMin) {
-            setCurrentWakt("Maghrib");
-            setNextWakt("Isha");
-            remTime = ishaMin - currentTime;
-            setRemHr(Math.floor(remTime / 60));
-            setRemMin(remTime % 60);
-            setNextHr(isha[0]);
-            setNextMin(isha[1]);
-        }
-        else if (currentTime => asrMin && currentTime < maghribMin) {
-            setCurrentWakt("Asr");
-            setNextWakt("Maghrib");
-            remTime = ishaMin - currentTime;
-            setRemHr(Math.floor(remTime / 60));
-            setRemMin(remTime % 60);
-            setNextHr(maghrib[0]);
-            setNextMin(maghrib[1]);
-        }
-        else if (currentTime => dhuhrMin && currentTime < asrMin) {
-            setCurrentWakt("Dhuhr");
-            nextWakt = "Asr";
-            remTime = ishaMin - currentTime;
-            setRemHr(Math.floor(remTime / 60));
-            setRemMin(remTime % 60);
-            setNextHr(asr[0]);
-            setNextMin(asr[1]);
-        }
-        else if (currentTime >= fajrMin && currentTime < dhuhrMin) {
-            setCurrentWakt("Fajr");
-            setNextWakt("Dhuhr");
-            remTime = ishaMin - currentTime;
-            setRemHr(Math.floor(remTime / 60));
-            setRemMin(remTime % 60);
-            setNextHr(dhuhr[0]);
-            setNextMin(dhuhr[1]);
+       
+        
 
-        }
-
-        if(nextHr < 12)
+        if(currentTime <= 719)
         {
             setMeridian("am");
         }
