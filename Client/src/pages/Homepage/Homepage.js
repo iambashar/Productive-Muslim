@@ -3,6 +3,9 @@ import './Homepage.css'
 import { Navbar, Container, Nav, Row, Col, Carousel, CarouselItem } from 'react-bootstrap';
 import textIcon from '../../Images/textIcon.svg'
 import mainIcon from '../../Images/mainIcon.svg'
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useHistory } from "react-router";
+import { auth, db, logout } from "../../firebase";
 
 const Homepage = () => {
     const [ayah, setAyah] = useState();
@@ -15,7 +18,39 @@ const Homepage = () => {
     const [nextMin, setNextMin] = useState();
     const [nextHr, setNextHr] = useState();
     const [meridian, setMeridian] = useState();
+    const [salahTime, setdisplaySalahTime] = useState();
     var remTime;
+
+    const [user, loading, error] = useAuthState(auth);
+  const [name, setName] = useState("");
+  const history = useHistory();
+
+  const abc = path => {
+      logout();
+    history.push(path);
+  };
+
+
+  const fetchUserName = async () => {
+    try {
+      const query = await db
+        .collection("users")
+        .where("uid", "==", user?.uid)
+        .get();
+      const data = await query.docs[0].data();
+      setName(data.name);
+    } catch (err) {
+      console.error(err);
+    //  alert("An error occured while fetching user data");
+    }
+  };
+
+//   useEffect(() => {
+//     if (loading) return;
+//     //if (!user) return history.replace("/");
+
+//     fetchUserName();
+//   }, [user, loading]);
 
     useEffect(() => {
         var id = Math.floor(Math.random() * 6236) + 1;
@@ -47,6 +82,15 @@ const Homepage = () => {
                 });
     }, []);
 
+    useEffect(() => {
+        if( parseInt(nextHr)*60+ parseInt(nextMin) <= 719){
+            setMeridian("am");
+        }
+        else{
+            setMeridian("pm");
+        }
+    }, [nextMin, nextHr]);
+
     function retrieveTime() {
         var today = new Date();
         var hr = today.getHours();
@@ -76,7 +120,6 @@ const Homepage = () => {
         var ishaMin = parseInt(isha[0]) * 60 + parseInt(isha[1]);
 
         var currentTime = retrieveTime();
-        
        
         if (currentTime >= fajrMin && currentTime < dhuhrMin) {
             setCurrentWakt("Fajr");
@@ -88,34 +131,34 @@ const Homepage = () => {
             setNextMin(dhuhr[1]);
 
         }
-        else if (currentTime => dhuhrMin && currentTime < asrMin) {
+        else if (currentTime >= dhuhrMin && currentTime < asrMin) {
             setCurrentWakt("Dhuhr");
             setNextWakt("Asr");
             remTime = asrMin - currentTime;
             setRemHr(Math.floor(remTime / 60));
             setRemMin(remTime % 60);
-            setNextHr(asr[0]);
+            setNextHr(asr[0]-12);
             setNextMin(asr[1]);
         }
-        else if (currentTime => asrMin && currentTime < maghribMin) {
+        else if (currentTime >= asrMin && currentTime < maghribMin) {
             setCurrentWakt("Asr");
             setNextWakt("Maghrib");
             remTime = maghribMin - currentTime;
             setRemHr(Math.floor(remTime / 60));
             setRemMin(remTime % 60);
-            setNextHr(maghrib[0]);
+            setNextHr(maghrib[0]-12);
             setNextMin(maghrib[1]);
         }
-        else if (currentTime => maghribMin && currentTime < ishaMin) {
+        else if (currentTime >= maghribMin && currentTime < ishaMin) {
             setCurrentWakt("Maghrib");
             setNextWakt("Isha");
             remTime = ishaMin - currentTime;
             setRemHr(Math.floor(remTime / 60));
             setRemMin(remTime % 60);
-            setNextHr(isha[0]);
+            setNextHr(isha[0]-12);
             setNextMin(isha[1]);
         }
-        else if (currentTime => ishaMin) {
+        else {
             setCurrentWakt("Isha");
             setNextWakt("Fajr");
             remTime = fajrMin + 1440 - currentTime;
@@ -127,21 +170,7 @@ const Homepage = () => {
             setRemMin(remTime % 60);
             setNextHr(fajr[0]);
             setNextMin(fajr[1]);
-            console.log(currentTime);
-            
         }
-       
-        
-
-        if(currentTime <= 719)
-        {
-            setMeridian("am");
-        }
-        else
-        {
-            setMeridian("pm");
-        }
-        
     };
     
 
@@ -192,6 +221,12 @@ const Homepage = () => {
                     Hadith of the Day
                 </button>
             </div>
+            Logged in as
+        <div>{name}</div>
+        <div>{user?.email}</div>
+        <button className="dashboard__btn" onClick={() => abc('/')}>
+          Logout
+        </button>
         </div>
 
     );
