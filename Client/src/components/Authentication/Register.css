@@ -1,38 +1,50 @@
-.register {
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.emotionBox2{
+  background: rgba(0, 0, 0, 0.3);
+  width: 50%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: #e0d2b4;
+  border: 4px;
+  border-style: solid;
+  border-color: rgb(168, 223, 215);
+  font-family: 'El Messiri';
+  padding: 20px;
 }
 
-.register__container {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  background-color: #dcdcdc;
-  padding: 30px;
+.form-control:not(focus){
+  background: rgba(0, 0, 0, 0.3);
+  color:#e0d2b4;
 }
 
-.register__textBox {
-  padding: 10px;
-  font-size: 18px;
-  margin-bottom: 10px;
+.form-control:focus{
+  background: rgba(0, 0, 0, 0.3);
+  color:#e0d2b4;
 }
 
-.register__btn {
-  padding: 10px;
-  font-size: 18px;
-  margin-bottom: 10px;
-  border: none;
-  color: white;
-  background-color: black;
+.btn{
+  background-color: #00908e;
 }
 
-.register__google {
-  background-color: #4285f4;
+i {
+  position: absolute;
+  top: 49%;
+  right: 7%;
 }
 
-.register div {
-  margin-top: 7px;
+i:hover {
+  color: #00908e;
+  cursor: pointer;
+}
+
+#eye2 {
+  position: absolute;
+  top: 68%;
+  right: 7%;
+}
+
+#eye2:hover {
+  color: #00908e;
+  cursor: pointer;
 }

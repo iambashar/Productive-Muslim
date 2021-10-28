@@ -1,20 +1,42 @@
-.login {
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.emotionBox2{
+  background: rgba(0, 0, 0, 0.3);
+  width: 50%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: #e0d2b4;
+  border: 4px;
+  border-style: solid;
+  border-color: rgb(168, 223, 215);
+  font-family: 'El Messiri';
+  padding: 20px;
+}
+.form-control:not(focus){
+  background: rgba(0, 0, 0, 0.3);
+  color:#e0d2b4;
 }
 
-.login__container {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  background-color: #dcdcdc;
-  padding: 30px;
+.form-control:focus{
+  background: rgba(0, 0, 0, 0.3);
+  color:#e0d2b4;
 }
 
-.login__textBox {
-  padding: 10px;
-  font-size: 18px;
+.btng{
+  margin-top: 15px;
+}
+
+.btn{
+  background-color: #00908e;
+}
+
+i {
+  position: absolute;
+  top: 49%;
+  right: 7%;
+}
+
+i:hover {
+  color: #00908e;
+  cursor: pointer;
 }

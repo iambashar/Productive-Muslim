@@ -1,43 +1,57 @@
-import React, { useEffect, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { useHistory } from "react-router";
-import { Link } from "react-router-dom";
-import { auth, sendPasswordResetEmail } from "../../firebase";
-import "./Reset.css";
+import React, { useRef, useState } from "react"
+import { Form, Button, Card, Alert } from "react-bootstrap"
+import { useAuth } from "./AuthContext"
+import { Link } from "react-router-dom"
 
-function Reset() {
-  const [email, setEmail] = useState("");
-  const [user, loading, error] = useAuthState(auth);
-  const history = useHistory();
+export default function ForgotPassword() {
+  const emailRef = useRef()
+  const { resetPassword } = useAuth()
+  const [error, setError] = useState("")
+  const [message, setMessage] = useState("")
+  const [loading, setLoading] = useState(false)
 
-  const abc = path => {
-    sendPasswordResetEmail(email);
-    history.push(path);
-  };
+  async function handleSubmit(e) {
+    e.preventDefault()
+
+    try {
+      setMessage("")
+      setError("")
+      setLoading(true)
+      await resetPassword(emailRef.current.value)
+      setMessage("Check your inbox for further instructions")
+    } catch {
+      setError("Failed to reset password")
+    }
+
+    setLoading(false)
+  }
 
   return (
-    <div className="reset">
-      <div className="reset__container">
-        <input
-          type="text"
-          className="reset__textBox"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="E-mail Address"
-        />
-        <button
-          className="reset__btn"
-          onClick={() => abc('/')}
-        >
-          Send password reset email
-        </button>
+    <>
+      <Card className="emotionBox2">
+        <Card.Body>
+          <h1 className="text-center mb-4">Password Reset</h1>
+          {error && <Alert variant="danger">{error}</Alert>}
+          {message && <Alert variant="success">{message}</Alert>}
+          <Form onSubmit={handleSubmit}>
+            <Form.Group id="email">
+              <Form.Label>Email</Form.Label>
+              <Form.Control type="email" ref={emailRef} required />
+            </Form.Group>
+            <Button disabled={loading} className="w-100" type="submit">
+              Reset Password
+            </Button>
+          </Form>
+          <div className="w-100 text-center mt-3">
+            <Link to="/login">Login</Link>
+          </div>
+          <div className="w-100 text-center mt-2">
+            Need an account? <Link to="/signup">Sign Up</Link>
+          </div>
+        </Card.Body>
 
-        <div>
-          Don't have an account? <Link to="/register">Register</Link> now.
-        </div>
-      </div>
-    </div>
-  );
+      </Card>
+
+    </>
+  )
 }
-
-export default Reset;
