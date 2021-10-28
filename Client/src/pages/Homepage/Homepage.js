@@ -71,7 +71,8 @@ const Homepage = () => {
             .then(res => res.json())
             .then(
                 (result) => {
-                    const link = "https://api.pray.zone/v2/times/today.json?ip=".concat(result.query);
+                    //const link = "https://api.pray.zone/v2/times/today.json?ip=".concat(result.query);
+                    const link = "https://api.pray.zone/v2/times/today.json?ip=116.58.203.136";
                     return fetch(link)
                 }
             ).then(res => res.json())

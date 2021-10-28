@@ -65,6 +65,60 @@ app.get("/emotiondua/:emo", async (req, res) => {
   }
 });
 
+//add new myday task
+app.post("/addmyday", async (req, res) => {
+  
+
+  try {
+    console.log(req.body);
+    const results = await db.query(
+      "INSERT INTO myday (userid, task, isrecurred) values ($1, $2, $3) returning *",
+      [req.body.uid, req.body.task, req.body.isRecurred]
+    );
+    res.status(201).json({
+      status: "success",
+      data: {
+        myday: results.rows[0],
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//show all myday task
+app.get("/showmyday/:id", async (req, res) => {
+  try{
+    const tasks = await db.query(
+      "select * from myday where userID = $1 and day = CURRENT_DATE;", [req.params.id]
+    );
+
+    res.status(200).json({
+      status: "success",
+      results: tasks.rows.length,
+      data: {
+        tasks : tasks.rows,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//delete myday task
+app.delete("/deletemydaytask/:id", async (req, res) => {
+  try {
+    const results = db.query("DELETE FROM myday where id = $1", [
+      req.params.id,
+    ]);
+    res.status(204).json({
+      status: "sucess",
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
   console.log(`server is up and listening on port ${port}`);

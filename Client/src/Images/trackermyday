@@ -1,0 +1,6 @@
+CREATE TABLE myday(
+		ID INT NOT NULL PRIMARY KEY,
+		userID NOT NULL,
+		task VARCHAR(100),
+		isRecurred BOOLEAN
+);
