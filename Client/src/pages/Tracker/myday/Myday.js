@@ -14,6 +14,7 @@ import recurringIcon from '../../../Images/recurring.svg'
 const Myday = () => {
     const [uid, setUid] = useState();
     const [displayMydayTask, setDisplayMydayTask] = useState([]);
+    const [count, setCount] = useState(0);
 
     useEffect(() => {
         if (firebase.auth().currentUser !== null) {
@@ -48,6 +49,7 @@ const Myday = () => {
 
 
     const addTask = () => {
+        setCount(count + 1);
         document.getElementById("inputMydayTask").className = "inputBoxHide";
         var task = document.getElementById("taskInput").value;
         var isRecurred = false;
@@ -68,6 +70,37 @@ const Myday = () => {
         fetch(link, {
             method: 'DELETE',
         });
+    }
+
+    const editTask = (divid) => {
+        setCount(count + 1);
+        document.getElementsByClassName("taskText")[divid].disabled = false;
+        document.getElementsByClassName("taskBox")[divid].style.border = "1px solid #e0d2b4";
+        document.getElementsByClassName("taskText")[divid].focus();
+    }
+
+    const updateTask = (taskid, divid) => {
+        document.getElementsByClassName("taskBox")[divid].style.border = "none"
+        document.getElementsByClassName("taskText")[divid].disabled = true;
+        console.log(taskid);
+        var task = document.getElementsByClassName("taskText")[divid].value;
+        var link = 'http://localhost:3000/editmydaytask/';
+        link.concat(taskid);
+        console.log(link);
+        fetch(link, {
+            method: 'PUT',
+            body: JSON.stringify(task),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+            .then(res => res.json());
+            
+    }
+
+    const removeFocus = (divid) => {
+        document.getElementsByClassName("taskBox")[divid].style.border = "none"
+        document.getElementsByClassName("taskText")[divid].disabled = true;
     }
 
     return (
@@ -111,17 +144,21 @@ const Myday = () => {
             <div className="rightDiv">
 
                 {
-                    displayMydayTask.map(myday =>
+                    displayMydayTask.map((myday, index) =>
                         <div className="taskBox">
                             <div class="taskCheckBox">
                                 <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
                             </div>
-                            <h2 className="taskText">{myday.task}</h2>
+                            <input type="text" autoComplete="off" className="taskText" disabled="disabled" defaultValue={myday.task} onBlur={() => removeFocus(index)} onKeyPress={event => {
+                                if (event.key === "Enter") {
+                                    updateTask(myday.id, index);
+                                }
+                            }}></input>
                             <div className="taskIcons">
                                 <div className="taskIcon">
                                     <img src={recurringIcon} width="20"></img>
                                 </div>
-                                <div className="taskIcon">
+                                <div className="taskIcon" onClick={() => editTask(index)}>
                                     <img src={editIcon} width="20"></img>
                                 </div>
                                 <div className="taskIcon" onClick={() => deleteTask(myday.id)}>

@@ -112,7 +112,26 @@ app.delete("/deletemydaytask/:id", async (req, res) => {
       req.params.id,
     ]);
     res.status(204).json({
-      status: "sucess",
+      status: "success",
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//edit myday task
+app.put("/editmydaytask/:id", async (req, res) => {
+  try {
+    const results = await db.query(
+      "UPDATE myday SET task = $1 where id = $2 returning *",
+      [req.body.task, req.body.isrecurred, req.params.id]
+    );
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        tasks: results.rows[0],
+      },
     });
   } catch (err) {
     console.log(err);

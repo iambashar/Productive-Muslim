@@ -22,6 +22,11 @@
     display: inline-block;
     margin-left: 10px;
     font-size: 20px;
+    background: none;
+    border: none;
+    width: fit-content;
+    outline: none;
+    color: #e0d2b4;
 }
 
 .addBtn{
