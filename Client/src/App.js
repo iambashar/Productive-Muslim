@@ -1,14 +1,5 @@
-import logo from './logo.svg';
 import './App.css';
-import 'bootstrap/dist/css/bootstrap.css';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useRouteMatch,
-  useParams
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, } from "react-router-dom";
 import Dua from './pages/Dua/Dua';
 import Homepage from './pages/Homepage/Homepage';
 import Login from './components/Authentication/Login';
@@ -19,57 +10,29 @@ import Challenges from './pages/Challenges/Challenges';
 import Forum from './pages/Forum/Forum';
 import Register from "./components/Authentication/Register";
 import Reset from "./components/Authentication/Reset";
-import {auth} from './firebase';
-import {useState} from "react";
-
+import { AuthProvider } from "./components/Authentication/AuthContext"
+import PrivateRoute from "./components/Authentication/PrivateRoute"
+import UpdateProfile from './components/Authentication/UpdateProfile';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  
-    auth.onAuthStateChanged((user) => {
-      return user ? setIsLoggedIn(true) : setIsLoggedIn(false);
-  });
   return (
-      <Router>
-        {!isLoggedIn? (
-          <>
-              <Switch>
-              <Route exact path="/" component={Login} />
-              <Route path="/register" component={Register} />
-              <Route path="/reset" component={Reset} />  
-              </Switch>
-          </>
-          ) 
-          : (
-            <>
-            <Switch>
-
-            <Route path="/pages/Homepage">
-          <Homepage></Homepage>  
-          </Route>
-          <Route path="/pages/Dua">
-            <Dua></Dua>
-          </Route>
-          <Route path="/pages/Salah">
-            <Salah></Salah>  
-          </Route>
-          <Route path="/pages/Sawm">
-            <Sawm></Sawm>
-          </Route>
-          <Route path="/pages/Tracker">
-            <Tracker></Tracker>
-          </Route>
-          <Route path="/pages/Challenges">
-            <Challenges></Challenges>
-          </Route>
-          <Route path="/pages/Forum">
-            <Forum></Forum>
-          </Route>
+    <Router>
+      <AuthProvider>
+        <Switch>
+          <PrivateRoute exact path="/" component={Homepage} />
+          <PrivateRoute path="/pages/Dua" component={Dua} />
+          <PrivateRoute path="/pages/Salah" component={Salah} />
+          <PrivateRoute path="/pages/Sawm" component={Sawm} />
+          <PrivateRoute path="/pages/Tracker" component={Tracker} />
+          <PrivateRoute path="/pages/Challenges" component={Challenges} />
+          <PrivateRoute path="/pages/Forum" component={Forum} />
+          <PrivateRoute path="/update-profile" component={UpdateProfile} />
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
+          <Route path="/reset" component={Reset} />
         </Switch>
-        </>
-        )}
-        
-      </Router>
+      </AuthProvider>
+    </Router>
   );
 }
 

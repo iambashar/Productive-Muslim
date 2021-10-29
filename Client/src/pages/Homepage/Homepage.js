@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './Homepage.css'
-import { Navbar, Container, Nav, Row, Col, Carousel, CarouselItem } from 'react-bootstrap';
+import { Navbar, Container, Nav, Carousel, Button } from 'react-bootstrap';
 import textIcon from '../../Images/textIcon.svg'
 import mainIcon from '../../Images/mainIcon.svg'
-import { useAuthState } from "react-firebase-hooks/auth";
 import { useHistory } from "react-router";
-import { auth, db, logout } from "../../firebase";
+import { useAuth } from "../../components/Authentication/AuthContext";
+import { SalahContext} from '../SalahContextProvider';
 
-const Homepage = () => {
+const Homepage = (props) => {
     const [ayah, setAyah] = useState();
     const [surah, setSurah] = useState();
     const [ayahNo, setAyahNo] = useState();
@@ -18,39 +18,22 @@ const Homepage = () => {
     const [nextMin, setNextMin] = useState();
     const [nextHr, setNextHr] = useState();
     const [meridian, setMeridian] = useState();
-    const [salahTime, setdisplaySalahTime] = useState();
     var remTime;
 
-    const [user, loading, error] = useAuthState(auth);
-  const [name, setName] = useState("");
-  const history = useHistory();
+    const [error, setError] = useState("")
+    const { currentUser, logout } = useAuth()
+    const history = useHistory()
 
-  const abc = path => {
-      logout();
-    history.push(path);
-  };
+    async function handleLogout() {
+        setError("")
 
-
-  const fetchUserName = async () => {
-    try {
-      const query = await db
-        .collection("users")
-        .where("uid", "==", user?.uid)
-        .get();
-      const data = await query.docs[0].data();
-      setName(data.name);
-    } catch (err) {
-      console.error(err);
-    //  alert("An error occured while fetching user data");
+        try {
+            await logout()
+            history.push("/login")
+        } catch {
+            setError("Failed to log out")
+        }
     }
-  };
-
-//   useEffect(() => {
-//     if (loading) return;
-//     //if (!user) return history.replace("/");
-
-//     fetchUserName();
-//   }, [user, loading]);
 
     useEffect(() => {
         var id = Math.floor(Math.random() * 6236) + 1;
@@ -78,16 +61,15 @@ const Homepage = () => {
             ).then(res => res.json())
             .then(
                 (result) => {
-                    //setdisplaySalahTime(result.results.datetime);
                     getSalahTimes(result.results.datetime);
                 });
     }, []);
 
     useEffect(() => {
-        if( parseInt(nextHr)*60+ parseInt(nextMin) <= 719){
+        if (parseInt(nextHr) * 60 + parseInt(nextMin) <= 719) {
             setMeridian("am");
         }
-        else{
+        else {
             setMeridian("pm");
         }
     }, [nextMin, nextHr]);
@@ -121,7 +103,7 @@ const Homepage = () => {
         var ishaMin = parseInt(isha[0]) * 60 + parseInt(isha[1]);
 
         var currentTime = retrieveTime();
-       
+
         if (currentTime >= fajrMin && currentTime < dhuhrMin) {
             setCurrentWakt("Fajr");
             setNextWakt("Dhuhr");
@@ -138,7 +120,7 @@ const Homepage = () => {
             remTime = asrMin - currentTime;
             setRemHr(Math.floor(remTime / 60));
             setRemMin(remTime % 60);
-            setNextHr(asr[0]-12);
+            setNextHr(asr[0] - 12);
             setNextMin(asr[1]);
         }
         else if (currentTime >= asrMin && currentTime < maghribMin) {
@@ -147,7 +129,7 @@ const Homepage = () => {
             remTime = maghribMin - currentTime;
             setRemHr(Math.floor(remTime / 60));
             setRemMin(remTime % 60);
-            setNextHr(maghrib[0]-12);
+            setNextHr(maghrib[0] - 12);
             setNextMin(maghrib[1]);
         }
         else if (currentTime >= maghribMin && currentTime < ishaMin) {
@@ -156,15 +138,14 @@ const Homepage = () => {
             remTime = ishaMin - currentTime;
             setRemHr(Math.floor(remTime / 60));
             setRemMin(remTime % 60);
-            setNextHr(isha[0]-12);
+            setNextHr(isha[0] - 12);
             setNextMin(isha[1]);
         }
         else {
             setCurrentWakt("Isha");
             setNextWakt("Fajr");
             remTime = fajrMin + 1440 - currentTime;
-            if(remTime > 1440)
-            {
+            if (remTime > 1440) {
                 remTime = remTime - 1440;
             }
             setRemHr(Math.floor(remTime / 60));
@@ -173,7 +154,7 @@ const Homepage = () => {
             setNextMin(fajr[1]);
         }
     };
-    
+
 
     return (
         <div className="bdy">
@@ -185,7 +166,7 @@ const Homepage = () => {
                             <img src={textIcon} alt="logo" width="200" />
                         </Navbar.Brand>
                     </Container>
-                    <Container>
+                    <Container className="container2">
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" className="toggle-nav" />
                         <Navbar.Collapse id="responsive-navbar-nav">
                             <Nav className="ms-auto">
@@ -197,6 +178,13 @@ const Homepage = () => {
                                 <Nav.Link href="../../pages/Challenges">Challenges</Nav.Link>
                                 <Nav.Link href="../../pages/Forum">Forum</Nav.Link>
                             </Nav>
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg" width="40" height="40" class="rounded-circle" />
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="/update-profile">Edit Profile</a>
+                                <a class="dropdown-item" onClick={handleLogout}>Log Out</a>
+                            </div>
                         </Navbar.Collapse>
                     </Container>
                 </Navbar>
@@ -222,12 +210,6 @@ const Homepage = () => {
                     Hadith of the Day
                 </button>
             </div>
-            Logged in as
-        <div>{name}</div>
-        <div>{user?.email}</div>
-        <button className="dashboard__btn" onClick={() => abc('/')}>
-          Logout
-        </button>
         </div>
 
     );
