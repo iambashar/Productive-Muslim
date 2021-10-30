@@ -16,6 +16,7 @@
     border-radius: 50%;
     display: inline-block;
     float: left;
+    margin-left: 10px;
     margin-top: 2px;
 }
 .taskText{

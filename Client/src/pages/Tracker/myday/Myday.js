@@ -62,8 +62,6 @@ const Myday = () => {
 
 
     const addTask = () => {
-        console.log(displayMydayTask[0].task);
-
         document.getElementById("inputMydayTask").className = "inputBoxHide";
         var task = document.getElementById("taskInput").value;
         var isRecurred = false;
@@ -92,17 +90,21 @@ const Myday = () => {
 
     const editTask = (divid) => {
         setCount(count + 1);
-        console.log(document.getElementsByClassName("taskText")[divid].placeholder);
-        document.getElementsByClassName("taskText")[divid].readOnly = false;
         document.getElementsByClassName("taskBox")[divid].style.border = "1px solid #e0d2b4";
-        document.getElementsByClassName("taskText")[divid].value = document.getElementsByClassName("taskText")[divid].placeholder;
+        document.getElementsByClassName("taskText")[divid].contentEditable = true;
         document.getElementsByClassName("taskText")[divid].focus();
+        var range = document.createRange()
+        var sel = window.getSelection()
+        range.setStart(document.getElementsByClassName("taskText")[divid], 1)
+        range.collapse(true)
+        sel.removeAllRanges()
+        sel.addRange(range)
     }
 
     const updateTask = (taskid, divid) => {
         document.getElementsByClassName("taskBox")[divid].style.border = "none"
-        document.getElementsByClassName("taskText")[divid].disabled = true;
-        var task = document.getElementsByClassName("taskText")[divid].value;
+        document.getElementsByClassName("taskText")[divid].contentEditable = false;
+        var task = document.getElementsByClassName("taskText")[divid].innerHTML;
         var link = 'http://localhost:3000/editmydaytask/';
         link = link.concat(taskid);
         fetch(link, {
@@ -118,7 +120,7 @@ const Myday = () => {
 
     const removeFocus = (divid) => {
         document.getElementsByClassName("taskBox")[divid].style.border = "none"
-        document.getElementsByClassName("taskText")[divid].disabled = true;
+        document.getElementsByClassName("taskText")[divid].contentEditable = false;
     }
 
     const setRecurred = (taskid, divid) => {
@@ -155,22 +157,6 @@ const Myday = () => {
 
         }
 
-    }
-
-    async function setRecurredIcon(divid) {
-        await sleep(2000);
-        console.log(divid);
-
-        if (displayMydayTask[divid].isrecurred == true) {
-            document.getElementsByClassName("recurredicon")[divid].src = await recurringIconChecked;
-
-        }
-        else if (displayMydayTask[divid].isrecurred == false) {
-            document.getElementsByClassName("recurredicon")[divid].src = await recurringIcon;
-        }
-    }
-    function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
     }
 
 
@@ -221,16 +207,15 @@ const Myday = () => {
                             <div class="taskCheckBox">
                                 <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
                             </div>
-
-                            <input type="text" autoComplete="off" className="taskText" readOnly={true} placeholder={displayMydayTask[index].task} onBlur={() => removeFocus(index)}
+                            <h2 className="taskText" contentEditable={false} onBlur={() => removeFocus(index)}
                                 onKeyPress={event => {
                                     if (event.key === "Enter") {
                                         updateTask(myday.id, index);
                                     }
-                                }}></input>
+                                }}>{myday.task}</h2>
                             <div className="taskIcons">
                                 <div className="taskIcon" onClick={() => setRecurred(myday.id, index)}>
-                                    <img className="recurredicon" src={myday.isrecurred ? recurringIconChecked : recurringIcon} width="20"></img>
+                                    <img className="recurredicon" src={myday.isrecurred ? recurringIconChecked : recurringIcon} alt="" width="20" />
                                 </div>
                                 <div className="taskIcon" onClick={() => editTask(index)}>
                                     <img src={editIcon} width="20"></img>
