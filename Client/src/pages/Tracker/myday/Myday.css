@@ -85,3 +85,8 @@
     font-size: 20px;
     color: #e0d2b4;
 }
+::placeholder { 
+    color: #e0d2b4;
+    opacity: 1; 
+  }
+  

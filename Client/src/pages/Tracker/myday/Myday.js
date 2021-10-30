@@ -36,7 +36,7 @@ const Myday = () => {
                     (result) => {
                         setDisplayMydayTask(result.data.tasks);
                     }));
-                    
+
     }, [count]);
 
     const countFive = () => {
@@ -92,8 +92,10 @@ const Myday = () => {
 
     const editTask = (divid) => {
         setCount(count + 1);
+        console.log(document.getElementsByClassName("taskText")[divid].placeholder);
         document.getElementsByClassName("taskText")[divid].readOnly = false;
         document.getElementsByClassName("taskBox")[divid].style.border = "1px solid #e0d2b4";
+        document.getElementsByClassName("taskText")[divid].value = document.getElementsByClassName("taskText")[divid].placeholder;
         document.getElementsByClassName("taskText")[divid].focus();
     }
 
@@ -131,7 +133,7 @@ const Myday = () => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({task})
+                body: JSON.stringify({ task })
             });
             setCount(count + 1);
 
@@ -147,7 +149,7 @@ const Myday = () => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({task})
+                body: JSON.stringify({ task })
             });
             setCount(count + 1);
 
@@ -158,7 +160,7 @@ const Myday = () => {
     async function setRecurredIcon(divid) {
         await sleep(2000);
         console.log(divid);
-       
+
         if (displayMydayTask[divid].isrecurred == true) {
             document.getElementsByClassName("recurredicon")[divid].src = await recurringIconChecked;
 
@@ -169,7 +171,7 @@ const Myday = () => {
     }
     function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
-      }
+    }
 
 
     return (
@@ -220,7 +222,7 @@ const Myday = () => {
                                 <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
                             </div>
 
-                            <input type="text" autoComplete="off" className="taskText" readOnly={true} defaultValue={myday.task} onBlur={() => removeFocus(index)}
+                            <input type="text" autoComplete="off" className="taskText" readOnly={true} placeholder={displayMydayTask[index].task} onBlur={() => removeFocus(index)}
                                 onKeyPress={event => {
                                     if (event.key === "Enter") {
                                         updateTask(myday.id, index);
@@ -228,8 +230,7 @@ const Myday = () => {
                                 }}></input>
                             <div className="taskIcons">
                                 <div className="taskIcon" onClick={() => setRecurred(myday.id, index)}>
-                                    <img className="recurredicon" src={recurringIcon} width="20"></img>
-                                    <div>{/*setRecurredIcon(index)*/}</div>
+                                    <img className="recurredicon" src={myday.isrecurred ? recurringIconChecked : recurringIcon} width="20"></img>
                                 </div>
                                 <div className="taskIcon" onClick={() => editTask(index)}>
                                     <img src={editIcon} width="20"></img>
