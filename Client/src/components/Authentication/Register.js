@@ -1,11 +1,13 @@
 import React, { useRef, useState } from "react"
-import { Form, Button, Card, Alert } from "react-bootstrap"
+import { InputGroup, Form, Button, Card, Alert } from "react-bootstrap"
 import { useAuth } from "./AuthContext"
 import { Link, useHistory } from "react-router-dom"
 import "./Register.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
+import { faEyeSlash } from "@fortawesome/free-solid-svg-icons"
 const eye = <FontAwesomeIcon icon={faEye} />;
+const eyeclose = <FontAwesomeIcon icon={faEyeSlash} />;
 
 export default function Signup() {
   const emailRef = useRef()
@@ -54,12 +56,20 @@ export default function Signup() {
             <Form.Group id="password">
               <Form.Label>Password</Form.Label>
               <Form.Control className="pass-wrapper" type={passwordShown ? "text" : "password"} ref={passwordRef} required />
-              <i onClick={togglePasswordVisiblity}>{eye}</i>
+              <InputGroup.Append>
+                <InputGroup.Text>
+                  <i onClick={togglePasswordVisiblity}>{passwordShown ? eye : eyeclose}</i>
+                </InputGroup.Text>
+              </InputGroup.Append>
             </Form.Group>
             <Form.Group id="password-confirm">
               <Form.Label>Password Confirmation</Form.Label>
               <Form.Control className="pass-wrapper" type={passwordShown ? "text" : "password"} ref={passwordConfirmRef} required />
-              <i id="eye2" onClick={togglePasswordVisiblity}>{eye}</i>
+              <InputGroup.Append>
+                <InputGroup.Text>
+                  <i onClick={togglePasswordVisiblity}>{passwordShown ? eye : eyeclose}</i>
+                </InputGroup.Text>
+              </InputGroup.Append>
             </Form.Group>
             <Button disabled={loading} className="w-100" type="submit">
               Sign Up

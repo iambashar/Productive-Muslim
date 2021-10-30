@@ -22,29 +22,3 @@
   background: rgba(0, 0, 0, 0.3);
   color:#e0d2b4;
 }
-
-.btn{
-  background-color: #00908e;
-}
-
-i {
-  position: absolute;
-  top: 49%;
-  right: 7%;
-}
-
-i:hover {
-  color: #00908e;
-  cursor: pointer;
-}
-
-#eye2 {
-  position: absolute;
-  top: 68%;
-  right: 7%;
-}
-
-#eye2:hover {
-  color: #00908e;
-  cursor: pointer;
-}

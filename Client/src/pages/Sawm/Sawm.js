@@ -24,7 +24,7 @@ const Sawm = () => {
     }
     return (
         <div >
-            <header class="headerDiv">
+            <header class="sawmHeader">
                 <Navbar collapseOnSelect expand="lg" variant="dark">
                     <Container>
                         <Navbar.Brand href="#">

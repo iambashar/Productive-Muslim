@@ -36,8 +36,8 @@ const Dua = () => {
     return (
         <Router>
             <div >
-                <header class="headerDiv">
-                    <Navbar collapseOnSelect expand="lg" variant="dark">
+                <header class="duaHeader">
+                    <Navbar collapseOnSelect expand="lg" variant="dark" >
                         <Container>
                             <Navbar.Brand href="#">
                                 <img src={mainIcon} alt="logo" width="50" />
