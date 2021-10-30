@@ -45,6 +45,7 @@ const Homepage = (props) => {
                 setAyah(data.data.text);
                 setSurah(data.data.surah.englishName);
                 setAyahNo(data.data.surah.numberOfAyahs);
+                console.log(data.data.text);
             });
     }, []);
 

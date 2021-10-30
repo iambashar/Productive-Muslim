@@ -5,8 +5,16 @@ const cors = require('cors');
 
 const app = express();
 
+const corsOptions ={
+  origin:'*', 
+  credentials:true,            //access-control-allow-credentials:true
+  optionSuccessStatus:200,
+}
+
+app.use(cors(corsOptions))
+
 app.use(express.json());
-app.use(cors());
+
 
 // Get all duas
 app.get("/duas", async (req, res) => {
@@ -90,7 +98,7 @@ app.post("/addmyday", async (req, res) => {
 app.get("/showmyday/:id", async (req, res) => {
   try{
     const tasks = await db.query(
-      "select * from myday where userID = $1 and day = CURRENT_DATE;", [req.params.id]
+      "select * from myday where userID = $1 and day = CURRENT_DATE order by id DESC;", [req.params.id]
     );
 
     res.status(200).json({
@@ -124,7 +132,26 @@ app.put("/editmydaytask/:id", async (req, res) => {
   try {
     const results = await db.query(
       "UPDATE myday SET task = $1 where id = $2 returning *",
-      [req.body.task, req.body.isrecurred, req.params.id]
+      [req.body.task, req.params.id]
+    );
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        tasks: results.rows[0],
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//set recurred task
+app.put("/setrecurred/:id", async (req, res) => {
+  try {
+    const results = await db.query(
+      "UPDATE myday SET isRecurred = $1 where id = $2 returning *",
+      [req.body.task, req.params.id]
     );
 
     res.status(200).json({

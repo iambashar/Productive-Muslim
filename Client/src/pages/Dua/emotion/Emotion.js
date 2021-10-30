@@ -16,7 +16,8 @@ const Emotion = () => {
             .then(
                 (result) => {
                     setDisplayDuaInfos(result.data.duas);
-                    return fetch("http://127.0.0.1:3000/emotions")
+                    return fetch("http://127.0.0.1:3000/emotions").then(
+                    console.log(result.data.duas));
                 })
             .then(res => res.json())
             .then(
