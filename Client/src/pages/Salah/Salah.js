@@ -45,7 +45,7 @@ const Salah = (props) => {
 
     return (
         <div >
-            <header class="headerDiv">
+            <header class="salahHeader">
                     <Navbar collapseOnSelect expand="lg" variant="dark">
                         <Container>
                             <Navbar.Brand href="#">

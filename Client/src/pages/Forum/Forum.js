@@ -33,7 +33,7 @@ const Forum = () => {
     } return (
         <Router>
             <div>
-                <header class="headerDiv">
+                <header class="forumHeader">
                     <Navbar collapseOnSelect expand="lg" variant="dark">
                         <Container>
                             <Navbar.Brand href="#">

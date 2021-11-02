@@ -28,7 +28,7 @@ const Tracker = () => {
     return (
         <Router> 
         <div>
-        <header class="headerDiv">
+        <header class="trackerHeader">
                     <Navbar collapseOnSelect expand="lg" variant="dark">
                         <Container>
                             <Navbar.Brand href="#">

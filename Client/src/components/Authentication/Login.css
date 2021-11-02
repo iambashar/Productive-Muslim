@@ -22,21 +22,37 @@
   color:#e0d2b4;
 }
 
+.email1:-internal-autofill-selected, .email1:-internal-autofill-previewed {
+  appearance: menulist-button;
+  background-image: none !important;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: #e0d2b4;
+}
+
 .btng{
   margin-top: 15px;
 }
 
-.btn{
-  background-color: #00908e;
+#btn, #btn:visited{
+  background-color: #e0d2b4;
+  color: #044444;
+  border: #044444;
+  font-family: 'El Messiri';
+  font-weight: bold;
+  font-size: 1.5rem;
+  width: 300px;
+}
+#btn:hover{
+  background-color: #ad976a;
+  color: #044444;
+  border: #044444
+}
+#btn:focus, #btn:focus-visible, #btn:checked {
+  background-color: #e0d2b4;
+  color: #044444;
+  border: #044444;
 }
 
-i {
-  position: absolute;
-  top: 49%;
-  right: 7%;
-}
-
-i:hover {
-  color: #00908e;
-  cursor: pointer;
+.passwordbox{
+  width: fit-content;
 }

@@ -8,6 +8,10 @@
     background-color:rgba(0,0,0,0.6);
 }
 
+.pageContent{
+    margin-top: 76px;
+}
+
 .trackerdiv{
     color: rgb(168, 223, 215);
     font-size: 25px;

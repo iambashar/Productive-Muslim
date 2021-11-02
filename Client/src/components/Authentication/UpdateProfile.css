@@ -1,53 +1,27 @@
-.emotionBox2{
-    background: rgba(0, 0, 0, 0.3);
-    width: 50%;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    color: #e0d2b4;
-    border: 4px;
-    border-style: solid;
-    border-color: rgb(168, 223, 215);
-    font-family: 'El Messiri';
-    padding: 20px;
-  }
-  .form-control:not(focus){
-    background: rgba(0, 0, 0, 0.3);
-    color:#e0d2b4;
-  }
-  
-  .form-control:focus{
-    background: rgba(0, 0, 0, 0.3);
-    color:#e0d2b4;
-  }
-  
-  .btng{
-    margin-top: 15px;
-  }
-  
-  .btn{
-    background-color: #00908e;
-  }
+.emotionBox2 {
+  background: rgba(0, 0, 0, 0.3);
+  width: 50%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: #e0d2b4;
+  border: 4px;
+  border-style: solid;
+  border-color: rgb(168, 223, 215);
+  font-family: "El Messiri";
+  padding: 20px;
+}
+.form-control:not(focus) {
+  background: rgba(0, 0, 0, 0.3);
+  color: #e0d2b4;
+}
 
-  #eye3 {
-    position: absolute;
-    top: 50%;
-    right: 7%;
-  }
-  
-  #eye3:hover {
-    color: #00908e;
-    cursor: pointer;
-  }
+.form-control:focus {
+  background: rgba(0, 0, 0, 0.3);
+  color: #e0d2b4;
+}
 
-  #eye4 {
-    position: absolute;
-    top: 68%;
-    right: 7%;
-  }
-  
-  #eye4:hover {
-    color: #00908e;
-    cursor: pointer;
-  }
+.btng {
+  margin-top: 15px;
+}

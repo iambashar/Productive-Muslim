@@ -17,6 +17,7 @@ const Homepage = (props) => {
     const [remHr, setRemHr] = useState();
     const [nextMin, setNextMin] = useState();
     const [nextHr, setNextHr] = useState();
+    const [nextHr12, setNextHr12] = useState();
     const [meridian, setMeridian] = useState();
     var remTime;
 
@@ -45,7 +46,6 @@ const Homepage = (props) => {
                 setAyah(data.data.text);
                 setSurah(data.data.surah.englishName);
                 setAyahNo(data.data.surah.numberOfAyahs);
-                console.log(data.data.text);
             });
     }, []);
 
@@ -55,8 +55,7 @@ const Homepage = (props) => {
             .then(res => res.json())
             .then(
                 (result) => {
-                    //const link = "https://api.pray.zone/v2/times/today.json?ip=".concat(result.query);
-                    const link = "https://api.pray.zone/v2/times/today.json?ip=116.58.203.136";
+                    const link = "https://api.pray.zone/v2/times/today.json?ip=".concat(result.query);
                     return fetch(link)
                 }
             ).then(res => res.json())
@@ -67,13 +66,13 @@ const Homepage = (props) => {
     }, []);
 
     useEffect(() => {
-        if (parseInt(nextHr) * 60 + parseInt(nextMin) <= 719) {
+        if (parseInt(nextHr12) * 60 + parseInt(nextMin) <= 719) {
             setMeridian("am");
         }
         else {
             setMeridian("pm");
         }
-    }, [nextMin, nextHr]);
+    }, [nextMin, nextHr12]);
 
     function retrieveTime() {
         var today = new Date();
@@ -111,9 +110,12 @@ const Homepage = (props) => {
             remTime = dhuhrMin - currentTime;
             setRemHr(Math.floor(remTime / 60));
             setRemMin(remTime % 60);
-            setNextHr(dhuhr[0]);
+            if (dhuhr[0] > 12)
+                setNextHr(dhuhr[0]-12);
+            else
+                setNextHr(dhuhr[0]);
+            setNextHr12(dhuhr[0]);
             setNextMin(dhuhr[1]);
-
         }
         else if (currentTime >= dhuhrMin && currentTime < asrMin) {
             setCurrentWakt("Dhuhr");
@@ -121,6 +123,7 @@ const Homepage = (props) => {
             remTime = asrMin - currentTime;
             setRemHr(Math.floor(remTime / 60));
             setRemMin(remTime % 60);
+            setNextHr12(asr[0]);
             setNextHr(asr[0] - 12);
             setNextMin(asr[1]);
         }
@@ -130,6 +133,7 @@ const Homepage = (props) => {
             remTime = maghribMin - currentTime;
             setRemHr(Math.floor(remTime / 60));
             setRemMin(remTime % 60);
+            setNextHr12(maghrib[0]);
             setNextHr(maghrib[0] - 12);
             setNextMin(maghrib[1]);
         }
@@ -139,6 +143,7 @@ const Homepage = (props) => {
             remTime = ishaMin - currentTime;
             setRemHr(Math.floor(remTime / 60));
             setRemMin(remTime % 60);
+            setNextHr12(isha[0]);
             setNextHr(isha[0] - 12);
             setNextMin(isha[1]);
         }
@@ -151,6 +156,7 @@ const Homepage = (props) => {
             }
             setRemHr(Math.floor(remTime / 60));
             setRemMin(remTime % 60);
+            setNextHr12(fajr[0]);
             setNextHr(fajr[0]);
             setNextMin(fajr[1]);
         }

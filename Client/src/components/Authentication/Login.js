@@ -1,11 +1,13 @@
 import React, { useRef, useState } from "react"
-import { Form, Button, Card, Alert } from "react-bootstrap"
+import { InputGroup, Form, Button, Card, Alert } from "react-bootstrap"
 import { useAuth } from "./AuthContext"
 import { Link, useHistory } from "react-router-dom"
 import './Login.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
+import { faEyeSlash } from "@fortawesome/free-solid-svg-icons"
 const eye = <FontAwesomeIcon icon={faEye} />;
+const eyeclose = <FontAwesomeIcon icon={faEyeSlash} />;
 
 export default function Login() {
   const emailRef = useRef()
@@ -47,7 +49,6 @@ export default function Login() {
     setPasswordShown(passwordShown ? false : true);
   };
 
-
   return (
     <>
       <Card className="emotionBox2">
@@ -57,19 +58,25 @@ export default function Login() {
           <Form onSubmit={handleSubmit}>
             <Form.Group id="email">
               <Form.Label>Email</Form.Label>
-              <Form.Control type="email" ref={emailRef} required />
+              <Form.Control type="email" class = "email1" ref={emailRef} required />
             </Form.Group>
             <Form.Group id="password">
               <Form.Label>Password</Form.Label>
-              <Form.Control className="pass-wrapper" type={passwordShown ? "text" : "password"} ref={passwordRef} required />
-              <i onClick={togglePasswordVisiblity}>{eye}</i>
+              <InputGroup>
+                <Form.Control className="pass-wrapper" type={passwordShown ? "text" : "password"} ref={passwordRef} required />
+                <InputGroup.Append>
+                  <InputGroup.Text>
+                      <i onClick={togglePasswordVisiblity}>{passwordShown ? eye : eyeclose}</i> 
+                  </InputGroup.Text>
+                </InputGroup.Append>
+              </InputGroup>
             </Form.Group>
-            <Button disabled={loading} className="w-100 btn" type="submit">
+            <Button disabled={loading} className="w-100" id="btn" type="submit">
               Log In
             </Button>
           </Form>
           <div className="btng">
-            <Button disabled={loading} className="w-100 btn" onClick={googleSingin}>
+            <Button disabled={loading} className="w-100" id="btn" onClick={googleSingin}>
               Sign in With Google
             </Button>
           </div>

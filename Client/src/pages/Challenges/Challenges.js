@@ -27,7 +27,7 @@ const Challenges = () => {
     }
     return (
         <div>
-            <header class="headerDiv">
+            <header class="challengesHeader">
                     <Navbar collapseOnSelect expand="lg" variant="dark">
                         <Container>
                             <Navbar.Brand href="#">
