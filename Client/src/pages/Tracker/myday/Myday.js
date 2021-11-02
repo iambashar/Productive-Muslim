@@ -46,6 +46,10 @@ const Myday = () => {
                     (result) => {
                         setDisplayMydayTask(result.data.tasks);
                     }));
+        var link3 = 'http://localhost:3000/deletenotrecurredtask';
+        fetch(link3, {
+            method: 'DELETE',
+        })
 
     }, [count]);
 
@@ -171,11 +175,10 @@ const Myday = () => {
     }
 
     const setisCompleted = (taskid, divid) => {
-        if(displayMydayTask[divid].iscompleted == false)
-        {
-        document.getElementsByClassName("taskText")[divid].style.setProperty("text-decoration", "line-through");
-        var task = true;
-        var link = 'http://localhost:3000/setcompleted/';
+        if (displayMydayTask[divid].iscompleted == false) {
+            document.getElementsByClassName("taskText")[divid].style.setProperty("text-decoration", "line-through");
+            var task = true;
+            var link = 'http://localhost:3000/setcompleted/';
             link = link.concat(taskid);
             console.log(link);
             fetch(link, {
@@ -187,8 +190,7 @@ const Myday = () => {
             });
             setCount(count + 1);
         }
-        else if(displayMydayTask[divid].iscompleted == true)
-        {
+        else if (displayMydayTask[divid].iscompleted == true) {
             document.getElementsByClassName("taskText")[divid].style.setProperty("text-decoration", "none");
             var task = false;
             var link = 'http://localhost:3000/setcompleted/';
@@ -205,7 +207,7 @@ const Myday = () => {
         }
     }
 
-    
+
 
 
     return (
@@ -253,7 +255,7 @@ const Myday = () => {
                     displayMydayTask.map((myday, index) =>
                         <div className="taskBox">
                             <div class="taskCheckBox">
-                                <input className="form-check-input" type="checkbox" value="" onClick={() => setisCompleted(myday.id, index)} checked={myday.iscompleted ? true : false}/>
+                                <input className="form-check-input" type="checkbox" value="" onClick={() => setisCompleted(myday.id, index)} checked={myday.iscompleted ? true : false} />
                             </div>
                             <h2 className="taskText" contentEditable={false} onBlur={() => removeFocus(index)}
                                 onKeyPress={event => {
@@ -261,7 +263,7 @@ const Myday = () => {
                                         updateTask(myday.id, index);
                                     }
                                 }} id={myday.iscompleted ? "taskTextCompleteID" : "taskTextID"}>{myday.task}</h2>
-                                
+
                             <div className="taskIcons">
                                 <div className="taskIcon" onClick={() => setRecurred(myday.id, index)}>
                                     <img className="recurredicon" src={myday.isrecurred ? recurringIconChecked : recurringIcon} alt="" width="20" />
