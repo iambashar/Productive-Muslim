@@ -90,4 +90,22 @@
     color: #e0d2b4;
     opacity: 1; 
   }
+
+
+.form-check-input{
+    background: #e0d2b4;
+    color: #e0d2b4;
+    margin-top: 10px;
+    cursor: pointer;
+}
+.form-check-input:checked, .form-check-input:active, .form-check-input::after{
+    background: aqua;
+}
+#taskTextCompleteID{
+    text-decoration: line-through;
+    color: #e0d2b459;
+}
+#taskTextID{
+    text-decoration: none;
+}
   

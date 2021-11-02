@@ -80,8 +80,8 @@ app.post("/addmyday", async (req, res) => {
   try {
     console.log(req.body);
     const results = await db.query(
-      "INSERT INTO myday (userid, task, isrecurred) values ($1, $2, $3) returning *",
-      [req.body.uid, req.body.task, req.body.isRecurred]
+      "INSERT INTO myday (userid, task, isrecurred, isCompleted) values ($1, $2, $3, $4) returning *",
+      [req.body.uid, req.body.task, req.body.isRecurred, req.body.isCompleted]
     );
     res.status(201).json({
       status: "success",
@@ -98,7 +98,7 @@ app.post("/addmyday", async (req, res) => {
 app.get("/showmyday/:id", async (req, res) => {
   try{
     const tasks = await db.query(
-      "select * from myday where userID = $1 and day = CURRENT_DATE order by id DESC;", [req.params.id]
+      "select * from myday where userID = $1 and (day = CURRENT_DATE or isrecurred = true) order by id;", [req.params.id]
     );
 
     res.status(200).json({
@@ -152,6 +152,44 @@ app.put("/setrecurred/:id", async (req, res) => {
     const results = await db.query(
       "UPDATE myday SET isRecurred = $1 where id = $2 returning *",
       [req.body.task, req.params.id]
+    );
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        tasks: results.rows[0],
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//set completed task
+app.put("/setcompleted/:id", async (req, res) => {
+  try {
+    const results = await db.query(
+      "UPDATE myday SET isCompleted = $1 where id = $2 returning *",
+      [req.body.task, req.params.id]
+    );
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        tasks: results.rows[0],
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//updating recurred tasks to not completed
+app.put("/setrecurredcompleted", async (req, res) => {
+  try {
+    const results = await db.query(
+      "UPDATE myday SET iscompleted = $1 where isrecurred = true and day not in (CURRENT_DATE) returning *;",
+      [req.body.isCompleted]
     );
 
     res.status(200).json({

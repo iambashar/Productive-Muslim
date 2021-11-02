@@ -28,8 +28,18 @@ const Myday = () => {
     }, [uid]);
 
     useEffect(() => {
+        var task = false;
+        var link2 = "http://localhost:3000/setrecurredcompleted";
+        fetch(link2, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ task })
+        });
         var link = "http://localhost:3000/showmyday/";
         link = link.concat(uid);
+        console.log(uid);
         fetch(link)
             .then(res => res.json()
                 .then(
@@ -65,9 +75,10 @@ const Myday = () => {
         document.getElementById("inputMydayTask").className = "inputBoxHide";
         var task = document.getElementById("taskInput").value;
         var isRecurred = false;
+        var isCompleted = false;
         fetch('http://localhost:3000/addmyday', {
             method: 'POST',
-            body: JSON.stringify({ uid, task, isRecurred }),
+            body: JSON.stringify({ uid, task, isRecurred, isCompleted }),
             headers: {
                 "Content-type": "application/json; charset=UTF-8"
             }
@@ -159,6 +170,43 @@ const Myday = () => {
 
     }
 
+    const setisCompleted = (taskid, divid) => {
+        if(displayMydayTask[divid].iscompleted == false)
+        {
+        document.getElementsByClassName("taskText")[divid].style.setProperty("text-decoration", "line-through");
+        var task = true;
+        var link = 'http://localhost:3000/setcompleted/';
+            link = link.concat(taskid);
+            console.log(link);
+            fetch(link, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ task })
+            });
+            setCount(count + 1);
+        }
+        else if(displayMydayTask[divid].iscompleted == true)
+        {
+            document.getElementsByClassName("taskText")[divid].style.setProperty("text-decoration", "none");
+            var task = false;
+            var link = 'http://localhost:3000/setcompleted/';
+            link = link.concat(taskid);
+            console.log(link);
+            fetch(link, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ task })
+            });
+            setCount(count + 1);
+        }
+    }
+
+    
+
 
     return (
         <div>
@@ -205,14 +253,15 @@ const Myday = () => {
                     displayMydayTask.map((myday, index) =>
                         <div className="taskBox">
                             <div class="taskCheckBox">
-                                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                <input className="form-check-input" type="checkbox" value="" onClick={() => setisCompleted(myday.id, index)} checked={myday.iscompleted ? true : false}/>
                             </div>
                             <h2 className="taskText" contentEditable={false} onBlur={() => removeFocus(index)}
                                 onKeyPress={event => {
                                     if (event.key === "Enter") {
                                         updateTask(myday.id, index);
                                     }
-                                }}>{myday.task}</h2>
+                                }} id={myday.iscompleted ? "taskTextCompleteID" : "taskTextID"}>{myday.task}</h2>
+                                
                             <div className="taskIcons">
                                 <div className="taskIcon" onClick={() => setRecurred(myday.id, index)}>
                                     <img className="recurredicon" src={myday.isrecurred ? recurringIconChecked : recurringIcon} alt="" width="20" />
