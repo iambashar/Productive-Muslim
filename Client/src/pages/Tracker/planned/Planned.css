@@ -1,5 +1,32 @@
 .taskDate{
     font-size: 15px;
+    display: block;
+    margin-left: 20px;
+}
+.test{
+    width: 70%;
+    margin: 0 auto;
+    margin-top: 30px;
+    font-family: 'El Messiri';
+    background-color: #e0d2b475;
+    padding: 20px;
+    color: #043b3b;
+}
+.MuiInputBase-input{
+    font-family: 'El Messiri';
+}
+.taskPlanned{
     display: inline-block;
-    float: right;
+    margin-left: 10px;
+    font-size: 20px;
+    background: none;
+    border: none;
+    width: fit-content;
+    outline: none;
+    color: #043b3b;
+    font-weight: bold;
+}
+.datePicker{
+    color: #043b3b;
+    margin-left: 20px;
 }

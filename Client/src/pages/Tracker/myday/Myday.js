@@ -36,7 +36,7 @@ const Myday = () => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ task })
-        });
+        }).then(console.log("update"));
         var link = "http://localhost:3000/showmyday/";
         link = link.concat(uid);
         console.log(uid);
@@ -291,6 +291,7 @@ const Myday = () => {
                     </div>
                     <div className="menuText">New</div>
                 </div>
+                
 
 
 

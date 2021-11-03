@@ -189,7 +189,7 @@ app.put("/setrecurredcompleted", async (req, res) => {
   try {
     const results = await db.query(
       "UPDATE myday SET iscompleted = $1, day = CURRENT_DATE where isrecurred = true and day not in (CURRENT_DATE) returning *;",
-      [req.body.iscompleted]
+      [req.body.task]
     );
 
     res.status(200).json({
@@ -209,6 +209,27 @@ app.delete("/deletenotrecurredtask", async (req, res) => {
     const results = db.query("DELETE FROM myday where isrecurred=false and day not in (CURRENT_DATE);");
     res.status(204).json({
       status: "success",
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//add new planned task
+app.post("/addmyday", async (req, res) => {
+  
+
+  try {
+    console.log(req.body);
+    const results = await db.query(
+      "INSERT INTO plannedtask (userid, task, isrecurred, isCompleted) values ($1, $2, $3, $4) returning *",
+      [req.body.uid, req.body.task, req.body.isRecurred, req.body.isCompleted]
+    );
+    res.status(201).json({
+      status: "success",
+      data: {
+        myday: results.rows[0],
+      },
     });
   } catch (err) {
     console.log(err);
