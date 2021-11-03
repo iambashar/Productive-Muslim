@@ -5,6 +5,7 @@ import textIcon from '../../Images/textIcon.svg'
 import mainIcon from '../../Images/mainIcon.svg'
 import { useHistory } from "react-router";
 import { useAuth } from "../../components/Authentication/AuthContext";
+import userimg from '../../Images/user.png';
 import { SalahContext} from '../SalahContextProvider';
 
 const Homepage = (props) => {
@@ -186,7 +187,7 @@ const Homepage = (props) => {
                                 <Nav.Link href="../../pages/Forum">Forum</Nav.Link>
                             </Nav>
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg" width="40" height="40" class="rounded-circle" />
+                                <img src={userimg} width="40" height="40" class="rounded-circle" />
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                                 <a class="dropdown-item" href="/update-profile">Edit Profile</a>

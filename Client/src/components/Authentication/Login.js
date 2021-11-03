@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { InputGroup, Form, Button, Card, Alert } from "react-bootstrap"
 import { useAuth } from "./AuthContext"
 import { Link, useHistory } from "react-router-dom"
@@ -16,6 +16,7 @@ export default function Login() {
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const history = useHistory()
+  const [userdata, setUser] = useState([])
   const [passwordShown, setPasswordShown] = useState(false)
 
   async function handleSubmit(e) {
@@ -37,7 +38,31 @@ export default function Login() {
     try {
       setError("")
       setLoading(true)
-      await signInWithGoogle()
+      const res = await signInWithGoogle();
+      const user = res.user;
+      var link = "http://127.0.0.1:3000/userprofile/".concat(user.uid);
+      fetch(link)
+        .then(res => res.json())
+        .then(
+          (result) => {
+            setUser(result.data.user);
+          }
+        );
+      if (userdata.length == 0){
+        var uid = user.uid;
+        var name = user.displayName;
+        var email = user.email;
+        var madhab = 'Hanafi';
+        var country = 'Bangladesh';
+        var city = 'Dhaka';
+        fetch('http://localhost:3000/adduser', {
+            method: 'POST',
+            body: JSON.stringify({ uid, name, email, madhab, country, city }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
+      }
       history.push("/")
     } catch {
       setError("Failed to log in with Google Account")
@@ -58,7 +83,7 @@ export default function Login() {
           <Form onSubmit={handleSubmit}>
             <Form.Group id="email">
               <Form.Label>Email</Form.Label>
-              <Form.Control type="email" class = "email1" ref={emailRef} required />
+              <Form.Control type="email" class="email1" ref={emailRef} required />
             </Form.Group>
             <Form.Group id="password">
               <Form.Label>Password</Form.Label>
@@ -66,7 +91,7 @@ export default function Login() {
                 <Form.Control className="pass-wrapper" type={passwordShown ? "text" : "password"} ref={passwordRef} required />
                 <InputGroup.Append>
                   <InputGroup.Text>
-                      <i onClick={togglePasswordVisiblity}>{passwordShown ? eye : eyeclose}</i> 
+                    <i onClick={togglePasswordVisiblity}>{passwordShown ? eye : eyeclose}</i>
                   </InputGroup.Text>
                 </InputGroup.Append>
               </InputGroup>

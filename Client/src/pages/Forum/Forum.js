@@ -5,6 +5,7 @@ import mainIcon from '../../Images/mainIcon.svg'
 import './Forum.css'
 import { BrowserRouter as Router, } from "react-router-dom";
 import { useHistory } from "react-router";
+import userimg from '../../Images/user.png';
 import { useAuth } from "../../components/Authentication/AuthContext";
 function upvoteAccepted() {
     alert('Post upvoted!');
@@ -54,7 +55,7 @@ const Forum = () => {
                                     <Nav.Link className="active" href="#">Forum</Nav.Link>
                                 </Nav>
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg" width="40" height="40" class="rounded-circle" />
+                                    <img src={userimg} width="40" height="40" class="rounded-circle" />
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                                     <a class="dropdown-item" href="/update-profile">Edit Profile</a>
