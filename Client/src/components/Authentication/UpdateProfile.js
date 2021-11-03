@@ -1,39 +1,62 @@
-import React, { useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { InputGroup, Form, Button, Card, Alert } from "react-bootstrap"
 import { useAuth } from "./AuthContext"
+import userimg from '../../Images/user.png'
 import "./UpdateProfile.css"
 import { Link, useHistory } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
-import { faEyeSlash } from "@fortawesome/free-solid-svg-icons"
+import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import firebase from 'firebase/compat';
 const eye = <FontAwesomeIcon icon={faEye} />;
 const eyeclose = <FontAwesomeIcon icon={faEyeSlash} />;
 
 export default function UpdateProfile() {
-  const emailRef = useRef()
-  const passwordRef = useRef()
-  const passwordConfirmRef = useRef()
-  const { currentUser, updatePassword, updateEmail } = useAuth()
+  const nameRef = useRef()
+  const madhabRef = useRef()
+  const countryRef = useRef()
+  const cityRef = useRef()
+  const { currentUser } = useAuth()
+  const [user, setUser] = useState([])
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const history = useHistory()
-  const [passwordShown, setPasswordShown] = useState(false)
+
+  useEffect(() => {
+    var link = "http://127.0.0.1:3000/userprofile/".concat(currentUser.uid);
+    fetch(link)
+      .then(res => res.json())
+      .then(
+        (result) => {
+          setUser(result.data.user);
+        }
+      );
+  }, []);
 
   function handleSubmit(e) {
     e.preventDefault()
-    if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-      return setError("Passwords do not match")
-    }
 
     const promises = []
     setLoading(true)
     setError("")
 
-    if (emailRef.current.value !== currentUser.email) {
-      promises.push(updateEmail(emailRef.current.value))
-    }
-    if (passwordRef.current.value) {
-      promises.push(updatePassword(passwordRef.current.value))
+    if (user.name != nameRef || user.madhab != madhabRef ||
+      user.country != countryRef || user.city != cityRef) {
+      var uid = currentUser.uid;
+      var name = nameRef.current.value;
+      var email = currentUser.email;
+      var madhab = madhabRef.current.value;
+      var country = countryRef.current.value;
+      var city = cityRef.current.value;
+      promises.push(
+        fetch('http://127.0.0.1:3000/updateuser/'.concat(uid), {
+          method: 'POST',
+          body: JSON.stringify({ uid, name, email, madhab, country, city }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8"
+          }
+        })
+      )
     }
 
     Promise.all(promises)
@@ -48,54 +71,63 @@ export default function UpdateProfile() {
       })
   }
 
-  const togglePasswordVisiblity = () => {
-    setPasswordShown(passwordShown ? false : true);
-  };
-
   return (
     <>
-      <Card className="emotionBox2">
-        <Card.Body>
-          <h1 className="text-center mb-4">Update Profile</h1>
-          {error && <Alert variant="danger">{error}</Alert>}
-          <Form onSubmit={handleSubmit}>
-            <Form.Group id="email">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                type="email"
-                ref={emailRef}
-                required
-                defaultValue={currentUser.email}
-              />
-            </Form.Group>
-            <Form.Group id="password">
-              <Form.Label>Password</Form.Label>
-              <Form.Control className="pass-wrapper" type={passwordShown ? "text" : "password"} ref={passwordRef} placeholder="Leave blank to keep the same" />
-              <InputGroup.Append>
-                <InputGroup.Text>
-                  <i onClick={togglePasswordVisiblity}>{passwordShown ? eye : eyeclose}</i>
-                </InputGroup.Text>
-              </InputGroup.Append>
-            </Form.Group>
-            <Form.Group id="password-confirm">
-              <Form.Label>Password</Form.Label>
-              <Form.Control className="pass-wrapper" type={passwordShown ? "text" : "password"} ref={passwordConfirmRef} placeholder="Leave blank to keep the same" />
-              <InputGroup.Append>
-                <InputGroup.Text>
-                  <i onClick={togglePasswordVisiblity}>{passwordShown ? eye : eyeclose}</i>
-                </InputGroup.Text>
-              </InputGroup.Append>
-            </Form.Group>
-            <Button disabled={loading} className="w-100" type="submit">
-              Update
-            </Button>
-          </Form>
-          <div className="w-100 text-center mt-2">
-            <Link to="/">Cancel</Link>
-          </div>
-        </Card.Body>
-      </Card>
-
+      {
+        user.map((user) =>
+          <Card className="emotionBox2">
+            <Card.Body>
+              <h1 className="text-center mb-4">Update Profile</h1>
+              <img id="avatar" src={userimg} width="12%" height="12%" class="rounded-circle" />
+              {error && <Alert variant="danger">{error}</Alert>}
+              <Form onSubmit={handleSubmit}>
+                <Form.Group id="name">
+                  <Form.Label>Name</Form.Label>
+                  <Form.Control
+                    type="text"
+                    ref={nameRef}
+                    required
+                    defaultValue={user.name}
+                  />
+                </Form.Group>
+                <Form.Group id="name">
+                  <Form.Label>Madhab</Form.Label>
+                  <Form.Control
+                    type="text"
+                    ref={madhabRef}
+                    required
+                    defaultValue={user.madhab}
+                  />
+                </Form.Group>
+                <Form.Group id="name">
+                  <Form.Label>Country</Form.Label>
+                  <Form.Control
+                    type="text"
+                    ref={countryRef}
+                    required
+                    defaultValue={user.country}
+                  />
+                </Form.Group>
+                <Form.Group id="name">
+                  <Form.Label>City</Form.Label>
+                  <Form.Control
+                    type="text"
+                    ref={cityRef}
+                    required
+                    defaultValue={user.city}
+                  />
+                </Form.Group>
+                <Button disabled={loading} className="w-100" id="btn" type="submit">
+                  Update
+                </Button>
+              </Form>
+              <div className="w-100 text-center mt-2">
+                <Link to="/">Cancel</Link>
+              </div>
+            </Card.Body>
+          </Card>
+        )
+      };
     </>
   )
 }

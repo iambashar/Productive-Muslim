@@ -73,12 +73,65 @@ app.get("/emotiondua/:emo", async (req, res) => {
   }
 });
 
+//add new user
+app.post("/adduser", async (req, res) => {
+  try{
+    const results = await db.query(
+      "INSERT INTO users (userID, name, email, madhab, country, city) values ($1, $2, $3, $4, $5, $6) returning *",
+      [req.body.uid, req.body.name, req.body.email, req.body.madhab, req.body.country, req.body.city]
+    );
+    res.status(201).json({
+      status: "success",
+      data: {
+        users: results.rows[0],
+      },
+    });
+  } catch(err){
+    console.log(err)
+  }
+});
+
+//update existing user
+app.post("/updateuser/:id", async (req, res) => {
+  try {
+    const results = await db.query(
+      "UPDATE users SET name=$2, email=$3, madhab=$4, country=$5, city=$6 where userID=$1 returning *",
+      [req.body.uid, req.body.name, req.body.email, req.body.madhab, req.body.country, req.body.city]
+    );
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        users: results.rows[0],
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//get users details
+app.get("/userprofile/:id", async (req, res) => {
+  try{
+    const users = await db.query(
+      "select * from users where userID = $1;", [req.params.id]
+    );
+
+    res.status(200).json({
+      status: "success",
+      results: users.rows.length,
+      data: {
+        user : users.rows,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 //add new myday task
 app.post("/addmyday", async (req, res) => {
-  
-
   try {
-    console.log(req.body);
     const results = await db.query(
       "INSERT INTO myday (userid, task, isrecurred, isCompleted) values ($1, $2, $3, $4) returning *",
       [req.body.uid, req.body.task, req.body.isRecurred, req.body.isCompleted]
@@ -189,7 +242,7 @@ app.put("/setrecurredcompleted", async (req, res) => {
   try {
     const results = await db.query(
       "UPDATE myday SET iscompleted = $1, day = CURRENT_DATE where isrecurred = true and day not in (CURRENT_DATE) returning *;",
-      [req.body.iscompleted]
+      [req.body.task]
     );
 
     res.status(200).json({

@@ -5,7 +5,8 @@ import { Link, useHistory } from "react-router-dom"
 import "./Register.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
-import { faEyeSlash } from "@fortawesome/free-solid-svg-icons"
+import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import firebase from 'firebase/compat';
 const eye = <FontAwesomeIcon icon={faEye} />;
 const eyeclose = <FontAwesomeIcon icon={faEyeSlash} />;
 
@@ -30,6 +31,22 @@ export default function Signup() {
       setError("")
       setLoading(true)
       await signup(emailRef.current.value, passwordRef.current.value)
+      if (firebase.auth().currentUser !== null) {
+        const user = firebase.auth().currentUser;
+        var uid = user.uid;
+        var name = "";
+        var email = user.email;
+        var madhab = 'Hanafi';
+        var country = 'Bangladesh';
+        var city = 'Dhaka';
+        fetch('http://localhost:3000/adduser', {
+            method: 'POST',
+            body: JSON.stringify({ uid, name, email, madhab, country, city }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
+      }
       history.push("/")
     } catch {
       setError("Failed to create an account")
@@ -55,23 +72,27 @@ export default function Signup() {
             </Form.Group>
             <Form.Group id="password">
               <Form.Label>Password</Form.Label>
+              <InputGroup>
               <Form.Control className="pass-wrapper" type={passwordShown ? "text" : "password"} ref={passwordRef} required />
               <InputGroup.Append>
                 <InputGroup.Text>
                   <i onClick={togglePasswordVisiblity}>{passwordShown ? eye : eyeclose}</i>
                 </InputGroup.Text>
               </InputGroup.Append>
+            </InputGroup>
             </Form.Group>
             <Form.Group id="password-confirm">
               <Form.Label>Password Confirmation</Form.Label>
+              <InputGroup>
               <Form.Control className="pass-wrapper" type={passwordShown ? "text" : "password"} ref={passwordConfirmRef} required />
               <InputGroup.Append>
                 <InputGroup.Text>
                   <i onClick={togglePasswordVisiblity}>{passwordShown ? eye : eyeclose}</i>
                 </InputGroup.Text>
               </InputGroup.Append>
+              </InputGroup>
             </Form.Group>
-            <Button disabled={loading} className="w-100" type="submit">
+            <Button disabled={loading} className="w-100" id="btn" type="submit">
               Sign Up
             </Button>
           </Form>

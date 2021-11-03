@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/Button';
 import deedimg2 from '../../Images/2.png';
 import deedimg1 from '../../Images/1.png';
 import { useHistory } from "react-router";
+import userimg from '../../Images/user.png'
 import { useAuth } from "../../components/Authentication/AuthContext";
 
 
@@ -48,7 +49,7 @@ const Challenges = () => {
                                     <Nav.Link href="../../pages/Forum">Forum</Nav.Link>
                                 </Nav>
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg" width="40" height="40" class="rounded-circle" />
+                                    <img src={userimg} width="40" height="40" class="rounded-circle" />
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                                     <a class="dropdown-item" href="/update-profile">Edit Profile</a>

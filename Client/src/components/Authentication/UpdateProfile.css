@@ -12,6 +12,13 @@
   font-family: "El Messiri";
   padding: 20px;
 }
+
+#avatar{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .form-control:not(focus) {
   background: rgba(0, 0, 0, 0.3);
   color: #e0d2b4;
