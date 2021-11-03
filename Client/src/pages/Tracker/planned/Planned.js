@@ -1,12 +1,13 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import './Planned.css'
+import firebase from 'firebase/compat';
 import DateFnsUtils from '@date-io/date-fns';
 import {
     DatePicker,
     TimePicker,
     DateTimePicker,
     MuiPickersUtilsProvider,
-  } from '@material-ui/pickers';
+} from '@material-ui/pickers';
 import { KeyboardDatePicker } from "@material-ui/pickers";
 
 import mydayIcon from '../../../Images/mydayInactive.svg'
@@ -21,6 +22,71 @@ import newIcon from '../../../Images/newIcon.svg'
 
 const Myday = () => {
     const [selectedDate, handleDateChange] = useState(new Date());
+    const [count, setCount] = useState(1);
+    const [uid, setUid] = useState();
+    const [displayPlannedTask, setDisplayPlannnedTask] = useState([]);
+
+    useEffect(() => {
+        countFive();
+    }, []);
+
+    useEffect(() => {
+
+        var link = "http://localhost:3000/showplannedtask/";
+        link = link.concat(uid);
+        console.log(uid);
+        fetch(link)
+            .then(res => res.json()
+                .then(
+                    (result) => {
+                        setDisplayPlannnedTask(result.data.tasks);
+                    }));
+
+    }, [count]);
+
+    const countFive = () => {
+        for (var i = 0; i <= 5; i++) {
+            setCount(count + 1);
+        }
+    }
+    useEffect(() => {
+        if (firebase.auth().currentUser !== null) {
+            setUid(firebase.auth().currentUser.uid);
+        }
+    }, [uid]);
+
+    const createTask = () => {
+        if (document.getElementById("inputPlannedTask").className === "inputBoxShow") {
+            document.getElementById("inputPlannedTask").className = "inputBoxHide";
+        }
+        else {
+            document.getElementById("taskPlannedInput").value = "";
+            document.getElementById("inputPlannedTask").className = "inputBoxShow";
+            document.getElementById("taskPlannedInput").focus();
+        }
+
+    };
+    const addTask = () => {
+        document.getElementById("inputPlannedTask").className = "inputBoxHide";
+        var task = document.getElementById("taskPlannedInput").value;
+        var isCompleted = false;
+        var isAddedToMyday = false;
+        fetch('http://localhost:3000/addplannedtask', {
+            method: 'POST',
+            body: JSON.stringify({ uid, task, isCompleted, isAddedToMyday }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+            .then(res => res.json().then(
+                setCount(count + 1)
+            ));
+
+    }
+    const removeFocus = (divid) => {
+        document.getElementsByClassName("test")[divid].style.border = "none"
+        document.getElementsByClassName("taskPlanned")[divid].contentEditable = false;
+    }
     return (
         <div>
             <div class="sideMenuDua">
@@ -61,38 +127,53 @@ const Myday = () => {
             </div>
 
             <div className="rightDiv">
-                <div className="test">
-                    <div>
-                    <div class="taskCheckBox">
-                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                    </div>
-                    <h2 className="taskPlanned">Reading 10 pages of Quran</h2>
-                    </div>
-                    <div className="datePicker">
-                    <MuiPickersUtilsProvider utils={DateFnsUtils} >
-                        <KeyboardDatePicker
-                            clearable
-                            value={selectedDate}
-                            placeholder="10/10/2018"
-                            onChange={date => handleDateChange(date)}
-                            minDate={new Date()}
-                            format="MM/dd/yyyy"
-                        />
-                        </MuiPickersUtilsProvider>
-                        <div className="taskIcons">
-                                <div className="taskIcon" >
-                                    <img className="addtomydayicon" src={myday} alt="" width="20" />
+                {
+                    displayPlannedTask.map((planned, index) =>
+                        <div className="test">
+                            <div>
+                                <div class="taskCheckBox">
+                                    <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
                                 </div>
-                                <div className="taskIcon">
-                                    <img src={editIcon} width="20"></img>
-                                </div>
-                                <div className="taskIcon" >
-                                    <img src={deleteIcon} width="20"></img>
+                                <h2 className="taskPlanned" contentEditable={false} onBlur={() => removeFocus(index)}
+                                    onKeyPress={event => {
+                                        if (event.key === "Enter") {
+                                            //updateTask(myday.id, index);
+                                        }
+                                    }}>{planned.task}</h2>
+                            </div>
+                            <div className="datePicker">
+                                <MuiPickersUtilsProvider utils={DateFnsUtils} >
+                                    <KeyboardDatePicker
+                                        clearable
+                                        value={selectedDate}
+                                        placeholder="10/10/2018"
+                                        onChange={date => handleDateChange(date)}
+                                        minDate={new Date()}
+                                        format="dd/MM/yyyy"
+                                    />
+                                </MuiPickersUtilsProvider>
+                                <div className="taskIcons">
+                                    <div className="taskIcon" >
+                                        <img className="addtomydayicon" src={myday} alt="" width="20" />
+                                    </div>
+                                    <div className="taskIcon">
+                                        <img src={editIcon} width="20"></img>
+                                    </div>
+                                    <div className="taskIcon" >
+                                        <img src={deleteIcon} width="20"></img>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                    )}
+                <div className="inputBoxHide" id="inputPlannedTask" onKeyPress={event => {
+                    if (event.key === "Enter") {
+                        addTask();
+                    }
+                }}>
+                    <input type="text" id="taskPlannedInput" name="fname" autoComplete="off"></input>
                 </div>
-                <div class="newBtn">
+                <div class="newBtn" onClick={createTask}>
                     <div className="newIcon">
                         <img src={newIcon} width="20"></img>
                     </div>

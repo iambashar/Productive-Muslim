@@ -12,6 +12,9 @@
     padding: 20px;
     color: #043b3b;
 }
+.test:hover {
+    background-color: #e0d2b49f;
+}
 .MuiInputBase-input{
     font-family: 'El Messiri';
 }
@@ -29,4 +32,13 @@
 .datePicker{
     color: #043b3b;
     margin-left: 20px;
+}
+
+#taskPlannedInput{
+    background: none;
+    border: none;
+    width: 100%;
+    outline: none;
+    font-size: 20px;
+    color: #e0d2b4;
 }

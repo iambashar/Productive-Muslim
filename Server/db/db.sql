@@ -15,12 +15,12 @@ CREATE TABLE duas (
 );
 
 CREATE TABLE myday(
-    ID SERIAL NOT NULL PRIMARY KEY,
-    userID VARCHAR NOT NULL,
-    task VARCHAR(100),
-    isRecurred BOOLEAN,
-    isCompleted BOOLEAN,
-    day DATE DEFAULT CURRENT_DATE 
+		ID SERIAL NOT NULL PRIMARY KEY,
+		userID VARCHAR NOT NULL,
+		task VARCHAR(100),
+		isRecurred BOOLEAN DEFAULT false,
+		isCompleted BOOLEAN DEFAULT false,
+		day DATE DEFAULT CURRENT_DATE 
 );
 
 CREATE TABLE users(
@@ -30,4 +30,13 @@ CREATE TABLE users(
     madhab VARCHAR(10) CHECK (madhab in ('Hanafi', 'Maliki', 'Shafi', 'Hanbali')),
     country VARCHAR,
     city VARCHAR
+);
+
+CREATE TABLE plannedtask(
+    ID SERIAL NOT NULL PRIMARY KEY,
+    userID VARCHAR NOT NULL,
+    task VARCHAR(100),
+    isCompleted BOOLEAN DEFAULT false,
+    isAddedToMyday BOOLEAN DEFAULT false,
+    day DATE DEFAULT CURRENT_DATE 
 );
