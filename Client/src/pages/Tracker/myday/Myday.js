@@ -114,6 +114,7 @@ const Myday = () => {
         range.collapse(true)
         sel.removeAllRanges()
         sel.addRange(range)
+
     }
 
     const updateTask = (taskid, divid) => {
