@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react"
-import { InputGroup, Form, Button, Card, Alert } from "react-bootstrap"
+import { InputGroup, Dropdown, Form, Button, Card, Alert } from "react-bootstrap"
 import { useAuth } from "./AuthContext"
 import userimg from '../../Images/user.png'
 import "./UpdateProfile.css"
@@ -45,7 +45,7 @@ export default function UpdateProfile() {
       var uid = currentUser.uid;
       var name = nameRef.current.value;
       var email = currentUser.email;
-      var madhab = madhabRef.current.value;
+      var madhab = document.getElementById("madhabbox").innerHTML;
       var country = countryRef.current.value;
       var city = cityRef.current.value;
       promises.push(
@@ -71,6 +71,10 @@ export default function UpdateProfile() {
       })
   }
 
+  const setMadhabValue = (selectedMadhab) => {
+    document.getElementById("madhabbox").innerHTML = selectedMadhab.target.outerText;
+  }
+
   return (
     <>
       {
@@ -78,7 +82,6 @@ export default function UpdateProfile() {
           <Card className="emotionBox2">
             <Card.Body>
               <h1 className="text-center mb-4">Update Profile</h1>
-              <img id="avatar" src={userimg} width="12%" height="12%" class="rounded-circle" />
               {error && <Alert variant="danger">{error}</Alert>}
               <Form onSubmit={handleSubmit}>
                 <Form.Group id="name">
@@ -92,12 +95,19 @@ export default function UpdateProfile() {
                 </Form.Group>
                 <Form.Group id="name">
                   <Form.Label>Madhab</Form.Label>
-                  <Form.Control
-                    type="text"
-                    ref={madhabRef}
-                    required
-                    defaultValue={user.madhab}
-                  />
+                  <Dropdown>
+                    <Dropdown.Toggle className="searchButton2" id="madhabbox" variant="secondary">
+                      {user.madhab}
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu className="searchMenu" >
+                      <Dropdown.Item onClick={setMadhabValue} id="searchItem">Hanafi</Dropdown.Item>
+                      <Dropdown.Item onClick={setMadhabValue} id="searchItem">Maliki</Dropdown.Item>
+                      <Dropdown.Item onClick={setMadhabValue} id="searchItem">Shafi</Dropdown.Item>
+                      <Dropdown.Item onClick={setMadhabValue} id="searchItem">Hanbali</Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+
                 </Form.Group>
                 <Form.Group id="name">
                   <Form.Label>Country</Form.Label>
