@@ -42,7 +42,7 @@ const Myday = () => {
                     (result) => {
                         setDisplayPlannnedTask(result.data.tasks);
                     }));
-
+                    
 
     }, [count]);
 
@@ -83,7 +83,7 @@ const Myday = () => {
             .then(res => res.json().then(
                 setCount(count + 1)
             ));
-
+            console.log(moment(new Date()).format("yyyy-MM-DD"));
     }
 
     const editTask = (divid) => {
@@ -139,6 +139,27 @@ const Myday = () => {
             method: 'DELETE',
         }).then(
             setCount(count + 1));
+    }
+
+    const addToMyday = (taskid, divid) => {
+        var task = document.getElementsByClassName("taskPlanned")[divid].innerHTML;
+        fetch('http://localhost:3000/addmydayfromplanned', {
+            method: 'POST',
+            body: JSON.stringify({ uid, task }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+            .then(res => res.json().then(
+                setCount(count + 1)
+            ));
+            var link = 'http://localhost:3000/deleteplannedtask/';
+        link = link.concat(taskid);
+        fetch(link, {
+            method: 'DELETE',
+        }).then(
+            setCount(count + 1));
+
     }
 
     const removeFocus = (divid) => {
@@ -213,7 +234,7 @@ const Myday = () => {
                                     />
                                 </MuiPickersUtilsProvider>
                                 <div className="taskIcons">
-                                    <div className="taskIcon" >
+                                    <div className="taskIcon" onClick={() => addToMyday(planned.id, index)}>
                                         <img className="addtomydayicon" src={myday} alt="" width="20" />
                                     </div>
                                     <div className="taskIcon" onClick={() => editTask(index)}>

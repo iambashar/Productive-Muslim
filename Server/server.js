@@ -360,6 +360,42 @@ app.delete("/deleteplannedtask/:id", async (req, res) => {
   }
 });
 
+//add to myday from planned task
+app.post("/addmydayfromplanned", async (req, res) => {
+  try {
+    const results = await db.query(
+      "INSERT INTO myday (userid, task) values ($1, $2) returning *",
+      [req.body.uid, req.body.task]
+    );
+    res.status(201).json({
+      status: "success",
+      data: {
+        myday: results.rows[0],
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//add to myday from planned task automatically
+app.post("/addmydayfromplannedauto", async (req, res) => {
+  try {
+    const results = await db.query(
+      "INSERT INTO myday (userid, task) values ($1, $2) returning *",
+      [req.body.uid, req.body.task]
+    );
+    res.status(201).json({
+      status: "success",
+      data: {
+        myday: results.rows[0],
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
