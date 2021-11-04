@@ -396,6 +396,47 @@ app.post("/addmydayfromplannedauto", async (req, res) => {
   }
 });
 
+//add Sawm Oath
+app.post("/addsawmoath", async (req, res) => {
+  try{
+    
+    const results = await db.query(
+      "INSERT INTO mysawm (userid, sawmdate, sawmreason) values ($1, $2, $3) returning *",
+      [req.body.uid, req.body.sawmDate, req.body.sawmReason]
+    );
+    res.status(201).json({
+      status: "success",
+      data: {
+        mySawm: results.rows[0],
+      },
+    });
+  }
+  catch (err){
+    //console.log(req.body.uid, req.body.date, req.body.reason);
+    console.log(err);
+  }
+});
+
+// show upcoming sawm dates
+app.get("/showupcomingsawmdates/:id", async (req, res) => {
+  try{
+    const dates = await db.query(
+      "SELECT * FROM mysawm WHERE userID = $1;", [req.params.id] //AND sawmdate >= (SELECT TO_CHAR(NOW() :: DATE, 'dd-mm-yyyy'))
+    );
+
+    res.status(200).json({
+      status: "success",
+      results: dates.rows.length,
+      data: {
+        dates: dates.rows,
+      },
+    });
+  }
+  catch (err){
+    console.log(err);
+  }
+});
+
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
