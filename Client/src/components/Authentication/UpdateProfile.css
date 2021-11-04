@@ -32,3 +32,22 @@
 .btng {
   margin-top: 15px;
 }
+
+.searchButton2{
+  background: rgba(0, 0, 0, 0.3);
+  color: #e0d2b4;
+  border-color: rgb(168, 223, 215);
+  font-family: 'El Messiri';
+  width:100%;
+  text-align: left;
+}
+.searchButton2:hover{
+  background: rgba(0, 0, 0, 0.3);
+  color: #e0d2b4;
+  border-color: rgb(168, 223, 215);
+}
+.searchButton2:focus, .searchButton2:focus-visible, .searchButton2:checked {
+  background: rgba(0, 0, 0, 0.3);
+  color: #e0d2b4;
+  border-color: rgb(168, 223, 215);
+}
