@@ -1,24 +1,38 @@
-.forumHeader{
-    font-family: 'El Messiri';
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 10;
-    display: inline;
-    background-color:rgba(0,0,0,0.6);
+.forumHeader {
+  font-family: "El Messiri";
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 10;
+  display: inline;
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
-.pageContent{
-    margin-top: 76px;
+.forumbox {
+  background: rgba(0, 0, 0, 0.3);
+  width: 50%;
+  display: inline-block;
+  color: #e0d2b4;
+  border: 4px;
+  border-style: solid;
+  border-color: rgb(168, 223, 215);
+  font-family: "El Messiri";
+  padding: 20px;
 }
 
-.toggle-nav{
-    position: fixed;
-    right: 15px;
-    top: 15px
-}
+.forumbox {
+    background: rgba(0, 0, 0, 0.3);
+    width: 50%;
+    display: inline-block;
+    color: #e0d2b4;
+    border: 4px;
+    border-style: solid;
+    border-color: rgb(168, 223, 215);
+    font-family: "El Messiri";
+    padding: 20px;
+  }
 
-.menuIcon{
+  .menuIcon{
     display: inline-block;
     margin-right: 8px;
 }
@@ -51,8 +65,6 @@ h3{
 .forumBox{
     background-color: rgba(3, 51, 51, 0.5);
     width: 70%;
-    margin: 0 auto;
-    margin-top: 30px;
     justify-content: center;
     text-align: center;
     border: 4px;
@@ -89,4 +101,34 @@ h3{
     color: #e0d2b4;
     margin-top: 40px;
 }
+}
+
+.postdiv{
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+}
+
+#postbtn,
+#postbtn:visited {
+  background-color: #e0d2b4;
+  color: #044444;
+  border: #044444;
+  font-family: "El Messiri";
+  font-weight: bold;
+  font-size: 1.2rem;
+  width: fit-content;
+  float: right;
+}
+#postbtn:hover {
+  background-color: #ad976a;
+  color: #044444;
+  border: #044444;
+}
+#postbtn:focus,
+#postbtn:focus-visible,
+#postbtn:checked {
+  background-color: #e0d2b4;
+  color: #044444;
+  border: #044444;
 }

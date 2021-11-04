@@ -1,15 +1,8 @@
 import React, { useEffect, useRef, useState } from "react"
-import { InputGroup, Dropdown, Form, Button, Card, Alert } from "react-bootstrap"
+import { Dropdown, Form, Button, Card, Alert } from "react-bootstrap"
 import { useAuth } from "./AuthContext"
-import userimg from '../../Images/user.png'
 import "./UpdateProfile.css"
 import { Link, useHistory } from "react-router-dom"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye } from "@fortawesome/free-solid-svg-icons";
-import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import firebase from 'firebase/compat';
-const eye = <FontAwesomeIcon icon={faEye} />;
-const eyeclose = <FontAwesomeIcon icon={faEyeSlash} />;
 
 export default function UpdateProfile() {
   const nameRef = useRef()

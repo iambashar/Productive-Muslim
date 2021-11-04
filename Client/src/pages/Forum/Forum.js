@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Navbar, Container, Nav } from 'react-bootstrap';
+import { useEffect, useRef } from "react"
+import { Button, Card, Alert } from "react-bootstrap"
+import { Form, Navbar, Container, Nav } from 'react-bootstrap';
 import textIcon from '../../Images/textIcon.svg'
 import mainIcon from '../../Images/mainIcon.svg'
 import './Forum.css'
-import { BrowserRouter as Router, } from "react-router-dom";
-import { useHistory } from "react-router";
+import { Link, useHistory, BrowserRouter as Router, } from "react-router-dom";
 import userimg from '../../Images/user.png';
 import { useAuth } from "../../components/Authentication/AuthContext";
 function upvoteAccepted() {
@@ -15,12 +16,20 @@ function showComments() {
     alert('Expand box to reveal comment section.');
 }
 
-
-
 const Forum = () => {
+    const nameRef = useRef()
+    const madhabRef = useRef()
+    const countryRef = useRef()
+    const cityRef = useRef()
+    const [loading, setLoading] = useState(false)
+    const [user, setUser] = useState([])
     const [error, setError] = useState("")
     const { currentUser, logout } = useAuth()
     const history = useHistory()
+
+    const setMadhabValue = (selectedMadhab) => {
+        document.getElementById("madhabbox").innerHTML = selectedMadhab.target.outerText;
+    }
 
     async function handleLogout() {
         setError("")
@@ -31,7 +40,47 @@ const Forum = () => {
         } catch {
             setError("Failed to log out")
         }
-    } return (
+    }
+
+    function handleSubmit(e) {
+        e.preventDefault()
+
+        const promises = []
+        setLoading(true)
+        setError("")
+
+        if (user.name != nameRef || user.madhab != madhabRef ||
+            user.country != countryRef || user.city != cityRef) {
+            var uid = currentUser.uid;
+            var name = nameRef.current.value;
+            var email = currentUser.email;
+            var madhab = document.getElementById("madhabbox").innerHTML;
+            var country = countryRef.current.value;
+            var city = cityRef.current.value;
+            promises.push(
+                fetch('http://127.0.0.1:3000/updateuser/'.concat(uid), {
+                    method: 'POST',
+                    body: JSON.stringify({ uid, name, email, madhab, country, city }),
+                    headers: {
+                        "Content-type": "application/json; charset=UTF-8"
+                    }
+                })
+            )
+        }
+
+        Promise.all(promises)
+            .then(() => {
+                history.push("/")
+            })
+            .catch(() => {
+                setError("Failed to update account")
+            })
+            .finally(() => {
+                setLoading(false)
+            })
+    }
+
+    return (
         <Router>
             <div>
                 <header class="forumHeader">
@@ -68,69 +117,39 @@ const Forum = () => {
             </div>
 
             <div className="pageContent">
-                <div className="rightDiv">
-                    <div className="emotionBox">
-                        {
-                            <div>
-                                <h1>Example Forum Question?</h1>
-                                <h2 className="forumTimeAndAuthor">Posted on October 15, 2021 by <u>M.K. Bashar</u></h2>
-                                <h3 className="forumBody">
-                                    Assalamualaikum, everyone.
-                                    I have some confusions about X. Please give me some advice on the matter.
-                                </h3>
-                                {/* <h2 className="english">asdasd</h2> */}
-                                <button onClick={upvoteAccepted}>Upvote</button>
-                                <button onClick={showComments}>4 Comments</button>
-                            </div>
-                            /* <div className="likes">
-                                <div className="menuIcon">
-                                    <img src={likedIcon} width="20"></img>
-                                </div>
-                                1200
-                            </div> */
-                        }
+                {
+                    <div className="postdiv">
+                        <Form className="forumbox">
+                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                <Form.Label>Title</Form.Label>
+                                <Form.Control type="text" placeholder="What is the meaning of life?" />
+                            </Form.Group>
+                            <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                                <Form.Label>Description</Form.Label>
+                                <Form.Control as="textarea" placeholder="If anyone briefly explain this.." rows={3} />
+                            </Form.Group>
+                            <Button disabled={loading} id="postbtn" type="submit">
+                                Post
+                            </Button>
+                        </Form>
                     </div>
-                    <div className="emotionBox">
-                        {
-                            <div>
-                                <h1>Ruling on memorizing Qur’an using the “five fortresses” method</h1>
-                                <h2 className="forumTimeAndAuthor">Posted on October 15, 2021 by <u>M.K. Bashar</u></h2>
-                                <h3 className="forumBody">
-                                    What is the ruling on memorizing Qur’an using the “five fortresses” method?
-                                </h3>
-                                {/* <h2 className="english">asdasd</h2> */}
-                                <button onClick={upvoteAccepted}>Upvote</button>
-                                <button onClick={showComments}>3 Comments</button>
-                            </div>
 
-                            /* <div className="likes">
-                                <div className="menuIcon">
-                                    <img src={likedIcon} width="20"></img>
-                                </div>
-                                1200
-                            </div> */
-                        }
-                    </div>
-                    <div className="emotionBox">
-                        {
-                            <div>
-                                <h1>Praying ‘Ishaa’ the next morning</h1>
-                                <h2 className="forumTimeAndAuthor">Posted on October 15, 2021 by <u>M.K. Bashar</u></h2>
-                                <h3 className="forumBody">
-                                    At this time of year the Isha prayer is around 10:25 pm. I have school the next day so i'm not aloud to stay up that late. I wanted to know if it is haraam to pray it the next morning. My parents are willing to allow me to stay up for the Isha prayer if praying it the next morning is haraam.
-                                    Thank you for your time.
-                                </h3>
-                                {/* <h2 className="english">asdasd</h2> */}
-                                <button onClick={upvoteAccepted}>Upvote</button>
-                                <button onClick={showComments}>2 Comments</button>
-                            </div>
-                            /* <div className="likes">
-                                <div className="menuIcon">
-                                    <img src={likedIcon} width="20"></img>
-                                </div>
-                                1200
-                            </div> */
-                        }
+                }
+                <br />
+                <div className="postdiv">
+                    <div className="forumbox">
+
+                        <div>
+                            <h1>Example Forum Question?</h1>
+                            <h2 className="forumTimeAndAuthor">Posted on October 15, 2021 by <u>M.K. Bashar</u></h2>
+                            <h3 className="forumBody">
+                                Assalamualaikum, everyone.
+                                I have some confusions about X. Please give me some advice on the matter.
+                            </h3>
+                            {/* <h2 className="english">asdasd</h2> */}
+                            <button onClick={upvoteAccepted}>Upvote</button>
+                            <button onClick={showComments}>4 Comments</button>
+                        </div>
                     </div>
                 </div>
             </div>
