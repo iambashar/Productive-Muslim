@@ -20,6 +20,8 @@ const Sawm = () => {
     const [date, setDate] = useState(new Date());
     const [show, setShow] = useState(false);
     const [displayUpcomingSawmDates, setDisplayUpcomingSawmDates] = useState([]);
+    const [userSawmDates, setUserSawmDates] = useState([]);
+    const [change, setChange] = useState(0);
     var gSawmDates2 = new Set([]);
     useEffect(() => {
         if (firebase.auth().currentUser !== null) {
@@ -37,10 +39,13 @@ const Sawm = () => {
                 (result) => {
                     setDisplayUpcomingSawmDates(result.data.dates);
                     console.log(result.data.dates);
+                    setUserSawmDates(result.data.dates.map((userData)=>{
+                        return moment(userData.sawmdate).format('DD-MM-YYYY');
+                    }))
                     //gSawmDates2 = result.data.dates.sawmdates;
                 }
             )
-    }
+    }, [change]
     )
 
     const handleClose = () => setShow(false);
@@ -91,7 +96,7 @@ const Sawm = () => {
         .then(
             console.log(sawmReason, sawmDate)
         );
-        
+        setChange(change+1);
     }
 
     const retUpcomingDates = () => {
@@ -207,7 +212,7 @@ const Sawm = () => {
                             value={date}
                             onClickDay={handleShow} 
                             tileClassName={({date}) => {
-                                if(days.find(x=>x===moment(date).day()) || gSawmDates.find(x=>x===moment(date).format("DD-MM-YYYY")) || gSawmDates2.has(x=>x===moment(date).format("DD-MM-YYYY"))){
+                                if(days.find(x=>x===moment(date).day()) || gSawmDates.find(x=>x===moment(date).format("DD-MM-YYYY")) || userSawmDates.find(x=>x===moment(date).format("DD-MM-YYYY"))){
                                     return 'highlight'
                                 }
                             }}
