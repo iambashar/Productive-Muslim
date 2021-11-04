@@ -6,7 +6,7 @@ import mainIcon from '../../Images/mainIcon.svg'
 import { useHistory } from "react-router";
 import { useAuth } from "../../components/Authentication/AuthContext";
 import userimg from '../../Images/user.png';
-import { SalahContext} from '../SalahContextProvider';
+import { SalahContext } from '../SalahContextProvider';
 
 const Homepage = (props) => {
     const [ayah, setAyah] = useState();
@@ -75,6 +75,10 @@ const Homepage = (props) => {
         }
     }, [nextMin, nextHr12]);
 
+    function getHadith() {
+        
+    }
+
     function retrieveTime() {
         var today = new Date();
         var hr = today.getHours();
@@ -112,7 +116,7 @@ const Homepage = (props) => {
             setRemHr(Math.floor(remTime / 60));
             setRemMin(remTime % 60);
             if (dhuhr[0] > 12)
-                setNextHr(dhuhr[0]-12);
+                setNextHr(dhuhr[0] - 12);
             else
                 setNextHr(dhuhr[0]);
             setNextHr12(dhuhr[0]);
@@ -214,7 +218,7 @@ const Homepage = (props) => {
 
             </div>
             <div className="hadith">
-                <button id="btnHadithofDay">
+                <button id="btnHadithofDay" onClick={getHadith}>
                     Hadith of the Day
                 </button>
             </div>

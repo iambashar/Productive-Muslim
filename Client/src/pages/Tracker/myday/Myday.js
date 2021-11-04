@@ -11,6 +11,7 @@ import editIcon from '../../../Images/editIcon.svg'
 import deleteIcon from '../../../Images/deleteIcon.svg'
 import recurringIcon from '../../../Images/recurring.svg'
 import recurringIconChecked from '../../../Images/recurringChecked.svg'
+import moment from 'moment';
 
 const Myday = () => {
     const [uid, setUid] = useState();
@@ -49,7 +50,7 @@ const Myday = () => {
         var link3 = 'http://localhost:3000/deletenotrecurredtask';
         fetch(link3, {
             method: 'DELETE',
-        })
+        });
 
     }, [count]);
 
@@ -263,7 +264,7 @@ const Myday = () => {
                                     if (event.key === "Enter") {
                                         updateTask(myday.id, index);
                                     }
-                                }} id={myday.iscompleted ? "taskTextCompleteID" : "taskTextID"}>{myday.task}</h2>
+                                }} id={myday.iscompleted ? "taskTextCompleteID" : "taskTextID"}>{myday.day}</h2>
 
                             <div className="taskIcons">
                                 <div className="taskIcon" onClick={() => setRecurred(myday.id, index)}>

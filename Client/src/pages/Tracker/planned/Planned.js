@@ -28,6 +28,18 @@ const Myday = () => {
     const [displayPlannedTask, setDisplayPlannnedTask] = useState([]);
 
     useEffect(() => {
+        fetch('http://localhost:3000/addmydayfromplannedauto', {
+            method: 'POST',
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+            .then(res => res.json()).then(
+                fetch('http://localhost:3000/deleteplannedtaskauto', {
+                    method: 'DELETE',
+                })
+            );
+
         countFive();
     }, []);
 
@@ -42,7 +54,13 @@ const Myday = () => {
                     (result) => {
                         setDisplayPlannnedTask(result.data.tasks);
                     }));
-                    
+        /*var link = 'http://localhost:3000/deleteplannedtask/';
+    link = link.concat(taskid);
+    fetch(link, {
+        method: 'DELETE',
+    }).then(
+        setCount(count + 1));*/
+
 
     }, [count]);
 
@@ -83,7 +101,7 @@ const Myday = () => {
             .then(res => res.json().then(
                 setCount(count + 1)
             ));
-            console.log(moment(new Date()).format("yyyy-MM-DD"));
+        console.log(moment(new Date()).format("yyyy-MM-DD"));
     }
 
     const editTask = (divid) => {
@@ -153,13 +171,46 @@ const Myday = () => {
             .then(res => res.json().then(
                 setCount(count + 1)
             ));
-            var link = 'http://localhost:3000/deleteplannedtask/';
+        var link = 'http://localhost:3000/deleteplannedtask/';
         link = link.concat(taskid);
         fetch(link, {
             method: 'DELETE',
         }).then(
             setCount(count + 1));
 
+    }
+
+    const setisCompleted = (taskid, divid) => {
+        if (displayPlannedTask[divid].iscompleted == false) {
+            document.getElementsByClassName("taskPlanned")[divid].style.setProperty("text-decoration", "line-through");
+            var task = true;
+            var link = 'http://localhost:3000/setplannedcompleted/';
+            link = link.concat(taskid);
+            console.log(link);
+            fetch(link, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ task })
+            });
+            setCount(count + 1);
+        }
+        else if (displayPlannedTask[divid].iscompleted == true) {
+            document.getElementsByClassName("taskPlanned")[divid].style.setProperty("text-decoration", "none");
+            var task = false;
+            var link = 'http://localhost:3000/setplannedcompleted/';
+            link = link.concat(taskid);
+            console.log(link);
+            fetch(link, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ task })
+            });
+            setCount(count + 1);
+        }
     }
 
     const removeFocus = (divid) => {
@@ -211,18 +262,18 @@ const Myday = () => {
                         <div className="test">
                             <div>
                                 <div class="taskCheckBox">
-                                    <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                    <input className="form-check-input" type="checkbox" value="" onClick={() => setisCompleted(planned.id, index)} id="flexCheckDefault" checked={planned.iscompleted ? true : false} />
                                 </div>
                                 <h2 className="taskPlanned" contentEditable={false} onBlur={() => removeFocus(index)}
                                     onKeyPress={event => {
                                         if (event.key === "Enter") {
                                             updateTask(planned.id, index);
                                         }
-                                    }}>{planned.task}</h2>
+                                    }} id={planned.iscompleted ? "taskPlannedCompleteID" : "taskPlannedID"}>{planned.task}</h2>
                             </div>
                             <div className="datePicker">
                                 <MuiPickersUtilsProvider utils={DateFnsUtils} >
-                                    
+
                                     <KeyboardDatePicker
                                         id="datePicker"
                                         clearable

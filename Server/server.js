@@ -378,18 +378,48 @@ app.post("/addmydayfromplanned", async (req, res) => {
   }
 });
 
+//update iscompleted planned task
+app.put("/setplannedcompleted/:id", async (req, res) => {
+  try {
+    const results = await db.query(
+      "UPDATE plannedtask SET isCompleted = $1 where id = $2 returning *",
+      [req.body.task, req.params.id]
+    );
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        tasks: results.rows[0],
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 //add to myday from planned task automatically
 app.post("/addmydayfromplannedauto", async (req, res) => {
   try {
     const results = await db.query(
-      "INSERT INTO myday (userid, task) values ($1, $2) returning *",
-      [req.body.uid, req.body.task]
+      "INSERT INTO myday (userid, task) SELECT userid, task FROM plannedtask WHERE day = CURRENT_DATE;",
     );
     res.status(201).json({
       status: "success",
       data: {
         myday: results.rows[0],
       },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+// delete planned tasks added to my day automatically
+app.delete("/deleteplannedtaskauto", async (req, res) => {
+  try {
+    const results = db.query("DELETE FROM plannedtask where day = CURRENT_DATE", );
+    res.status(204).json({
+      status: "success",
     });
   } catch (err) {
     console.log(err);
@@ -433,6 +463,25 @@ app.get("/showupcomingsawmdates/:id", async (req, res) => {
     });
   }
   catch (err){
+    console.log(err);
+  }
+});
+
+//get all missed planned task
+app.get("/showplannedmissedtask/:id", async (req, res) => {
+  try{
+    const tasks = await db.query(
+      "select * from plannedtask where userID = $1 and isaddedtomyday = false order by id;", [req.params.id]
+    );
+
+    res.status(200).json({
+      status: "success",
+      results: tasks.rows.length,
+      data: {
+        tasks : tasks.rows,
+      },
+    });
+  } catch (err) {
     console.log(err);
   }
 });

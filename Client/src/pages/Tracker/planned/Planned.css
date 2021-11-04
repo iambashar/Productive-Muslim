@@ -42,3 +42,11 @@
     font-size: 20px;
     color: #e0d2b4;
 }
+
+#taskPlannedCompleteID{
+    text-decoration: line-through;
+    color: #043b3b8a;
+}
+#taskPlannedID{
+    text-decoration: none;
+}
