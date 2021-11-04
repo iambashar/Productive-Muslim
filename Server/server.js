@@ -308,6 +308,59 @@ app.get("/showplannedtask/:id", async (req, res) => {
   }
 });
 
+//edit myday task
+app.put("/editPlannedtask/:id", async (req, res) => {
+  try {
+    const results = await db.query(
+      "UPDATE plannedtask SET task = $1 where id = $2 returning *",
+      [req.body.task, req.params.id]
+    );
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        tasks: results.rows[0],
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//update planned date
+app.put("/editPlannedtaskdate/:id", async (req, res) => {
+  try {
+    const results = await db.query(
+      "UPDATE plannedtask SET day = $1 where id = $2 returning *",
+      [req.body.dateValue, req.params.id]
+    );
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        tasks: results.rows[0],
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//delete myday task
+app.delete("/deleteplannedtask/:id", async (req, res) => {
+  try {
+    const results = db.query("DELETE FROM plannedtask where id = $1", [
+      req.params.id,
+    ]);
+    res.status(204).json({
+      status: "success",
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
   console.log(`server is up and listening on port ${port}`);

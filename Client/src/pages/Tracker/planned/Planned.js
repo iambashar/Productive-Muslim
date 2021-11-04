@@ -18,6 +18,7 @@ import myday from '../../../Images/mydayplanned.svg'
 import editIcon from '../../../Images/editplanned.svg'
 import deleteIcon from '../../../Images/deleteplanned.svg'
 import newIcon from '../../../Images/newIcon.svg'
+import moment from 'moment';
 
 
 const Myday = () => {
@@ -41,6 +42,7 @@ const Myday = () => {
                     (result) => {
                         setDisplayPlannnedTask(result.data.tasks);
                     }));
+
 
     }, [count]);
 
@@ -83,6 +85,62 @@ const Myday = () => {
             ));
 
     }
+
+    const editTask = (divid) => {
+        setCount(count + 1);
+        document.getElementsByClassName("test")[divid].style.border = "4px solid #00908e";
+        document.getElementsByClassName("taskPlanned")[divid].contentEditable = true;
+        document.getElementsByClassName("taskPlanned")[divid].focus();
+        var range = document.createRange()
+        var sel = window.getSelection()
+        range.setStart(document.getElementsByClassName("taskPlanned")[divid], 1)
+        range.collapse(true)
+        sel.removeAllRanges()
+        sel.addRange(range)
+    }
+
+    const updateTask = (taskid, divid) => {
+        removeFocus(divid);
+        document.getElementsByClassName("test")[divid].style.border = "none"
+        document.getElementsByClassName("test")[divid].contentEditable = false;
+        var task = document.getElementsByClassName("taskPlanned")[divid].innerHTML;
+        var link = 'http://localhost:3000/editplannedtask/';
+        link = link.concat(taskid);
+        fetch(link, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ task })
+        });
+        setCount(count + 1);
+
+    }
+    const updateDate = (taskid, divid, date) => {
+        console.log(moment(date).format("yyyy-MM-DD"));
+        handleDateChange(date);
+        var dateValue = moment(date).format("yyyy-MM-DD");
+        var link = 'http://localhost:3000/editPlannedtaskdate/';
+        link = link.concat(taskid);
+        fetch(link, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ dateValue })
+        });
+        setCount(count + 1);
+    }
+
+    const deleteTask = (taskid) => {
+        var link = 'http://localhost:3000/deleteplannedtask/';
+        link = link.concat(taskid);
+        fetch(link, {
+            method: 'DELETE',
+        }).then(
+            setCount(count + 1));
+    }
+
     const removeFocus = (divid) => {
         document.getElementsByClassName("test")[divid].style.border = "none"
         document.getElementsByClassName("taskPlanned")[divid].contentEditable = false;
@@ -137,29 +195,31 @@ const Myday = () => {
                                 <h2 className="taskPlanned" contentEditable={false} onBlur={() => removeFocus(index)}
                                     onKeyPress={event => {
                                         if (event.key === "Enter") {
-                                            //updateTask(myday.id, index);
+                                            updateTask(planned.id, index);
                                         }
                                     }}>{planned.task}</h2>
                             </div>
                             <div className="datePicker">
                                 <MuiPickersUtilsProvider utils={DateFnsUtils} >
+                                    
                                     <KeyboardDatePicker
+                                        id="datePicker"
                                         clearable
-                                        value={selectedDate}
+                                        value={planned.day}
                                         placeholder="10/10/2018"
-                                        onChange={date => handleDateChange(date)}
+                                        onChange={date => updateDate(planned.id, index, date)}
                                         minDate={new Date()}
-                                        format="dd/MM/yyyy"
+                                        format="dd-MM-yyyy"
                                     />
                                 </MuiPickersUtilsProvider>
                                 <div className="taskIcons">
                                     <div className="taskIcon" >
                                         <img className="addtomydayicon" src={myday} alt="" width="20" />
                                     </div>
-                                    <div className="taskIcon">
+                                    <div className="taskIcon" onClick={() => editTask(index)}>
                                         <img src={editIcon} width="20"></img>
                                     </div>
-                                    <div className="taskIcon" >
+                                    <div className="taskIcon" onClick={() => deleteTask(planned.id)}>
                                         <img src={deleteIcon} width="20"></img>
                                     </div>
                                 </div>
