@@ -40,3 +40,11 @@ CREATE TABLE plannedtask(
     isAddedToMyday BOOLEAN DEFAULT false,
     day DATE DEFAULT CURRENT_DATE 
 );
+
+CREATE TABLE mysawm(
+        ID SERIAL NOT NULL PRIMARY KEY,
+        userID VARCHAR NOT NULL,
+        sawmdate DATE NOT NULL,
+        sawmreason VARCHAR NOT NULL,
+        day DATE DEFAULT CURRENT_DATE 
+);
