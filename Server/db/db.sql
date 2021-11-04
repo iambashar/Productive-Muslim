@@ -48,3 +48,21 @@ CREATE TABLE mysawm(
         sawmreason VARCHAR NOT NULL,
         day DATE DEFAULT CURRENT_DATE 
 );
+
+CREATE TABLE tasklist(
+    ID SERIAL NOT NULL PRIMARY KEY,
+    userID VARCHAR NOT NULL,
+    listname VARCHAR(100) 
+);
+
+CREATE TABLE tasklistcontent(
+    ID SERIAL NOT NULL PRIMARY KEY,
+    listID SERIAL NOT NULL,
+    task VARCHAR(100),
+    isCompleted BOOLEAN DEFAULT false,
+     CONSTRAINT fk_list
+      FOREIGN KEY(listID) 
+	  REFERENCES tasklist(ID)
+);
+
+

@@ -12,6 +12,7 @@
     margin-left: 10px;
     padding: 10px 0px 10px 0px;
     color: #00908e;
+    cursor: pointer;
 }
 .menuItem:hover{
     background-color: #044444;
@@ -26,6 +27,7 @@
 .menuText{
     display: inline-block;
     font-size: 20px;
+    cursor: pointer;
 }
 
 .activeNav{

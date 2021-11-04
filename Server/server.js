@@ -486,6 +486,46 @@ app.get("/showplannedmissedtask/:id", async (req, res) => {
   }
 });
 
+//create new task list
+app.post("/createnewlist", async (req, res) => {
+  try {
+    console.log(req.body);
+    const results = await db.query(
+      'INSERT INTO tasklist (userid, listname) values ($1, $2) returning *',
+      [req.body.uid, req.body.listname]
+    );
+    res.status(201).json({
+      status: "success",
+      data: {
+        myday: results.rows[0],
+      },
+    });
+    console.log(res.status);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+
+//get all task list
+app.get("/showtasklist/:id", async (req, res) => {
+  try{
+    const tasks = await db.query(
+      "select * from tasklist where userID = $1 order by id;", [req.params.id]
+    );
+
+    res.status(200).json({
+      status: "success",
+      results: tasks.rows.length,
+      data: {
+        tasks : tasks.rows,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
