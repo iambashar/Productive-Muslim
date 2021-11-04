@@ -18,6 +18,8 @@ import myday from '../../../Images/mydayplanned.svg'
 import editIcon from '../../../Images/editplanned.svg'
 import deleteIcon from '../../../Images/deleteplanned.svg'
 import newIcon from '../../../Images/newIcon.svg'
+import leftArrow from '../../../Images/leftArrow.svg'
+import downArrow from '../../../Images/downArrow.svg'
 import moment from 'moment';
 
 
@@ -26,6 +28,9 @@ const Myday = () => {
     const [count, setCount] = useState(1);
     const [uid, setUid] = useState();
     const [displayPlannedTask, setDisplayPlannnedTask] = useState([]);
+    const [modal, setModal] = useState(false);
+    const [showList, setShowList] = useState(false);
+    const [displayTaskList, setDisplayTaskList] = useState([]);
 
     useEffect(() => {
         fetch('http://localhost:3000/addmydayfromplannedauto', {
@@ -60,7 +65,15 @@ const Myday = () => {
         method: 'DELETE',
     }).then(
         setCount(count + 1));*/
-
+        link = "http://localhost:3000/showtasklist/";
+        link = link.concat(uid);
+        fetch(link)
+            .then(res => res.json()
+                .then(
+                    (result) => {
+                        setDisplayTaskList(result.data.tasks);
+                        console.log(displayTaskList);
+                    }));
 
     }, [count]);
 
@@ -217,6 +230,42 @@ const Myday = () => {
         document.getElementsByClassName("test")[divid].style.border = "none"
         document.getElementsByClassName("taskPlanned")[divid].contentEditable = false;
     }
+
+    const togglePopUp = () => {
+        if (modal) {
+            setModal(false);
+            document.getElementsByClassName("newListInput")[0].value = "";
+        }
+        else {
+            setModal(true);
+        }
+
+    }
+
+    const toggleShowList = () => {
+        if (showList) {
+            setShowList(false);
+        }
+        else {
+            setShowList(true);
+        }
+    }
+
+    const createNewTaskList = () => {
+
+        var listname = document.getElementsByClassName("newListInput")[0].value;
+        fetch('http://localhost:3000/createnewlist', {
+            method: 'POST',
+            body: JSON.stringify({ uid, listname }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+            .then(res => res.json().then(
+                setCount(count + 1)
+            ));
+        togglePopUp();
+    }
     return (
         <div>
             <div class="sideMenuDua">
@@ -237,15 +286,25 @@ const Myday = () => {
                         <div className="menuText">Planned</div>
                     </a>
                 </div>
-                <div class="menuItem">
-                    <a className="menuItem" href="../../pages/Tracker/listofuser">
-                        <div className="menuIcon">
-                            <img src={listIcon} width="25"></img>
-                        </div>
-                        <div className="menuText">Lists</div>
-                    </a>
+                <div class="menuItem" >
+                    <div className="menuIcon listNav" >
+                        <img src={listIcon} width="25"></img>
+                    </div>
+                    <div className="menuText" onClick={toggleShowList}>Lists</div>
+                    <div className="menuIcon listNav" onClick={toggleShowList}>
+                        <img src={showList ? downArrow : leftArrow} width="20"></img>
+                    </div>
                 </div>
-                <div class="menuItem addBtn">
+                {
+                    displayTaskList.map((list, index) =>
+                        <a href="../../pages/Tracker/listofuser" className={showList ? "anlistItemShow" : "anlistItemHide"}>
+                            <div class="listItem">
+                                <div>{list.listname}</div>
+                            </div>
+                        </a>
+                    )
+                }
+                <div class="menuItem addBtn" onClick={togglePopUp}>
                     <div className="menuIcon">
                         <img src={addIcon} width="25"></img>
                     </div>
@@ -257,6 +316,12 @@ const Myday = () => {
             </div>
 
             <div className="rightDiv">
+                <div className={modal ? "popUpShow" : "popUpHide"} id="popUp">
+                    <p className="popUpTitle">New List</p>
+                    <input type="text" className="newListInput" placeholder="Name of the list" />
+                    <button id="cancelbtn" className="popUpbtn" onClick={togglePopUp}>Cancel</button>
+                    <button id="createbtn" className="popUpbtn" onClick={createNewTaskList}>Create</button>
+                </div>
                 {
                     displayPlannedTask.map((planned, index) =>
                         <div className="test">
@@ -315,7 +380,7 @@ const Myday = () => {
 
 
             </div>
-        </div>
+        </div >
     );
 };
 

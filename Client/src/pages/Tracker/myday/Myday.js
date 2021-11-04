@@ -11,12 +11,16 @@ import editIcon from '../../../Images/editIcon.svg'
 import deleteIcon from '../../../Images/deleteIcon.svg'
 import recurringIcon from '../../../Images/recurring.svg'
 import recurringIconChecked from '../../../Images/recurringChecked.svg'
-import moment from 'moment';
+import leftArrow from '../../../Images/leftArrow.svg'
+import downArrow from '../../../Images/downArrow.svg'
 
 const Myday = () => {
     const [uid, setUid] = useState();
     const [displayMydayTask, setDisplayMydayTask] = useState([]);
     const [count, setCount] = useState(1);
+    const [modal, setModal] = useState(false);
+    const [showList, setShowList] = useState(false);
+    const [displayTaskList, setDisplayTaskList] = useState([]);
 
     useEffect(() => {
         countFive();
@@ -51,6 +55,15 @@ const Myday = () => {
         fetch(link3, {
             method: 'DELETE',
         });
+        link = "http://localhost:3000/showtasklist/";
+        link = link.concat(uid);
+        fetch(link)
+            .then(res => res.json()
+                .then(
+                    (result) => {
+                        setDisplayTaskList(result.data.tasks);
+                        console.log(displayTaskList);
+                    }));
 
     }, [count]);
 
@@ -209,6 +222,42 @@ const Myday = () => {
         }
     }
 
+    const togglePopUp = () => {
+        if (modal) {
+            setModal(false);
+            document.getElementsByClassName("newListInput")[0].value = "";
+        }
+        else {
+            setModal(true);
+        }
+
+    }
+
+    const toggleShowList = () => {
+        if (showList) {
+            setShowList(false);
+        }
+        else {
+            setShowList(true);
+        }
+    }
+
+    const createNewTaskList = () => {
+        var listname = document.getElementsByClassName("newListInput")[0].value;
+        fetch('http://localhost:3000/createnewlist', {
+            method: 'POST',
+            body: JSON.stringify({ uid, listname }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+            .then(res => res.json().then(
+                setCount(count + 1)
+            ));
+        togglePopUp();
+    }
+
+
 
 
 
@@ -232,15 +281,25 @@ const Myday = () => {
                         <div className="menuText">Planned</div>
                     </a>
                 </div>
-                <div class="menuItem">
-                    <a className="menuItem" href="../../pages/Tracker/listofuser">
-                        <div className="menuIcon">
+                <div class="menuItem" >    
+                        <div className="menuIcon listNav" >
                             <img src={listIcon} width="25"></img>
                         </div>
-                        <div className="menuText">Lists</div>
-                    </a>
+                        <div className="menuText" onClick={toggleShowList}>Lists</div>   
+                        <div className="menuIcon listNav" onClick={toggleShowList}>
+                            <img src={showList ? downArrow : leftArrow} width="20"></img>
+                        </div>   
                 </div>
-                <div class="menuItem addBtn">
+                {
+                    displayTaskList.map((list, index) =>
+                    <a href="../../pages/Tracker/listofuser" className={showList ? "anlistItemShow" : "anlistItemHide"}>
+                        <div class="listItem">
+                            <div>{list.listname}</div>
+                        </div>
+                        </a>
+                    )
+                }
+                <div class="menuItem addBtn" onClick={togglePopUp}>
                     <div className="menuIcon">
                         <img src={addIcon} width="25"></img>
                     </div>
@@ -251,6 +310,12 @@ const Myday = () => {
 
             </div>
             <div className="rightDiv">
+                <div className={modal ? "popUpShow" : "popUpHide"} id="popUp">
+                    <p className="popUpTitle">New List</p>
+                    <input type="text" className="newListInput" placeholder="Name of the list" />
+                    <button id="cancelbtn" className="popUpbtn" onClick={togglePopUp}>Cancel</button>
+                    <button id="createbtn" className="popUpbtn" onClick={createNewTaskList}>Create</button>
+                </div>
 
                 {
 
@@ -264,7 +329,7 @@ const Myday = () => {
                                     if (event.key === "Enter") {
                                         updateTask(myday.id, index);
                                     }
-                                }} id={myday.iscompleted ? "taskTextCompleteID" : "taskTextID"}>{myday.day}</h2>
+                                }} id={myday.iscompleted ? "taskTextCompleteID" : "taskTextID"}>{myday.task}</h2>
 
                             <div className="taskIcons">
                                 <div className="taskIcon" onClick={() => setRecurred(myday.id, index)}>
@@ -293,7 +358,7 @@ const Myday = () => {
                     </div>
                     <div className="menuText">New</div>
                 </div>
-                
+
 
 
 
