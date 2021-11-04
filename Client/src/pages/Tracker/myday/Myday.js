@@ -13,6 +13,9 @@ import recurringIcon from '../../../Images/recurring.svg'
 import recurringIconChecked from '../../../Images/recurringChecked.svg'
 import leftArrow from '../../../Images/leftArrow.svg'
 import downArrow from '../../../Images/downArrow.svg'
+import check from '../../../Images/check.svg'
+import circle from '../../../Images/circle.svg'
+
 
 const Myday = () => {
     const [uid, setUid] = useState();
@@ -190,8 +193,11 @@ const Myday = () => {
     }
 
     const setisCompleted = (taskid, divid) => {
+
         if (displayMydayTask[divid].iscompleted == false) {
             document.getElementsByClassName("taskText")[divid].style.setProperty("text-decoration", "line-through");
+            document.getElementsByClassName("taskText")[divid].style.setProperty("color", "#e0d2b459");
+            document.getElementsByClassName("check-input")[divid].src= check;
             var task = true;
             var link = 'http://localhost:3000/setcompleted/';
             link = link.concat(taskid);
@@ -205,8 +211,10 @@ const Myday = () => {
             });
             setCount(count + 1);
         }
-        else if (displayMydayTask[divid].iscompleted == true) {
+        else{
             document.getElementsByClassName("taskText")[divid].style.setProperty("text-decoration", "none");
+            document.getElementsByClassName("taskText")[divid].style.setProperty("color", "#e0d2b4");
+            document.getElementsByClassName("check-input")[divid].src= circle;
             var task = false;
             var link = 'http://localhost:3000/setcompleted/';
             link = link.concat(taskid);
@@ -322,7 +330,10 @@ const Myday = () => {
                     displayMydayTask.map((myday, index) =>
                         <div className="taskBox">
                             <div class="taskCheckBox">
-                                <input className="form-check-input" type="checkbox" value="" onClick={() => setisCompleted(myday.id, index)} checked={myday.iscompleted ? true : false} />
+                                <img className="check-input" onClick={() => setisCompleted(myday.id, index)} src ={myday.iscompleted? check:circle} width="20"/>
+                                {/* <FontAwesomeIcon className="check-input" onClick={() => setisCompleted(myday.id, index)} icon={myday.iscompleted? faCheckCircle:faCircle}/> */}
+                                {/* <i className="check-input" onClick={() => setisCompleted(myday.id, index)}>{myday.iscompleted? check:circle}</i> */}
+                                {/* <input className="form-check-input" type="checkbox" value="" onClick={() => setisCompleted(myday.id, index)} checked={myday.iscompleted ? true : false} /> */}
                             </div>
                             <h2 className="taskText" contentEditable={false} onBlur={() => removeFocus(index)}
                                 onKeyPress={event => {

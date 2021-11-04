@@ -20,17 +20,17 @@
   padding: 20px;
 }
 
-.forumbox {
-    background: rgba(0, 0, 0, 0.3);
-    width: 50%;
-    display: inline-block;
-    color: #e0d2b4;
-    border: 4px;
-    border-style: solid;
-    border-color: rgb(168, 223, 215);
-    font-family: "El Messiri";
-    padding: 20px;
-  }
+#forumbox2 {
+  background: rgba(0, 0, 0, 0.8);
+  width: 100%;
+  display: inline-block;
+  color: #e0d2b4;
+  border: 4px;
+  border-style: solid;
+  border-color: rgb(168, 223, 215);
+  font-family: "El Messiri";
+  padding: 20px;
+}
 
   .menuIcon{
     display: inline-block;
@@ -106,7 +106,13 @@ h3{
 .postdiv{
     display: flex;
     justify-content: center;
-    margin-top: 100px;
+    margin-top: 20px;
+}
+
+.createpostdiv{
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
 }
 
 #postbtn,
@@ -131,4 +137,38 @@ h3{
   background-color: #e0d2b4;
   color: #044444;
   border: #044444;
+}
+
+#postbox{
+  background: rgba(0, 0, 0, 0.3);
+  color: #e0d2b4;
+  border-color: rgb(168, 223, 215);
+  font-family: 'El Messiri';
+  width:50%;
+  height: fit-content;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+#postbox:hover{
+  background: rgba(0, 0, 0, 0.3);
+  color: #e0d2b4;
+  border-color: rgb(168, 223, 215);
+}
+#postbox:focus, #postbox:focus-visible, #postbox:checked {
+  background: rgba(0, 0, 0, 0.3);
+  color: #e0d2b4;
+  border-color: rgb(168, 223, 215);
+}
+
+#postdrop{
+  background-color: rgba(168, 223, 215,0.9);
+  font-family: 'El Messiri';
+  max-height:fit-content;
+  overflow:auto;
+  width: 50%;
+}
+
+.commentbox{
+  display: none;
 }

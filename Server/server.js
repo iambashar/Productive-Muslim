@@ -96,7 +96,7 @@ app.post("/updateuser/:id", async (req, res) => {
   try {
     const results = await db.query(
       "UPDATE users SET name=$2, email=$3, madhab=$4, country=$5, city=$6 where userID=$1 returning *",
-      [req.body.uid, req.body.name, req.body.email, req.body.madhab, req.body.country, req.body.city]
+      [req.params.id, req.body.name, req.body.email, req.body.madhab, req.body.country, req.body.city]
     );
 
     res.status(200).json({
@@ -121,7 +121,7 @@ app.get("/userprofile/:id", async (req, res) => {
       status: "success",
       results: users.rows.length,
       data: {
-        user : users.rows,
+        user : users.rows[0]
       },
     });
   } catch (err) {
@@ -526,6 +526,100 @@ app.get("/showtasklist/:id", async (req, res) => {
   }
 });
 
+//create new Post
+app.post("/createpost/:id", async (req, res) => {
+  try {
+    const results = await db.query(
+      'INSERT INTO forumpost (userid, username, title, description, upvote) values ($1, $2, $3, $4, $5) returning *',
+      [req.params.id, req.body.userName, req.body.title, req.body.description, req.body.upVote]
+    );
+    res.status(201).json({
+      status: "success",
+      data: {
+        forumpost: results.rows[0],
+      },
+    });
+
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//get all Posts
+app.get("/showposts", async (req, res) => {
+  try{
+    const results = await db.query(
+      "select * from forumpost;",
+    );
+
+    res.status(200).json({
+      status: "success",
+      results: results.rows.length,
+      data: {
+        posts : results.rows,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//add new Comment
+app.post("/createcomment", async (req, res) => {
+  try {
+    const results = await db.query(
+      'INSERT INTO comments (postid, userid, username, comment) values ($1, $2, $3, $4) returning *',
+      [req.body.postID, req.body.uid, req.body.userName, req.body.comment]
+    );
+    res.status(201).json({
+      status: "success",
+      data: {
+        comments: results.rows[0],
+      },
+    });
+
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//get all Comments
+app.get("/showcomments", async (req, res) => {
+  try{
+    const results = await db.query(
+      "select * from comments;",
+    );
+
+    res.status(200).json({
+      status: "success",
+      results: results.rows.length,
+      data: {
+        comments : results.rows,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//update upvote
+app.put("/updateupvote/:vote", async (req, res) => {
+  try {
+    const results = await db.query(
+      "UPDATE forumpost SET upvote=$1 where postid=$2 returning *",
+      [req.params.vote, req.body.postid]
+    );
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        posts: results.rows,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => {

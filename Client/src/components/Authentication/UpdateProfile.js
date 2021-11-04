@@ -10,7 +10,11 @@ export default function UpdateProfile() {
   const countryRef = useRef()
   const cityRef = useRef()
   const { currentUser } = useAuth()
-  const [user, setUser] = useState([])
+  const [user, setUser] = useState()
+  const [name, setName] = useState()
+  const [madhab, setmadhab] = useState()
+  const [country, setcountry] = useState()
+  const [city, setcity] = useState()
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const history = useHistory()
@@ -22,6 +26,10 @@ export default function UpdateProfile() {
       .then(
         (result) => {
           setUser(result.data.user);
+          setName(result.data.user.name);
+          setmadhab(result.data.user.madhab);
+          setcountry(result.data.user.country);
+          setcity(result.data.user.city);
         }
       );
   }, []);
@@ -33,8 +41,8 @@ export default function UpdateProfile() {
     setLoading(true)
     setError("")
 
-    if (user.name != nameRef || user.madhab != madhabRef ||
-      user.country != countryRef || user.city != cityRef) {
+    if (user.name != nameRef.current.value || user.madhab != madhabRef.current.value ||
+      user.country != countryRef.current.value || user.city != cityRef.current.value) {
       var uid = currentUser.uid;
       var name = nameRef.current.value;
       var email = currentUser.email;
@@ -44,7 +52,7 @@ export default function UpdateProfile() {
       promises.push(
         fetch('http://127.0.0.1:3000/updateuser/'.concat(uid), {
           method: 'POST',
-          body: JSON.stringify({ uid, name, email, madhab, country, city }),
+          body: JSON.stringify({ name, email, madhab, country, city }),
           headers: {
             "Content-type": "application/json; charset=UTF-8"
           }
@@ -71,65 +79,63 @@ export default function UpdateProfile() {
   return (
     <>
       {
-        user.map((user) =>
-          <Card className="emotionBox2">
-            <Card.Body>
-              <h1 className="text-center mb-4">Update Profile</h1>
-              {error && <Alert variant="danger">{error}</Alert>}
-              <Form onSubmit={handleSubmit}>
-                <Form.Group id="name">
-                  <Form.Label>Name</Form.Label>
-                  <Form.Control
-                    type="text"
-                    ref={nameRef}
-                    required
-                    defaultValue={user.name}
-                  />
-                </Form.Group>
-                <Form.Group id="name">
-                  <Form.Label>Madhab</Form.Label>
-                  <Dropdown>
-                    <Dropdown.Toggle className="searchButton2" id="madhabbox" variant="secondary">
-                      {user.madhab}
-                    </Dropdown.Toggle>
+        <Card className="emotionBox2">
+          <Card.Body>
+            <h1 className="text-center mb-4">Update Profile</h1>
+            {error && <Alert variant="danger">{error}</Alert>}
+            <Form onSubmit={handleSubmit}>
+              <Form.Group id="name">
+                <Form.Label>Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  ref={nameRef}
+                  required
+                  defaultValue={name}
+                />
+              </Form.Group>
+              <Form.Group id="name">
+                <Form.Label>Madhab</Form.Label>
+                <Dropdown>
+                  <Dropdown.Toggle className="searchButton2" id="madhabbox" variant="secondary">
+                    {madhab}
+                  </Dropdown.Toggle>
 
-                    <Dropdown.Menu className="searchMenu" >
-                      <Dropdown.Item onClick={setMadhabValue} id="searchItem">Hanafi</Dropdown.Item>
-                      <Dropdown.Item onClick={setMadhabValue} id="searchItem">Maliki</Dropdown.Item>
-                      <Dropdown.Item onClick={setMadhabValue} id="searchItem">Shafi</Dropdown.Item>
-                      <Dropdown.Item onClick={setMadhabValue} id="searchItem">Hanbali</Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
+                  <Dropdown.Menu className="searchMenu" >
+                    <Dropdown.Item onClick={setMadhabValue} id="searchItem">Hanafi</Dropdown.Item>
+                    <Dropdown.Item onClick={setMadhabValue} id="searchItem">Maliki</Dropdown.Item>
+                    <Dropdown.Item onClick={setMadhabValue} id="searchItem">Shafi</Dropdown.Item>
+                    <Dropdown.Item onClick={setMadhabValue} id="searchItem">Hanbali</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
 
-                </Form.Group>
-                <Form.Group id="name">
-                  <Form.Label>Country</Form.Label>
-                  <Form.Control
-                    type="text"
-                    ref={countryRef}
-                    required
-                    defaultValue={user.country}
-                  />
-                </Form.Group>
-                <Form.Group id="name">
-                  <Form.Label>City</Form.Label>
-                  <Form.Control
-                    type="text"
-                    ref={cityRef}
-                    required
-                    defaultValue={user.city}
-                  />
-                </Form.Group>
-                <Button disabled={loading} className="w-100" id="btn" type="submit">
-                  Update
-                </Button>
-              </Form>
-              <div className="w-100 text-center mt-2">
-                <Link to="/">Cancel</Link>
-              </div>
-            </Card.Body>
-          </Card>
-        )
+              </Form.Group>
+              <Form.Group id="name">
+                <Form.Label>Country</Form.Label>
+                <Form.Control
+                  type="text"
+                  ref={countryRef}
+                  required
+                  defaultValue={country}
+                />
+              </Form.Group>
+              <Form.Group id="name">
+                <Form.Label>City</Form.Label>
+                <Form.Control
+                  type="text"
+                  ref={cityRef}
+                  required
+                  defaultValue={city}
+                />
+              </Form.Group>
+              <Button disabled={loading} className="w-100" id="btn" type="submit">
+                Update
+              </Button>
+            </Form>
+            <div className="w-100 text-center mt-2">
+              <Link to="/">Cancel</Link>
+            </div>
+          </Card.Body>
+        </Card>
       };
     </>
   )

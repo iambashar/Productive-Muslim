@@ -17,7 +17,7 @@ const Emotion = () => {
                 (result) => {
                     setDisplayDuaInfos(result.data.duas);
                     return fetch("http://127.0.0.1:3000/emotions").then(
-                    console.log(result.data.duas));
+                        console.log(result.data.duas));
                 })
             .then(res => res.json())
             .then(
@@ -89,18 +89,19 @@ const Emotion = () => {
                 </div>
                 <div >
                     {
-                        displayDuaInfos.map(dua => <div className="emotionBox">
-                            <h1>{dua.title}</h1>
-                            <h2 className="arabic">{dua.arabic}</h2>
-                            <h2 className="arabic">{dua.pronunciation}</h2>
-                            <h2 className="english">{dua.translation}</h2>
-                            <div className="likes">
-                                <div className="menuIcon">
-                                    <img src={likedIcon} width="20"></img>
+                        displayDuaInfos.map(dua =>
+                            <div className="emotionBox">
+                                <h1>{dua.title}</h1>
+                                <h2 className="arabic">{dua.arabic}</h2>
+                                <h2 className="arabic">{dua.pronunciation}</h2>
+                                <h2 className="english">{dua.translation}</h2>
+                                <div className="likes">
+                                    <div className="menuIcon">
+                                        <img src={likedIcon} width="20"></img>
+                                    </div>
+                                    1200
                                 </div>
-                                1200
                             </div>
-                        </div>
                         )
                     }
 

@@ -22,7 +22,6 @@ import leftArrow from '../../../Images/leftArrow.svg'
 import downArrow from '../../../Images/downArrow.svg'
 import moment from 'moment';
 
-
 const Myday = () => {
     const [selectedDate, handleDateChange] = useState(new Date());
     const [count, setCount] = useState(1);

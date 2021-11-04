@@ -60,9 +60,25 @@ CREATE TABLE tasklistcontent(
     listID SERIAL NOT NULL,
     task VARCHAR(100),
     isCompleted BOOLEAN DEFAULT false,
-     CONSTRAINT fk_list
-      FOREIGN KEY(listID) 
-	  REFERENCES tasklist(ID)
+        CONSTRAINT fk_list FOREIGN KEY(listID) REFERENCES tasklist(ID)
 );
 
+CREATE TABLE forumpost(
+    postID SERIAL NOT NULL PRIMARY KEY,
+    userID VARCHAR NOT NULL,
+    userName VARCHAR,
+    postedDate DATE DEFAULT CURRENT_DATE,
+    title VARCHAR NOT NULL,
+    description VARCHAR NOT NULL,
+    upVote INT
+);
 
+CREATE TABLE comments(
+    commentID SERIAL NOT NULL PRIMARY KEY,
+    postID SERIAL NOT NULL,
+    userID VARCHAR NOT NULL,
+    userName VARCHAR NOT NULL,
+    day DATE DEFAULT CURRENT_DATE,
+    comment VARCHAR NOT NULL,
+        CONSTRAINT fk_comment FOREIGN KEY(postID) REFERENCES forumpost(postID)
+);

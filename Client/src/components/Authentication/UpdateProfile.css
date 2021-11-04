@@ -24,6 +24,11 @@
   color: #e0d2b4;
 }
 
+.form-control:disabled, .form-control[readonly] {
+  background: rgba(0, 0, 0, 0.3);
+  color: #e0d2b4;
+}
+
 .form-control:focus {
   background: rgba(0, 0, 0, 0.3);
   color: #e0d2b4;

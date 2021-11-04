@@ -50,7 +50,6 @@ const Myday = () => {
         else {
             setModal(true);
         }
-
     }
 
     const toggleShowList = () => {
