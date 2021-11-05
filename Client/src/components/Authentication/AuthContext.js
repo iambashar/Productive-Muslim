@@ -11,8 +11,13 @@ export function useAuth() {
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
+  const [selectedlistID, setSelectedListID] = useState();
 
   const googleProvider = new firebase.auth.GoogleAuthProvider();
+
+function setListID(ID) {
+  return setSelectedListID(ID);
+}
 
 function signInWithGoogle() {
   
@@ -60,7 +65,9 @@ const value = {
   resetPassword,
   updateEmail,
   updatePassword,
-  signInWithGoogle
+  signInWithGoogle,
+  selectedlistID,
+  setListID
 }
 
 return (

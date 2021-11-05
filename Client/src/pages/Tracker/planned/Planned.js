@@ -21,6 +21,10 @@ import newIcon from '../../../Images/newIcon.svg'
 import leftArrow from '../../../Images/leftArrow.svg'
 import downArrow from '../../../Images/downArrow.svg'
 import moment from 'moment';
+import check from '../../../Images/checkPlanned.svg'
+import circle from '../../../Images/circlePlanned.svg'
+import { useAuth } from "../../../components/Authentication/AuthContext";
+import { useHistory } from "react-router-dom";
 
 const Myday = () => {
     const [selectedDate, handleDateChange] = useState(new Date());
@@ -30,6 +34,8 @@ const Myday = () => {
     const [modal, setModal] = useState(false);
     const [showList, setShowList] = useState(false);
     const [displayTaskList, setDisplayTaskList] = useState([]);
+    const {setListID, selectedlistID} = useAuth();
+    const history = useHistory();
 
     useEffect(() => {
         fetch('http://localhost:3000/addmydayfromplannedauto', {
@@ -195,6 +201,8 @@ const Myday = () => {
     const setisCompleted = (taskid, divid) => {
         if (displayPlannedTask[divid].iscompleted == false) {
             document.getElementsByClassName("taskPlanned")[divid].style.setProperty("text-decoration", "line-through");
+            document.getElementsByClassName("taskPlanned")[divid].style.setProperty("color", "#043b3b8a");
+            document.getElementsByClassName("check-input")[divid].src= check;
             var task = true;
             var link = 'http://localhost:3000/setplannedcompleted/';
             link = link.concat(taskid);
@@ -210,6 +218,8 @@ const Myday = () => {
         }
         else if (displayPlannedTask[divid].iscompleted == true) {
             document.getElementsByClassName("taskPlanned")[divid].style.setProperty("text-decoration", "none");
+            document.getElementsByClassName("taskPlanned")[divid].style.setProperty("color", "#043b3b");
+            document.getElementsByClassName("check-input")[divid].src= circle;
             var task = false;
             var link = 'http://localhost:3000/setplannedcompleted/';
             link = link.concat(taskid);
@@ -265,6 +275,14 @@ const Myday = () => {
             ));
         togglePopUp();
     }
+
+    async function passListID(ID) {
+        await setListID(ID);
+        history.push("/pages/Tracker/listofuser");
+        
+    }
+
+
     return (
         <div>
             <div class="sideMenuDua">
@@ -296,7 +314,7 @@ const Myday = () => {
                 </div>
                 {
                     displayTaskList.map((list, index) =>
-                        <a href="../../pages/Tracker/listofuser" className={showList ? "anlistItemShow" : "anlistItemHide"}>
+                        <a onClick={() => passListID(list.id)} className={showList ? "anlistItemShow" : "anlistItemHide"}>
                             <div class="listItem">
                                 <div>{list.listname}</div>
                             </div>
@@ -326,8 +344,8 @@ const Myday = () => {
                         <div className="test">
                             <div>
                                 <div class="taskCheckBox">
-                                    <input className="form-check-input" type="checkbox" value="" onClick={() => setisCompleted(planned.id, index)} id="flexCheckDefault" checked={planned.iscompleted ? true : false} />
-                                </div>
+                                <img className="check-input" onClick={() => setisCompleted(planned.id, index)} src ={planned.iscompleted? check:circle} width="20"/>
+                               </div>
                                 <h2 className="taskPlanned" contentEditable={false} onBlur={() => removeFocus(index)}
                                     onKeyPress={event => {
                                         if (event.key === "Enter") {
