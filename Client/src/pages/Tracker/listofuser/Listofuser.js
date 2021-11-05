@@ -13,7 +13,8 @@ import check from '../../../Images/check.svg'
 import circle from '../../../Images/circle.svg'
 import myday from '../../../Images/mydayActive.svg'
 import { useAuth } from '../../../components/Authentication/AuthContext';
-
+import { useHistory } from "react-router-dom";
+import { Button } from 'react-bootstrap';
 
 const Myday = () => {
     const [uid, setUid] = useState();
@@ -21,8 +22,9 @@ const Myday = () => {
     const [showList, setShowList] = useState(false);
     const [displayTaskList, setDisplayTaskList] = useState([]);
     const [count, setCount] = useState(1);
-    const { selectedlistID } = useAuth();
     const [displayListContent, setDisplayListContent] = useState([]);
+    const {setListID, selectedlistID} = useAuth();
+    const history = useHistory();
 
     useEffect(() => {
         countFive();
@@ -45,7 +47,9 @@ const Myday = () => {
                     }));
         console.log(selectedlistID);
         link = "http://localhost:3000/showlistcontent/";
-        link = link.concat(selectedlistID);
+        var id = selectedlistID;
+        link = link.concat(id);
+        console.log(link);
         fetch(link)
             .then(res => res.json()
                 .then(
@@ -162,6 +166,91 @@ const Myday = () => {
         }
     }
 
+    const addToMyday = (taskid, divid) => {
+        var task = document.getElementsByClassName("taskText")[divid].innerHTML;
+        fetch('http://localhost:3000/addmydayfromlist', {
+            method: 'POST',
+            body: JSON.stringify({ uid, task }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+            .then(res => res.json().then(
+                setCount(count + 1)
+            ));
+        var link = 'http://localhost:3000/deletelistcontent/';
+        link = link.concat(taskid);
+        fetch(link, {
+            method: 'DELETE',
+        }).then(
+            setCount(count + 1));
+
+    }
+    const deleteTask = (taskid) => {
+        var link = 'http://localhost:3000/deletelistcontent/';
+        link = link.concat(taskid);
+        fetch(link, {
+            method: 'DELETE',
+        }).then(
+            setCount(count + 1));
+    }
+
+    const editTask = (divid) => {
+        setCount(count + 1);
+        document.getElementsByClassName("taskBox")[divid].style.border = "1px solid #e0d2b4";
+        document.getElementsByClassName("taskText")[divid].contentEditable = true;
+        document.getElementsByClassName("taskText")[divid].focus();
+        var range = document.createRange()
+        var sel = window.getSelection()
+        range.setStart(document.getElementsByClassName("taskText")[divid], 1)
+        range.collapse(true)
+        sel.removeAllRanges()
+        sel.addRange(range)
+
+    }
+
+    const updateTask = (taskid, divid) => {
+        document.getElementsByClassName("taskBox")[divid].style.border = "none"
+        document.getElementsByClassName("taskText")[divid].contentEditable = false;
+        var task = document.getElementsByClassName("taskText")[divid].innerHTML;
+        var link = 'http://localhost:3000/editlistcontent/';
+        link = link.concat(taskid);
+        fetch(link, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ task })
+        });
+        setCount(count + 1);
+
+    }
+
+    const deleteTaskList = () => {
+        var link = 'http://localhost:3000/deletelistcontentagainstlist/';
+        link = link.concat(selectedlistID);
+        fetch(link, {
+            method: 'DELETE',
+        })
+        link = 'http://localhost:3000/deletelist/';
+        link = link.concat(selectedlistID);
+        fetch(link, {
+            method: 'DELETE',
+        }).then(
+            setCount(count + 1));
+        history.push('/pages/Tracker/myday')
+    }
+
+    async function passListID(ID) {
+        await setListID(ID);
+        setCount(count + 1);
+        
+    }
+
+    const removeFocus = (divid) => {
+        document.getElementsByClassName("taskBox")[divid].style.border = "none"
+        document.getElementsByClassName("taskText")[divid].contentEditable = false;
+    }
     return (
         <div>
             <div class="sideMenuDua">
@@ -193,8 +282,8 @@ const Myday = () => {
                 </div>
                 {
                     displayTaskList.map((list, index) =>
-                        <a href="#" className={showList ? "anlistItemShow" : "anlistItemHide"}>
-                            <div class="listItem">
+                        <a onClick={() => passListID(list.id)} className={showList ? "anlistItemShow" : "anlistItemHide"}>
+                            <div className={list.id == selectedlistID ? "listItemActive" : "listItem"}>
                                 <div>{list.listname}</div>
                             </div>
                         </a>
@@ -218,8 +307,9 @@ const Myday = () => {
                     <button id="cancelbtn" className="popUpbtn" onClick={togglePopUp}>Cancel</button>
                     <button id="createbtn" className="popUpbtn" onClick={createNewTaskList}>Create</button>
                 </div>
+                
                 <div className="listDeleteIcon" >
-                    <img src={deleteIcon} width="25"></img>
+                    <button id="deletelistbtn" onClick={deleteTaskList}>Delete List</button>
                 </div>
                 {
                     displayListContent.map((content, index) =>
@@ -227,15 +317,19 @@ const Myday = () => {
                             <div class="taskCheckBox">
                                 <img className="check-input" width="20" onClick={() => setisCompleted(content.id, index)} src ={content.iscompleted? check:circle}/>
                             </div>
-                            <h2 className="taskText">{content.task}</h2>
+                            <h2 className="taskText"  contentEditable={false} onBlur={() => removeFocus(index)} onKeyPress={event => {
+                                    if (event.key === "Enter") {
+                                        updateTask(content.id, index);
+                                    }
+                                }} id={content.iscompleted ? "taskTextCompleteID" : "taskTextID"}>{content.task}</h2>
                             <div className="taskIcons">
                                     <div className="taskIcon">
-                                        <img className="addtomydayicon" src={myday} alt="" width="20" />
+                                        <img className="addtomydayicon" src={myday} alt="" width="20"  onClick={() => addToMyday(content.id, index)}/>
                                     </div>
                                     <div className="taskIcon">
-                                        <img src={editIcon} width="20"></img>
+                                        <img src={editIcon} width="20" onClick={() => editTask(index)}></img>
                                     </div>
-                                    <div className="taskIcon">
+                                    <div className="taskIcon" onClick={() => deleteTask(content.id)}>
                                         <img src={deleteIcon} width="20"></img>
                                     </div>
                                 </div>
