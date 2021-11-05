@@ -526,6 +526,66 @@ app.get("/showtasklist/:id", async (req, res) => {
   }
 });
 
+//add task to list
+app.post("/addtasktolist", async (req, res) => {
+  
+
+  try {
+    console.log(req.body);
+    const results = await db.query(
+      "INSERT INTO tasklistcontent (listid, task, isCompleted) values ($1, $2, $3) returning *",
+      [req.body.listID, req.body.task, req.body.isCompleted]
+    );
+    res.status(201).json({
+      status: "success",
+      data: {
+        myday: results.rows[0],
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//show list content
+app.get("/showlistcontent/:id", async (req, res) => {
+  try{
+    const tasks = await db.query(
+      "select * from tasklistcontent where listID = $1 order by id;", [req.params.id]
+    );
+
+    res.status(200).json({
+      status: "success",
+      results: tasks.rows.length,
+      data: {
+        tasks : tasks.rows,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//set completed list content
+//set completed task
+app.put("/setcompletedcontent/:id", async (req, res) => {
+  try {
+    const results = await db.query(
+      "UPDATE tasklistcontent SET isCompleted = $1 where id = $2 returning *",
+      [req.body.task, req.params.id]
+    );
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        tasks: results.rows[0],
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 //create new Post
 app.post("/createpost/:id", async (req, res) => {
   try {

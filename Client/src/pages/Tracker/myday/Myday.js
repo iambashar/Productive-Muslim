@@ -15,6 +15,8 @@ import leftArrow from '../../../Images/leftArrow.svg'
 import downArrow from '../../../Images/downArrow.svg'
 import check from '../../../Images/check.svg'
 import circle from '../../../Images/circle.svg'
+import { useAuth } from "../../../components/Authentication/AuthContext";
+import { useHistory } from "react-router-dom";
 
 
 const Myday = () => {
@@ -24,6 +26,9 @@ const Myday = () => {
     const [modal, setModal] = useState(false);
     const [showList, setShowList] = useState(false);
     const [displayTaskList, setDisplayTaskList] = useState([]);
+    const {setListID, selectedlistID} = useAuth();
+    const history = useHistory();
+    
 
     useEffect(() => {
         countFive();
@@ -197,7 +202,7 @@ const Myday = () => {
         if (displayMydayTask[divid].iscompleted == false) {
             document.getElementsByClassName("taskText")[divid].style.setProperty("text-decoration", "line-through");
             document.getElementsByClassName("taskText")[divid].style.setProperty("color", "#e0d2b459");
-            document.getElementsByClassName("check-input")[divid].src= check;
+            document.getElementsByClassName("check-input")[divid].src = check;
             var task = true;
             var link = 'http://localhost:3000/setcompleted/';
             link = link.concat(taskid);
@@ -211,10 +216,10 @@ const Myday = () => {
             });
             setCount(count + 1);
         }
-        else{
+        else {
             document.getElementsByClassName("taskText")[divid].style.setProperty("text-decoration", "none");
             document.getElementsByClassName("taskText")[divid].style.setProperty("color", "#e0d2b4");
-            document.getElementsByClassName("check-input")[divid].src= circle;
+            document.getElementsByClassName("check-input")[divid].src = circle;
             var task = false;
             var link = 'http://localhost:3000/setcompleted/';
             link = link.concat(taskid);
@@ -265,6 +270,11 @@ const Myday = () => {
         togglePopUp();
     }
 
+    async function passListID(ID) {
+        await setListID(ID);
+        history.push("/pages/Tracker/listofuser");
+        
+    }
 
 
 
@@ -300,12 +310,12 @@ const Myday = () => {
                 </div>
                 {
                     displayTaskList.map((list, index) =>
-                    <a href="../../pages/Tracker/listofuser" className={showList ? "anlistItemShow" : "anlistItemHide"}>
-                        <div class="listItem">
-                            <div>{list.listname}</div>
-                        </div>
-                        </a>
-                    )
+                    <a onClick={() => passListID(list.id)} className={showList ? "anlistItemShow" : "anlistItemHide"}>
+                    <div class="listItem">
+                        <div>{list.listname}</div>
+                    </div>
+                </a>
+            )
                 }
                 <div class="menuItem addBtn" onClick={togglePopUp}>
                     <div className="menuIcon">
@@ -331,10 +341,7 @@ const Myday = () => {
                         <div className="taskBox">
                             <div class="taskCheckBox">
                                 <img className="check-input" onClick={() => setisCompleted(myday.id, index)} src ={myday.iscompleted? check:circle} width="20"/>
-                                {/* <FontAwesomeIcon className="check-input" onClick={() => setisCompleted(myday.id, index)} icon={myday.iscompleted? faCheckCircle:faCircle}/> */}
-                                {/* <i className="check-input" onClick={() => setisCompleted(myday.id, index)}>{myday.iscompleted? check:circle}</i> */}
-                                {/* <input className="form-check-input" type="checkbox" value="" onClick={() => setisCompleted(myday.id, index)} checked={myday.iscompleted ? true : false} /> */}
-                            </div>
+                                </div>
                             <h2 className="taskText" contentEditable={false} onBlur={() => removeFocus(index)}
                                 onKeyPress={event => {
                                     if (event.key === "Enter") {
@@ -374,7 +381,7 @@ const Myday = () => {
 
 
             </div>
-        </div>
+        </div >
 
     );
 };

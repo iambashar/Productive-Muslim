@@ -6,6 +6,14 @@ import addIcon from '../../../Images/addIcon.svg'
 import leftArrow from '../../../Images/leftArrow.svg'
 import downArrow from '../../../Images/downArrow.svg'
 import firebase from 'firebase/compat';
+import newIcon from '../../../Images/newIcon.svg'
+import editIcon from '../../../Images/editIcon.svg'
+import deleteIcon from '../../../Images/deleteIcon.svg'
+import check from '../../../Images/check.svg'
+import circle from '../../../Images/circle.svg'
+import myday from '../../../Images/mydayActive.svg'
+import { useAuth } from '../../../components/Authentication/AuthContext';
+
 
 const Myday = () => {
     const [uid, setUid] = useState();
@@ -13,6 +21,8 @@ const Myday = () => {
     const [showList, setShowList] = useState(false);
     const [displayTaskList, setDisplayTaskList] = useState([]);
     const [count, setCount] = useState(1);
+    const { selectedlistID } = useAuth();
+    const [displayListContent, setDisplayListContent] = useState([]);
 
     useEffect(() => {
         countFive();
@@ -32,14 +42,42 @@ const Myday = () => {
                 .then(
                     (result) => {
                         setDisplayTaskList(result.data.tasks);
-                        console.log(displayTaskList);
                     }));
+        console.log(selectedlistID);
+        link = "http://localhost:3000/showlistcontent/";
+        link = link.concat(selectedlistID);
+        fetch(link)
+            .then(res => res.json()
+                .then(
+                    (result) => {
+                        setDisplayListContent(result.data.tasks);
+                    }));
+
     }, [count]);
 
     const countFive = () => {
         for (var i = 0; i <= 5; i++) {
             setCount(count + 1);
         }
+    }
+
+    const addTask = () => {
+        document.getElementById("inputMydayTask").className = "inputBoxHide";
+        var task = document.getElementById("taskInput").value;
+        var listID = selectedlistID;
+        var isCompleted = false;
+        fetch('http://localhost:3000/addtasktolist', {
+            method: 'POST',
+            body: JSON.stringify({ listID, task, isCompleted }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+            .then(res => res.json().then(
+                setCount(count + 1)
+            ));
+
+
     }
 
     const togglePopUp = () => {
@@ -75,6 +113,55 @@ const Myday = () => {
             ));
         togglePopUp();
     }
+
+    const createTask = () => {
+        if (document.getElementById("inputMydayTask").className === "inputBoxShow") {
+            document.getElementById("inputMydayTask").className = "inputBoxHide";
+        }
+        else {
+            document.getElementById("taskInput").value = "";
+            document.getElementById("inputMydayTask").className = "inputBoxShow";
+            document.getElementById("taskInput").focus();
+        }
+
+    };
+
+    const setisCompleted = (taskid, divid) => {
+
+        if (displayListContent[divid].iscompleted == false) {
+            document.getElementsByClassName("taskText")[divid].style.setProperty("text-decoration", "line-through");
+            document.getElementsByClassName("taskText")[divid].style.setProperty("color", "#e0d2b459");
+            document.getElementsByClassName("check-input")[divid].src = check;
+            var task = true;
+            var link = 'http://localhost:3000/setcompletedcontent/';
+            link = link.concat(taskid);
+            fetch(link, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ task })
+            });
+            setCount(count + 1);
+        }
+        else {
+            document.getElementsByClassName("taskText")[divid].style.setProperty("text-decoration", "none");
+            document.getElementsByClassName("taskText")[divid].style.setProperty("color", "#e0d2b4");
+            document.getElementsByClassName("check-input")[divid].src = circle;
+            var task = false;
+            var link = 'http://localhost:3000/setcompletedcontent/';
+            link = link.concat(taskid);
+            fetch(link, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ task })
+            });
+            setCount(count + 1);
+        }
+    }
+
     return (
         <div>
             <div class="sideMenuDua">
@@ -106,7 +193,7 @@ const Myday = () => {
                 </div>
                 {
                     displayTaskList.map((list, index) =>
-                        <a href="../../pages/Tracker/listofuser" className={showList ? "anlistItemShow" : "anlistItemHide"}>
+                        <a href="#" className={showList ? "anlistItemShow" : "anlistItemHide"}>
                             <div class="listItem">
                                 <div>{list.listname}</div>
                             </div>
@@ -131,26 +218,46 @@ const Myday = () => {
                     <button id="cancelbtn" className="popUpbtn" onClick={togglePopUp}>Cancel</button>
                     <button id="createbtn" className="popUpbtn" onClick={createNewTaskList}>Create</button>
                 </div>
-                <div className="taskBox">
-                    <div class="taskCheckBox">
-                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                <div className="listDeleteIcon" >
+                    <img src={deleteIcon} width="25"></img>
+                </div>
+                {
+                    displayListContent.map((content, index) =>
+                        <div className="taskBox">
+                            <div class="taskCheckBox">
+                                <img className="check-input" width="20" onClick={() => setisCompleted(content.id, index)} src ={content.iscompleted? check:circle}/>
+                            </div>
+                            <h2 className="taskText">{content.task}</h2>
+                            <div className="taskIcons">
+                                    <div className="taskIcon">
+                                        <img className="addtomydayicon" src={myday} alt="" width="20" />
+                                    </div>
+                                    <div className="taskIcon">
+                                        <img src={editIcon} width="20"></img>
+                                    </div>
+                                    <div className="taskIcon">
+                                        <img src={deleteIcon} width="20"></img>
+                                    </div>
+                                </div>
+                        </div>
+                    )
+                }
+
+                <div className="inputBoxHide" id="inputMydayTask" onKeyPress={event => {
+                    if (event.key === "Enter") {
+                        addTask();
+                    }
+                }}>
+                    <input type="text" id="taskInput" name="fname" autoComplete="off"></input>
+                </div>
+                <div class="newBtn" onClick={createTask}>
+                    <div className="newIcon">
+                        <img src={newIcon} width="20"></img>
                     </div>
-                    <h2 className="taskText">Reading 10 pages of Quran</h2>
+                    <div className="menuText">New</div>
                 </div>
 
-                <div className="taskBox">
-                    <div class="taskCheckBox">
-                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                    </div>
-                    <h2 className="taskText">Listening Khutbah</h2>
-                </div>
 
-                <div className="taskBox">
-                    <div class="taskCheckBox">
-                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                    </div>
-                    <h2 className="taskText">Practicing Calligraphy</h2>
-                </div>
 
             </div>
         </div>
