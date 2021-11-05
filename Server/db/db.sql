@@ -70,7 +70,8 @@ CREATE TABLE forumpost(
     postedDate DATE DEFAULT CURRENT_DATE,
     title VARCHAR NOT NULL,
     description VARCHAR NOT NULL,
-    upVote INT
+    upVote INT NOT NULL,
+    commentCount INT NOT NULL
 );
 
 CREATE TABLE comments(
@@ -81,4 +82,11 @@ CREATE TABLE comments(
     day DATE DEFAULT CURRENT_DATE,
     comment VARCHAR NOT NULL,
         CONSTRAINT fk_comment FOREIGN KEY(postID) REFERENCES forumpost(postID)
+);
+
+CREATE TABLE upvotes(
+    upVoteID SERIAL NOT NULL PRIMARY KEY,
+    postID SERIAL NOT NULL,
+    userID VARCHAR NOT NULL,
+    day DATE DEFAULT CURRENT_DATE
 );
