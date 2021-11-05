@@ -169,6 +169,40 @@ h3{
   width: 50%;
 }
 
+#commentbtn{
+  background: rgba(0, 0, 0, 0.3);
+  color: #e0d2b4;
+  border-color: rgb(168, 223, 215);
+  font-family: 'El Messiri';
+  width: fit-content;
+  height: fit-content;
+  font-size: 15px;
+  display: inline;
+  float: right;
+  justify-content: center;
+}
+
+#commentbtn:hover{
+  background: rgba(0, 0, 0, 0.3);
+  color: #e0d2b4;
+  border-color: rgb(168, 223, 215);
+}
+
+#commentbtn:focus, #commentbtn:focus-visible, #commentbtn:checked {
+  background: rgba(0, 0, 0, 0.3);
+  color: #e0d2b4;
+  border-color: rgb(168, 223, 215);
+}
+
 .commentbox{
   display: none;
+}
+
+.fas{
+  letter-spacing: 15px;
+  color: #00908e;
+}
+
+.far{
+  letter-spacing: 15px;
 }

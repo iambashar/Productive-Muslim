@@ -10,33 +10,18 @@ import { Link, useHistory, BrowserRouter as Router, } from "react-router-dom";
 import userimg from '../../Images/user.png';
 import { useAuth } from "../../components/Authentication/AuthContext";
 
-function upvoteAccepted() {
-    // var link = 'http://localhost:3000/updateupvote/'.concat(vote);
-    // fetch(link, {
-    //     method: 'PUT',
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify({ postid })
-    // });
-}
-
-function showComments() {
-    alert('Expand box to reveal comment section.');
-}
-
 const Forum = () => {
     const titleRef = useRef()
     const descRef = useRef()
-    const commentRef = useRef()
     const [uid, setUid] = useState()
     const [name, setName] = useState()
     const [displayPosts, setPost] = useState([])
     const [displayComment, setdisplayComment] = useState([])
+    const [displayupVote, setdisplayupVote] = useState([])
     const [error, setError] = useState("")
     const { currentUser, logout } = useAuth()
     const history = useHistory()
-    const [showList, setShowList] = useState(false);
+    var ts = false;
 
     useEffect(() => {
         fetch("http://127.0.0.1:3000/userprofile/".concat(currentUser.uid))
@@ -63,6 +48,14 @@ const Forum = () => {
                     setdisplayComment(results.data.comments);
                 }
             );
+
+        fetch("http://127.0.0.1:3000/getupvotes/".concat(currentUser.uid))
+            .then(res => res.json())
+            .then(
+                (results) => {
+                    setdisplayupVote(results.data.upvotes);
+                }
+            );
     }, []);
 
     async function handleLogout() {
@@ -81,24 +74,35 @@ const Forum = () => {
         const title = document.getElementById("title").value;
         const description = document.getElementById("description").value;
         const upVote = 0;
+        const comments = 0;
         fetch('http://127.0.0.1:3000/createpost/'.concat(uid), {
             method: 'POST',
-            body: JSON.stringify({ userName, title, description, upVote }),
+            body: JSON.stringify({ userName, title, description, upVote, comments }),
             headers: {
                 "Content-type": "application/json; charset=UTF-8"
             }
         });
     }
 
-    const addnewcomment = (postID, index) => {
+    const addnewcomment = (postID, index, comment) => {
         const userName = name;
-        const comment = document.getElementsByClassName("usercomment")[index].value;
+        const commentcontent = document.getElementsByClassName("usercomment")[index].value;
         fetch('http://127.0.0.1:3000/createcomment', {
             method: 'POST',
-            body: JSON.stringify({ postID, uid, userName, comment }),
+            body: JSON.stringify({ postID, uid, userName, commentcontent }),
             headers: {
                 "Content-type": "application/json; charset=UTF-8"
             }
+        });
+        
+        comment++;
+
+        fetch('http://localhost:3000/updatecommentcount/', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ comment, postID })
         });
     }
 
@@ -108,6 +112,47 @@ const Forum = () => {
         }
         else {
             document.getElementsByClassName("commentbox")[index].style.display = "flex";
+        }
+    }
+
+    const toggleUpVote = (postID, index, vote) => {
+        if (document.getElementsByTagName("i")[index].className == "far fa-thumbs-up fa-2x") {
+            document.getElementsByTagName("i")[index].className = "fas fa-thumbs-up fa-2x";
+            document.getElementsByTagName("i")[index].innerHTML = (parseInt(document.getElementsByTagName("i")[index].innerHTML)+1);
+            fetch('http://127.0.0.1:3000/addupvote', {
+                method: 'POST',
+                body: JSON.stringify({ postID, uid }),
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            });
+            vote++;
+            fetch('http://localhost:3000/updateupvote/', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ vote, postID })
+            });
+        }
+        else {
+            document.getElementsByTagName("i")[index].className = "far fa-thumbs-up fa-2x";
+            fetch('http://127.0.0.1:3000/deleteupvote', {
+                method: 'DELETE',
+                body: JSON.stringify({ postID, uid }),
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            });
+            vote--;
+            document.getElementsByTagName("i")[index].innerHTML = (parseInt(document.getElementsByTagName("i")[index].innerHTML)-1);
+            fetch('http://localhost:3000/updateupvote/', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ vote, postID })
+            });
         }
     }
 
@@ -183,10 +228,21 @@ const Forum = () => {
                                         <h3 className="forumBody">
                                             {allpost.description}
                                         </h3>
-                                        <button onClick={upvoteAccepted}>{allpost.upvote}</button>
-                                        <button id="commentbtn" onClick={() => toggleShowList(index)}>{} Comments</button>
+                                        {/* <button id="upvotebtn" onClick={() => toggleUpVote(index)}>{allpost.upvote}</button> */}
+                                        <i id="upVotebtn" className={ts = false, displayupVote.map(mp => mp.postid == allpost.postid ? ts = true : ts = ts), ts ? "fas fa-thumbs-up fa-2x" : "far fa-thumbs-up fa-2x"}
+                                            onClick={() => toggleUpVote(allpost.postid, index, allpost.upvote)}>{allpost.upvote}</i>
+                                        <Dropdown.Toggle id="commentbtn" variant="secondary" onClick={() => toggleShowList(index)}>
+                                           {allpost.commentcount}&nbsp;&nbsp;&nbsp;Comments
+                                        </Dropdown.Toggle>
                                         <div className="commentbox">
                                             <Form id="forumbox2">
+                                                <Form.Group className="mb-3" >
+                                                    <Form.Label>Post you comment</Form.Label>
+                                                    <Form.Control className="usercomment" as="textarea" placeholder="I was thinking.." />
+                                                </Form.Group>
+                                                <Button id="postbtn" onClick={() => addnewcomment(allpost.postid, index, allpost.commentcount)} type="submit">
+                                                    Post
+                                                </Button>
                                                 {
                                                     displayComment.map(comment =>
                                                         comment.postid == allpost.postid ?
@@ -201,13 +257,6 @@ const Forum = () => {
                                                             </div>
                                                     )
                                                 }
-                                                <Form.Group className="mb-3" >
-                                                    <Form.Label>Post you comment</Form.Label>
-                                                    <Form.Control className="usercomment" as="textarea" placeholder="I was thinking.." />
-                                                </Form.Group>
-                                                <Button id="postbtn" onClick={() => addnewcomment(allpost.postid, index)} type="submit">
-                                                    Post
-                                                </Button>
                                             </Form>
 
                                         </div>
@@ -218,7 +267,7 @@ const Forum = () => {
                     }
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 

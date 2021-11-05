@@ -5,10 +5,10 @@ const cors = require('cors');
 
 const app = express();
 
-const corsOptions ={
-  origin:'*', 
-  credentials:true,            //access-control-allow-credentials:true
-  optionSuccessStatus:200,
+const corsOptions = {
+  origin: '*',
+  credentials: true,            //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
 }
 
 app.use(cors(corsOptions))
@@ -18,7 +18,7 @@ app.use(express.json());
 
 // Get all duas
 app.get("/duas", async (req, res) => {
-  try{
+  try {
     const allduas = await db.query(
       "select * from duas order by random();"
     );
@@ -27,7 +27,7 @@ app.get("/duas", async (req, res) => {
       status: "success",
       results: allduas.rows.length,
       data: {
-        duas : allduas.rows,
+        duas: allduas.rows,
       },
     });
   } catch (err) {
@@ -37,7 +37,7 @@ app.get("/duas", async (req, res) => {
 
 // Get all emotions
 app.get("/emotions", async (req, res) => {
-  try{
+  try {
     const allemotions = await db.query(
       "select * from emotions;"
     );
@@ -46,7 +46,7 @@ app.get("/emotions", async (req, res) => {
       status: "success",
       results: allemotions.rows.length,
       data: {
-        emotions : allemotions.rows,
+        emotions: allemotions.rows,
       },
     });
   } catch (err) {
@@ -56,7 +56,7 @@ app.get("/emotions", async (req, res) => {
 
 //Get dua by emotion
 app.get("/emotiondua/:emo", async (req, res) => {
-  try{
+  try {
     const emoduas = await db.query(
       "select * from duas where emotion = $1;", [req.params.emo]
     );
@@ -65,7 +65,7 @@ app.get("/emotiondua/:emo", async (req, res) => {
       status: "success",
       results: emoduas.rows.length,
       data: {
-        duas : emoduas.rows,
+        duas: emoduas.rows,
       },
     });
   } catch (err) {
@@ -75,7 +75,7 @@ app.get("/emotiondua/:emo", async (req, res) => {
 
 //add new user
 app.post("/adduser", async (req, res) => {
-  try{
+  try {
     const results = await db.query(
       "INSERT INTO users (userID, name, email, madhab, country, city) values ($1, $2, $3, $4, $5, $6) returning *",
       [req.body.uid, req.body.name, req.body.email, req.body.madhab, req.body.country, req.body.city]
@@ -86,7 +86,7 @@ app.post("/adduser", async (req, res) => {
         users: results.rows[0],
       },
     });
-  } catch(err){
+  } catch (err) {
     console.log(err)
   }
 });
@@ -112,7 +112,7 @@ app.post("/updateuser/:id", async (req, res) => {
 
 //get users details
 app.get("/userprofile/:id", async (req, res) => {
-  try{
+  try {
     const users = await db.query(
       "select * from users where userID = $1;", [req.params.id]
     );
@@ -121,7 +121,7 @@ app.get("/userprofile/:id", async (req, res) => {
       status: "success",
       results: users.rows.length,
       data: {
-        user : users.rows[0]
+        user: users.rows[0]
       },
     });
   } catch (err) {
@@ -149,7 +149,7 @@ app.post("/addmyday", async (req, res) => {
 
 //show all myday task
 app.get("/showmyday/:id", async (req, res) => {
-  try{
+  try {
     const tasks = await db.query(
       "select * from myday where userID = $1 and (day = CURRENT_DATE or isrecurred = true) order by id;", [req.params.id]
     );
@@ -158,7 +158,7 @@ app.get("/showmyday/:id", async (req, res) => {
       status: "success",
       results: tasks.rows.length,
       data: {
-        tasks : tasks.rows,
+        tasks: tasks.rows,
       },
     });
   } catch (err) {
@@ -270,7 +270,7 @@ app.delete("/deletenotrecurredtask", async (req, res) => {
 
 //add new planned task
 app.post("/addplannedtask", async (req, res) => {
-  
+
 
   try {
     console.log(req.body);
@@ -291,7 +291,7 @@ app.post("/addplannedtask", async (req, res) => {
 
 //show all planned tasks
 app.get("/showplannedtask/:id", async (req, res) => {
-  try{
+  try {
     const tasks = await db.query(
       "select * from plannedtask where userID = $1 and isaddedtomyday = false order by id;", [req.params.id]
     );
@@ -300,7 +300,7 @@ app.get("/showplannedtask/:id", async (req, res) => {
       status: "success",
       results: tasks.rows.length,
       data: {
-        tasks : tasks.rows,
+        tasks: tasks.rows,
       },
     });
   } catch (err) {
@@ -417,7 +417,7 @@ app.post("/addmydayfromplannedauto", async (req, res) => {
 // delete planned tasks added to my day automatically
 app.delete("/deleteplannedtaskauto", async (req, res) => {
   try {
-    const results = db.query("DELETE FROM plannedtask where day = CURRENT_DATE", );
+    const results = db.query("DELETE FROM plannedtask where day = CURRENT_DATE",);
     res.status(204).json({
       status: "success",
     });
@@ -428,8 +428,8 @@ app.delete("/deleteplannedtaskauto", async (req, res) => {
 
 //add Sawm Oath
 app.post("/addsawmoath", async (req, res) => {
-  try{
-    
+  try {
+
     const results = await db.query(
       "INSERT INTO mysawm (userid, sawmdate, sawmreason) values ($1, $2, $3) returning *",
       [req.body.uid, req.body.sawmDate, req.body.sawmReason]
@@ -441,7 +441,7 @@ app.post("/addsawmoath", async (req, res) => {
       },
     });
   }
-  catch (err){
+  catch (err) {
     //console.log(req.body.uid, req.body.date, req.body.reason);
     console.log(err);
   }
@@ -449,7 +449,7 @@ app.post("/addsawmoath", async (req, res) => {
 
 // show upcoming sawm dates
 app.get("/showupcomingsawmdates/:id", async (req, res) => {
-  try{
+  try {
     const dates = await db.query(
       "SELECT * FROM mysawm WHERE userID = $1;", [req.params.id] //AND sawmdate >= (SELECT TO_CHAR(NOW() :: DATE, 'dd-mm-yyyy'))
     );
@@ -462,14 +462,14 @@ app.get("/showupcomingsawmdates/:id", async (req, res) => {
       },
     });
   }
-  catch (err){
+  catch (err) {
     console.log(err);
   }
 });
 
 //get all missed planned task
 app.get("/showplannedmissedtask/:id", async (req, res) => {
-  try{
+  try {
     const tasks = await db.query(
       "select * from plannedtask where userID = $1 and isaddedtomyday = false order by id;", [req.params.id]
     );
@@ -478,7 +478,7 @@ app.get("/showplannedmissedtask/:id", async (req, res) => {
       status: "success",
       results: tasks.rows.length,
       data: {
-        tasks : tasks.rows,
+        tasks: tasks.rows,
       },
     });
   } catch (err) {
@@ -509,7 +509,7 @@ app.post("/createnewlist", async (req, res) => {
 
 //get all task list
 app.get("/showtasklist/:id", async (req, res) => {
-  try{
+  try {
     const tasks = await db.query(
       "select * from tasklist where userID = $1 order by id;", [req.params.id]
     );
@@ -518,7 +518,7 @@ app.get("/showtasklist/:id", async (req, res) => {
       status: "success",
       results: tasks.rows.length,
       data: {
-        tasks : tasks.rows,
+        tasks: tasks.rows,
       },
     });
   } catch (err) {
@@ -530,8 +530,8 @@ app.get("/showtasklist/:id", async (req, res) => {
 app.post("/createpost/:id", async (req, res) => {
   try {
     const results = await db.query(
-      'INSERT INTO forumpost (userid, username, title, description, upvote) values ($1, $2, $3, $4, $5) returning *',
-      [req.params.id, req.body.userName, req.body.title, req.body.description, req.body.upVote]
+      'INSERT INTO forumpost (userid, username, title, description, upvote, commentcount) values ($1, $2, $3, $4, $5, $6) returning *',
+      [req.params.id, req.body.userName, req.body.title, req.body.description, req.body.upVote, req.body.comments]
     );
     res.status(201).json({
       status: "success",
@@ -547,16 +547,16 @@ app.post("/createpost/:id", async (req, res) => {
 
 //get all Posts
 app.get("/showposts", async (req, res) => {
-  try{
+  try {
     const results = await db.query(
-      "select * from forumpost;",
+      "select * from forumpost order by postid desc;",
     );
 
     res.status(200).json({
       status: "success",
       results: results.rows.length,
       data: {
-        posts : results.rows,
+        posts: results.rows,
       },
     });
   } catch (err) {
@@ -569,7 +569,7 @@ app.post("/createcomment", async (req, res) => {
   try {
     const results = await db.query(
       'INSERT INTO comments (postid, userid, username, comment) values ($1, $2, $3, $4) returning *',
-      [req.body.postID, req.body.uid, req.body.userName, req.body.comment]
+      [req.body.postID, req.body.uid, req.body.userName, req.body.commentcontent]
     );
     res.status(201).json({
       status: "success",
@@ -585,16 +585,16 @@ app.post("/createcomment", async (req, res) => {
 
 //get all Comments
 app.get("/showcomments", async (req, res) => {
-  try{
+  try {
     const results = await db.query(
-      "select * from comments;",
+      "select * from comments order by commentid desc;",
     );
 
     res.status(200).json({
       status: "success",
       results: results.rows.length,
       data: {
-        comments : results.rows,
+        comments: results.rows,
       },
     });
   } catch (err) {
@@ -603,17 +603,87 @@ app.get("/showcomments", async (req, res) => {
 });
 
 //update upvote
-app.put("/updateupvote/:vote", async (req, res) => {
+app.put("/updateupvote", async (req, res) => {
   try {
     const results = await db.query(
       "UPDATE forumpost SET upvote=$1 where postid=$2 returning *",
-      [req.params.vote, req.body.postid]
+      [req.body.vote, req.body.postID]
     );
 
     res.status(200).json({
       status: "success",
       data: {
         posts: results.rows,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//update commentCount
+app.put("/updatecommentcount", async (req, res) => {
+  try {
+    const results = await db.query(
+      "UPDATE forumpost SET commentcount=$1 where postid=$2 returning *",
+      [req.body.comment, req.body.postID]
+    );
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        posts: results.rows,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//add new upVote
+app.post("/addupvote", async (req, res) => {
+  try {
+    const results = await db.query(
+      'INSERT INTO upvotes (postid, userid) values ($1, $2) returning *',
+      [req.body.postID, req.body.uid]
+    );
+    res.status(201).json({
+      status: "success",
+      data: {
+        upvotes: results.rows[0],
+      },
+    });
+
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//delete upvote
+app.delete("/deleteupvote", async (req, res) => {
+  try {
+    const results = db.query("DELETE FROM upvotes where postid = $1 and userid = $2;",
+      [req.body.postID, req.body.uid]);
+    res.status(204).json({
+      status: "success",
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//get upvotelist
+app.get("/getupvotes/:id", async (req, res) => {
+  try {
+    const results = await db.query(
+      "select * from upvotes where userid = $1;", [req.params.id],
+    );
+
+    res.status(200).json({
+      status: "success",
+      results: results.rows.length,
+      data: {
+        upvotes: results.rows,
       },
     });
   } catch (err) {
