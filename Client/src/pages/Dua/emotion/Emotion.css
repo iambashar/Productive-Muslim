@@ -1,3 +1,4 @@
+@media only screen and (min-width: 768px) {
 .sideMenuDua{
     position: fixed;
     background: #044444;
@@ -133,26 +134,289 @@ h1{
     margin-top: 40px;
 }
 
-@media screen and (max-width: 500px) {
-  .menuText{
-      display: none;
-  }
-  .sideMenuDua{
-      width: 14%;
-  }
-  .arabic{
-      font-size: 15px;
-  }
-  .english{
-      font-size: 15px;
-  }
-  h1{
-      font-size: 20px;
-  }
-  .searchButton{
-      font-size: 20px;
-  }
-  .searchMenu{
-      width: 245px;
-  }
+.duaContainer{
+    padding-bottom: 60px;
+}
+}
+
+@media only screen and (max-width: 900px) and (min-width: 600px) {
+    .sideMenuDua{
+        position: fixed;
+        background: #044444;
+        width: 15%;
+        height: 100%;
+        display: inline-block;
+        font-family: 'El Messiri';
+    }
+    .duaContainer{
+        padding-bottom: 60px;
+    }
+    
+    .menuItem{
+        margin-left: 10px;
+        padding: 10px 0px 10px 0px;
+        color: #00908e;
+        cursor: pointer;
+    }
+    .menuItem:hover{
+        background-color: #044444;
+        color: #13bdba;
+    }
+    
+    .menuIcon{
+        display: inline-block;
+        margin-right: 8px;
+    }
+    
+    .menuText{
+        display: none;
+        font-size: 20px;
+        cursor: pointer;
+    }
+    
+    .activeNav{
+        color: #e0d2b4;
+    }
+    .activeNav:hover{
+        color: #e0d2b4;
+    }
+    
+    
+    a:hover, a:visited, a:link, a:active
+    {
+        text-decoration: none;
+    }
+    
+    .emotionBox{
+        background: rgba(0, 0, 0, 0.3);
+        width: 70%;
+        margin: 0 auto;
+        margin-top: 30px;
+        justify-content: center;
+        text-align: center;
+        border: 4px;
+        border-style: solid;
+        border-color: rgb(168, 223, 215);
+        font-family: 'El Messiri';
+        padding: 20px;
+    }
+    
+    .rightDiv{
+        width: 85%;
+        float:right;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .searchButton{
+        background-color: #e0d2b4;
+        color: #044444;
+        border: #044444;
+        font-family: 'El Messiri';
+        font-weight: bold;
+        font-size: 1.5rem;
+        width: 300px;
+    }
+    .searchButton:hover{
+        background-color: #ad976a;
+        color: #044444;
+        border: #044444
+    }
+    .searchButton:focus, .searchButton:focus-visible, .searchButton:checked {
+        background-color: #e0d2b4;
+        color: #044444;
+        border: #044444;
+    }
+    
+    
+    
+    .searchButtonDiv{
+        align-self:flex-end;
+        width: fit-content;
+        margin: 50px auto;
+    }
+    
+    .searchMenu{
+        background-color: #e0d2b4;
+        text-transform: capitalize;
+        font-family: 'El Messiri';
+        max-height:250px;
+        overflow:auto;
+        width: 300px;
+    }
+    #searchItem:hover{
+        background-color: #caba93;
+    }
+    ::-webkit-scrollbar {
+        width: 0;  /* Remove scrollbar space */
+        background: transparent;  /* Optional: just make scrollbar invisible */
+    }
+    
+    h1{
+        color: rgb(168, 223, 215);
+        font-weight: bold;
+    }
+    
+    .arabic{
+        color: #e0d2b4;
+        font-size: 23px;
+        margin-top: 30px;
+    }
+    
+    .english{
+        background-color: rgba(224, 210, 180, .2);
+        font-size: 23px;
+        color: rgb(168, 223, 215);
+        padding: 5px;
+        margin-top: 30px;
+    }
+    
+    .likes{
+        font-size: 15px;
+        color: #e0d2b4;
+        margin-top: 40px;
+    }
+}
+
+@media screen and (max-width: 599px) {
+    .sideMenuDua{
+        position: fixed;
+        background: #044444;
+        width: 14%;
+        height: 100%;
+        display: inline-block;
+        font-family: 'El Messiri';
+    }
+    .duaContainer{
+        padding-bottom: 60px;
+    }
+    
+    .menuItem{
+        margin-left: 10px;
+        padding: 10px 0px 10px 0px;
+        color: #00908e;
+        cursor: pointer;
+    }
+    .menuItem:hover{
+        background-color: #044444;
+        color: #13bdba;
+    }
+    
+    .menuIcon{
+        display: inline-block;
+        margin-right: 8px;
+    }
+    
+    .menuText{
+        display: none;
+        font-size: 20px;
+        cursor: pointer;
+    }
+    
+    .activeNav{
+        color: #e0d2b4;
+    }
+    .activeNav:hover{
+        color: #e0d2b4;
+    }
+    
+    
+    a:hover, a:visited, a:link, a:active
+    {
+        text-decoration: none;
+    }
+    
+    .emotionBox{
+        background: rgba(0, 0, 0, 0.3);
+        width: 70%;
+        margin: 0 auto;
+        margin-top: 30px;
+        justify-content: center;
+        text-align: center;
+        border: 4px;
+        border-style: solid;
+        border-color: rgb(168, 223, 215);
+        font-family: 'El Messiri';
+        padding: 20px;
+    }
+    
+    .rightDiv{
+        width: 85%;
+        float:right;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .searchButton{
+        background-color: #e0d2b4;
+        color: #044444;
+        border: #044444;
+        font-family: 'El Messiri';
+        font-weight: bold;
+        font-size: 20px;
+        width: 300px;
+    }
+    .searchButton:hover{
+        background-color: #ad976a;
+        color: #044444;
+        border: #044444
+    }
+    .searchButton:focus, .searchButton:focus-visible, .searchButton:checked {
+        background-color: #e0d2b4;
+        color: #044444;
+        border: #044444;
+    }
+    
+    
+    
+    .searchButtonDiv{
+        align-self:flex-end;
+        width: fit-content;
+        margin: 50px auto;
+        
+    }
+    
+    .searchMenu{
+        background-color: #e0d2b4;
+        text-transform: capitalize;
+        font-family: 'El Messiri';
+        max-height:250px;
+        overflow:auto;
+        width: 245px;
+    }
+    #searchItem:hover{
+        background-color: #caba93;
+    }
+    ::-webkit-scrollbar {
+        width: 0;  /* Remove scrollbar space */
+        background: transparent;  /* Optional: just make scrollbar invisible */
+    }
+    
+    h1{
+        color: rgb(168, 223, 215);
+        font-weight: bold;
+        font-size: 20px;
+    }
+    
+    .arabic{
+        color: #e0d2b4;
+        font-size: 15px;
+        margin-top: 30px;
+    }
+    
+    .english{
+        background-color: rgba(224, 210, 180, .2);
+        font-size: 15px;
+        color: rgb(168, 223, 215);
+        padding: 5px;
+        margin-top: 30px;
+    }
+    
+    .likes{
+        font-size: 15px;
+        color: #e0d2b4;
+        margin-top: 40px;
+    }
+
+  
 }

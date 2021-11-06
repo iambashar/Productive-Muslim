@@ -1,3 +1,4 @@
+@media only screen and (min-width: 768px){
 .taskDate{
     font-size: 15px;
     display: block;
@@ -8,6 +9,7 @@
     margin: 0 auto;
     margin-top: 30px;
     font-family: 'El Messiri';
+    height: 120px;
     background-color: #e0d2b475;
     padding: 20px;
     color: #043b3b;
@@ -49,4 +51,134 @@
 }
 #taskPlannedID{
     text-decoration: none;
+}
+}
+
+@media only screen and (max-width: 900px) and (min-width: 600px) {
+    .taskDate{
+        font-size: 15px;
+        display: block;
+        margin-left: 20px;
+    }
+    .test{
+        width: 70%;
+        margin: 0 auto;
+        margin-top: 30px;
+        font-family: 'El Messiri';
+        height: 100px;
+        background-color: #e0d2b475;
+        padding: 20px;
+        color: #043b3b;
+    }
+    .test:hover {
+        background-color: #e0d2b49f;
+    }
+    .MuiInputBase-input{
+        font-family: 'El Messiri';
+    }
+    .taskPlanned{
+        display: inline-block;
+        margin-left: 10px;
+        font-size: 18px;
+        background: none;
+        border: none;
+        width: fit-content;
+        outline: none;
+        color: #043b3b;
+        font-weight: bold;
+    }
+    .datePicker{
+        color: #043b3b;
+        margin-left: 20px;
+    }
+    
+    #taskPlannedInput{
+        background: none;
+        border: none;
+        width: 100%;
+        outline: none;
+        font-size: 18px;
+        color: #e0d2b4;
+    }
+    
+    #taskPlannedCompleteID{
+        text-decoration: line-through;
+        color: #043b3b8a;
+    }
+    #taskPlannedID{
+        text-decoration: none;
+    }
+    #datePicker {
+        width: 60%;
+    }
+    
+    .dateSmall {
+        width: 60%;
+        display: inline-block;
+        float: left;
+    }
+}
+
+@media screen and (max-width: 599px) {
+    .taskDate{
+        font-size: 15px;
+        display: block;
+        margin-left: 20px;
+    }
+    .test{
+        width: 70%;
+        margin: 0 auto;
+        margin-top: 30px;
+        height: 100px;
+        font-family: 'El Messiri';
+        font-size: 15px;
+        background-color: #e0d2b475;
+        padding: 20px;
+        color: #043b3b;
+    }
+    .test:hover {
+        background-color: #e0d2b49f;
+    }
+    .MuiInputBase-input{
+        font-family: 'El Messiri';
+    }
+    .taskPlanned{
+        display: inline-block;
+        margin-left: 10px;
+        font-size: 18px;
+        background: none;
+        border: none;
+        width: fit-content;
+        outline: none;
+        color: #043b3b;
+        font-weight: bold;
+    }
+    .datePicker{
+        color: #043b3b;
+        margin-left: 20px;
+
+    }
+    .dateSmall {
+        width: 50%;
+        display: inline-block;
+        float: left;
+        font-size: 10px;
+    }
+    
+    #taskPlannedInput{
+        background: none;
+        border: none;
+        width: 100%;
+        outline: none;
+        font-size: 20px;
+        color: #e0d2b4;
+    }
+    
+    #taskPlannedCompleteID{
+        text-decoration: line-through;
+        color: #043b3b8a;
+    }
+    #taskPlannedID{
+        text-decoration: none;
+    }
 }

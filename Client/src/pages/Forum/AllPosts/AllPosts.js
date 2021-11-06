@@ -231,7 +231,7 @@ const AllPosts = () => {
                                             <img src={deleteIcon} width="20"></img>
                                         </div>
                                         <h2 className="forumTimeAndAuthor">Posted on {moment(allpost.posteddate).format('DD-MM-YYYY')} by <u>{allpost.username}</u></h2>
-                                        <h3 className="forumBody">
+                                        <h3 className="forumBody forumPost">
                                             {allpost.description}
                                         </h3>
                                         <i id="upVotebtn" className={ts = false, displayupVote.map(mp => mp.postid == allpost.postid ? ts = true : ts = ts), ts ? "fas fa-thumbs-up fa-2x" : "far fa-thumbs-up fa-2x"}

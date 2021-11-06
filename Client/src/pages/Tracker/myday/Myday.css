@@ -1,3 +1,4 @@
+@media only screen and (min-width: 768px) {
 .taskBox{
     background: rgba(0, 0, 0, 0.3);
     width: 70%;
@@ -56,6 +57,7 @@
     cursor: pointer;
     margin-top: 10px;
     margin-left: 170px;
+    margin-bottom: 60px;
     width: fit-content;
 }
 .newIcon{
@@ -212,4 +214,445 @@
   padding: 7px;
   cursor: pointer;
 }
+
+}
+
+@media only screen and (max-width: 900px) and (min-width: 600px) {
+    .taskBox{
+        background: rgba(0, 0, 0, 0.3);
+        width: 70%;
+        margin: 0 auto;
+        margin-top: 30px;
+        font-family: 'El Messiri';
+        padding: 20px;
+    }
+    
+    .taskBox:hover{
+        box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+    .taskCheckBox{
+        color: aquamarine;
+        border-radius: 50%;
+        display: inline-block;
+        float: left;
+        margin-left: 10px;
+        margin-top: 2px;
+    }
+    .taskText{
+        display: inline-block;
+        margin-left: 10px;
+        font-size: 20px;
+        background: none;
+        border: none;
+        width: fit-content;
+        outline: none;
+        color: #e0d2b4;
+    }
+    .taskTextPrev{
+        display: inline-block;
+        margin-left: 10px;
+        font-size: 20px;
+        background: none;
+        border: none;
+        width: fit-content;
+        outline: none;
+        color: #e25644;
+    }
+    
+    .addBtn{
+        color: #647c73;
+        margin-left: 20px;
+        cursor: pointer;
+    }
+    .addBtn:hover{
+        color: #647c73;
+    }
+    
+    .newBtn{
+        color: #e0d2b4;
+        margin: 0 auto;
+        font-family: 'El Messiri';
+        cursor: pointer;
+        margin-top: 10px;
+        margin-left: 170px;
+        margin-bottom: 60px;
+        width: fit-content;
+    }
+    .newIcon{
+        display: inline-block;
+        margin-right: 8px;
+    }
+    .taskIcon{
+        display: inline-block;
+        margin-right: 15px;
+        cursor: pointer;
+    }
+    .taskIcons{
+        display: inline-block;
+        float: right;
+    }
+    .inputBoxHide{
+        background: rgba(0, 0, 0, 0.3);
+        width: 70%;
+        margin: 0 auto;
+        margin-top: 30px;
+        font-family: 'El Messiri';
+        padding: 20px;
+        display: none;
+    }
+    .inputBoxShow{
+        background: rgba(0, 0, 0, 0.3);
+        width: 70%;
+        margin: 0 auto;
+        margin-top: 30px;
+        font-family: 'El Messiri';
+        padding: 20px;
+        display: block;
+    }
+    #taskInput{
+        background: none;
+        border: none;
+        width: 100%;
+        outline: none;
+        font-size: 20px;
+        color: #e0d2b4;
+    }
+    ::placeholder { 
+        color: #e0d2b4;
+        opacity: 1; 
+      }
+    
+    
+    .form-check-input{
+        background: #e0d2b4;
+        color: #e0d2b4;
+        margin-top: 10px;
+        cursor: pointer;
+    }
+    .form-check-input:checked, .form-check-input:active, .form-check-input::after{
+        background: aqua;
+    }
+    #taskTextCompleteID{
+        text-decoration: line-through;
+        color: #e0d2b459;
+    }
+    #taskTextID{
+        text-decoration: none;
+    }
+    
+    .popUpShow {
+        background: rgba(0, 0, 0, 0.8);
+        position: fixed;
+        z-index: 10;
+        width: 50%;
+        top: 35%;
+        left: 35%;
+        padding: 20px;
+        border: 4px;
+        margin: auto;
+        border-style: solid;
+        border-color: rgb(168, 223, 215)
+    }
+    .popUpHide {
+        display: none;
+    }
+    .newListInput{
+        display: block;
+        width: 100%;
+        height: 25%;
+        background-color: rgba(0, 0, 0, 0.5);
+        border: 1px solid rgb(168, 223, 215);
+        color: rgb(168, 223, 215);
+        margin: 30px 0px;
+    }
+    .popUpTitle{
+        font-size: 20px;
+        color: rgb(168, 223, 215);
+    }
+    
+    .popUpbtn{
+        background-color: #e0d2b4;
+        color: #043b3b;
+        border: none;
+        margin-left: 30px;
+        margin-bottom: 0px;
+        float: right;
+        font-weight: bold;
+        
+    }
+    ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+        opacity: 0.4; /* Firefox */
+      }
+      
+      :-ms-input-placeholder { /* Internet Explorer 10-11 */
+        opacity: 0.4;
+      }
+      
+      ::-ms-input-placeholder { /* Microsoft Edge */
+        opacity: 0.4;
+      }
+    
+      .listItem {
+        margin-left: 25px;
+        color: #00908e;
+        font-size: 12px;
+        cursor: pointer;
+      }
+      .listItemActive{
+        margin-left: 25px;
+        color: #e0d2b4;
+        font-size: 12px;
+        cursor: pointer;
+      }
+      .listItem:hover {
+        background-color: #044444;
+        color: #13bdba;
+      }
+     .listNav {
+         margin-left: 10px;
+         cursor: pointer;
+     }
+     .anlistItemHide{
+         display: none;
+     }
+     .anlistItemShow{
+    
+     }
+     .listDeleteIcon {
+        display: inline-block;
+        float: right;
+        width: fit-content;
+        padding: 15px;
+    }
+    
+    #deletelistbtn {
+     background-color: rgba(0, 0, 0, 0.452);
+      border: #00908e;
+      color:#e0d2b4;
+      padding: 3px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+}
   
+@media screen and (max-width: 599px) {
+    .taskBox{
+        background: rgba(0, 0, 0, 0.3);
+        width: 70%;
+        margin: 0 auto;
+        margin-top: 20px;
+        font-family: 'El Messiri';
+        padding: 5px;
+    }
+    
+    .taskBox:hover{
+        box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+    .taskCheckBox{
+        color: aquamarine;
+        border-radius: 50%;
+        display: inline-block;
+        float: left;
+        margin-left: 10px;
+        margin-top: 2px;
+    }
+    .taskText{
+        display: inline-block;
+        margin-left: 10px;
+        font-size: 15px;
+        background: none;
+        border: none;
+        width: fit-content;
+        outline: none;
+        color: #e0d2b4;
+    }
+    .taskTextPrev{
+        display: inline-block;
+        margin-left: 10px;
+        font-size: 20px;
+        background: none;
+        border: none;
+        width: fit-content;
+        outline: none;
+        color: #e25644;
+    }
+    
+    .addBtn{
+        color: #647c73;
+        margin-left: 20px;
+        cursor: pointer;
+    }
+    .addBtn:hover{
+        color: #647c73;
+    }
+    
+    .newBtn{
+        color: #e0d2b4;
+        margin: 0 auto;
+        font-family: 'El Messiri';
+        cursor: pointer;
+        margin-top: 10px;
+        margin-left: 170px;
+        margin-bottom: 60px;
+        width: fit-content;
+    }
+    .newIcon{
+        display: inline-block;
+        margin-right: 8px;
+    }
+    .taskIcon{
+        display: inline-block;
+        margin-right: 10px;
+        cursor: pointer;
+    }
+    .taskIcons{
+        display: inline-block;
+        float: right;
+    }
+    .inputBoxHide{
+        background: rgba(0, 0, 0, 0.3);
+        width: 70%;
+        margin: 0 auto;
+        margin-top: 30px;
+        font-family: 'El Messiri';
+        padding: 20px;
+        display: none;
+    }
+    .inputBoxShow{
+        background: rgba(0, 0, 0, 0.3);
+        width: 70%;
+        margin: 0 auto;
+        margin-top: 30px;
+        font-family: 'El Messiri';
+        padding: 20px;
+        display: block;
+    }
+    #taskInput{
+        background: none;
+        border: none;
+        width: 100%;
+        outline: none;
+        font-size: 15px;
+        color: #e0d2b4;
+    }
+    ::placeholder { 
+        color: #e0d2b4;
+        opacity: 1; 
+      }
+    
+    
+    .form-check-input{
+        background: #e0d2b4;
+        color: #e0d2b4;
+        margin-top: 10px;
+        cursor: pointer;
+    }
+    .form-check-input:checked, .form-check-input:active, .form-check-input::after{
+        background: aqua;
+    }
+    #taskTextCompleteID{
+        text-decoration: line-through;
+        color: #e0d2b459;
+    }
+    #taskTextID{
+        text-decoration: none;
+    }
+    
+    .popUpShow {
+        background: rgba(0, 0, 0, 0.8);
+        position: fixed;
+        z-index: 10;
+        width: 50%;
+        top: 35%;
+        left: 35%;
+        padding: 20px;
+        border: 4px;
+        margin: auto;
+        border-style: solid;
+        border-color: rgb(168, 223, 215)
+    }
+    .popUpHide {
+        display: none;
+    }
+    .newListInput{
+        display: block;
+        width: 100%;
+        height: 25%;
+        font-size: 15px;
+        background-color: rgba(0, 0, 0, 0.5);
+        border: 1px solid rgb(168, 223, 215);
+        color: rgb(168, 223, 215);
+        margin: 30px 0px;
+    }
+    .popUpTitle{
+        font-size: 18px;
+        color: rgb(168, 223, 215);
+    }
+    
+    .popUpbtn{
+        background-color: #e0d2b4;
+        color: #043b3b;
+        border: none;
+        margin-left: 20px;
+        margin-bottom: 0px;
+        float: right;
+        font-size: 12px;
+        font-weight: bold;
+        
+    }
+    ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+        opacity: 0.4; /* Firefox */
+      }
+      
+      :-ms-input-placeholder { /* Internet Explorer 10-11 */
+        opacity: 0.4;
+      }
+      
+      ::-ms-input-placeholder { /* Microsoft Edge */
+        opacity: 0.4;
+      }
+    
+      .listItem {
+        margin-left: 15px;
+        color: #00908e;
+        font-size: 8px;
+        cursor: pointer;
+      }
+      .listItemActive{
+        margin-left: 15px;
+        color: #e0d2b4;
+        font-size: 8px;
+        cursor: pointer;
+      }
+      .listItem:hover {
+        background-color: #044444;
+        color: #13bdba;
+      }
+     .listNav {
+         margin-left: 10px;
+         cursor: pointer;
+     }
+     .anlistItemHide{
+         display: none;
+     }
+     .anlistItemShow{
+    
+     }
+     .listDeleteIcon {
+        display: inline-block;
+        float: right;
+        width: fit-content;
+        padding: 3px;
+        font-size: 10px;
+    }
+    
+    #deletelistbtn {
+     background-color: rgba(0, 0, 0, 0.452);
+      border: #00908e;
+      color:#e0d2b4;
+      padding: 3px;
+      cursor: pointer;
+    }
+}

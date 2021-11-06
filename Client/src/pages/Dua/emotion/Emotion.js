@@ -144,7 +144,7 @@ const Emotion = () => {
                         </Dropdown.Menu>
                     </Dropdown>
                 </div>
-                <div >
+                <div className="duaContainer">
                     {
                         displayDuaInfos.map((dua, index) =>
                             <div className="emotionBox">

@@ -85,7 +85,7 @@ const Favourites = () => {
                 </div>
             </div>
             <div class="rightDiv">
-                <div >
+                <div className="duaContainer">
                     {
                         displayfavourite.map((dua, index) =>
                             <div className="emotionBox">

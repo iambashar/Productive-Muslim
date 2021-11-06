@@ -342,7 +342,7 @@ const Myday = () => {
                 {
                     displayPlannedTask.map((planned, index) =>
                         <div className="test">
-                            <div>
+                            <div className="taskSmall">
                                 <div class="taskCheckBox">
                                 <img className="check-input" onClick={() => setisCompleted(planned.id, index)} src ={planned.iscompleted? check:circle} width="20"/>
                                </div>
@@ -353,7 +353,7 @@ const Myday = () => {
                                         }
                                     }} id={planned.iscompleted ? "taskPlannedCompleteID" : "taskPlannedID"}>{planned.task}</h2>
                             </div>
-                            <div className="datePicker">
+                            <div className="dateSmall">
                                 <MuiPickersUtilsProvider utils={DateFnsUtils} >
 
                                     <KeyboardDatePicker
@@ -366,7 +366,9 @@ const Myday = () => {
                                         format="dd-MM-yyyy"
                                     />
                                 </MuiPickersUtilsProvider>
-                                <div className="taskIcons">
+                                
+                            </div>
+                            <div className="taskIcons iconsPlanned">
                                     <div className="taskIcon" onClick={() => addToMyday(planned.id, index)}>
                                         <img className="addtomydayicon" src={myday} alt="" width="20" />
                                     </div>
@@ -377,7 +379,6 @@ const Myday = () => {
                                         <img src={deleteIcon} width="20"></img>
                                     </div>
                                 </div>
-                            </div>
                         </div>
                     )}
                 <div className="inputBoxHide" id="inputPlannedTask" onKeyPress={event => {
