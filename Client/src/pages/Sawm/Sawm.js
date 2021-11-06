@@ -10,6 +10,7 @@ import { useAuth } from "../../components/Authentication/AuthContext";
 import Calendar from "react-calendar";
 import moment from 'moment';
 import firebase from 'firebase/compat';
+import deleteIcon from '../../Images/cross.svg'
 
 const Sawm = () => {
     const [uid, setUid] = useState();
@@ -99,6 +100,7 @@ const Sawm = () => {
             .then(
                 console.log(sawmReason, sawmDate)
             );
+        handleClose();
         setChange(change + 1);
     }
 
@@ -142,6 +144,17 @@ const Sawm = () => {
             setError("Failed to log out")
         }
     }
+
+    const deleteSawm = (sawmid) => {
+        var link = 'http://localhost:3000/deletesawm/';
+        link = link.concat(sawmid);
+        fetch(link, {
+            method: 'DELETE',
+        }).then(
+            setChange(change + 1));
+    }
+   
+
     return (
         <div>
             <Router>
@@ -222,19 +235,26 @@ const Sawm = () => {
                         />
                     </div>
                     <div className="sawmlist">
-                        <h1>Upcoming Dates for Fasting (next 14 days)</h1>
-                        {/* <h3>{moment(date).format("DD-MM-YYYY")} - {date.toString()}</h3> */}
-                        <h3>
+
+                        <h1 className="sawmTitle">Upcoming Dates for Fasting (next 14 days)</h1>
+                        <div className="sawmlistContent">
+                            <h3>
+                                {
+                                    retUpcomingDates()
+                                }
+                            </h3>
                             {
-                                retUpcomingDates()
+                                displayUpcomingSawmDates.map((mysawm, index) =>
+                                    <div>
+                                        <h3 className="sawmNameText" >{moment(mysawm.sawmdate).format('DD-MM-YYYY')} - {mysawm.sawmreason}
+                                            <div className="sawmDeleteIcon" >
+                                                <img src={deleteIcon} width="15" onClick={() => deleteSawm(mysawm.id)}></img>
+                                            </div>
+                                        </h3>
+                                    </div>
+                                )
                             }
-                        </h3>
-                        {
-                            displayUpcomingSawmDates.map((mysawm) =>
-                                //{gSawmDates2.add(moment(mysawm.sawmdate).format('DD-MM-YYYY').toString());},
-                                <h3>{moment(mysawm.sawmdate).format('DD-MM-YYYY')} - {mysawm.sawmreason}</h3>
-                            )
-                        }
+                        </div>
                     </div>
                 </div>
             </div>

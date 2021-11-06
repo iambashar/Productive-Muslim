@@ -467,6 +467,20 @@ app.get("/showupcomingsawmdates/:id", async (req, res) => {
   }
 });
 
+//delete sawm
+app.delete("/deletesawm/:id", async (req, res) => {
+  try {
+    const results = db.query("DELETE FROM mysawm where id = $1", [
+      req.params.id,
+    ]);
+    res.status(204).json({
+      status: "success",
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 //get all missed planned task
 app.get("/showplannedmissedtask/:id", async (req, res) => {
   try {
