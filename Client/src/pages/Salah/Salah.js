@@ -7,7 +7,6 @@ import userimg from '../../Images/user.png';
 import { useHistory } from "react-router";
 import { useAuth } from "../../components/Authentication/AuthContext";
 import moment from 'moment';
-import firebase from 'firebase/compat';
 import Countdown from "react-countdown";
 import check from '../../Images/check.svg'
 import circle from '../../Images/circle.svg'
@@ -20,20 +19,18 @@ const Salah = () => {
     //const [time, setTime] = useState(new Date().toLocaleTimeString('en-US', { hour12: false, hour: "numeric", minute: "numeric"}));
     const [date, setDate] = useState(new Date());
     const dummy = { date };
-    const [displayMySalah, setDisplayMySalah] = useState([]);
+    const [donesalah, setdonesalah] = useState([]);
+    const [error, setError] = useState("")
+    const { currentUser, logout } = useAuth()
+    const history = useHistory()
+    const [done, setdone] = useState([false])
+    var ts;
     //console.log(Date.parse('01/01/2011 '+dummy.toString().substr(16,5)));
-    console.log(moment(Date(dummy)).format("HH:mm"))
     //const date = new Date();
     const onChange = date => {
         setDate(date);
         //handleShow();
     }
-    useEffect(() => {
-        if (firebase.auth().currentUser !== null) {
-            setUid(firebase.auth().currentUser.uid);
-        }
-        console.log(uid);
-    }, [uid]);
 
     useEffect(() => {
         // if does not work then turn off your browser ad blocker :)
@@ -50,29 +47,30 @@ const Salah = () => {
                     setdisplaySalahTime(result.results.datetime);
                     //setdisplaySalahLocation(result.results.location);
                 });
+        setUid(currentUser.uid);
+        fetch("http://localhost:3000/waqtdone/".concat(currentUser.uid))
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    setdonesalah(result.data.waqts);
+                }
+            )
     }, []);
 
-    // useEffect(() => {
-    //     var link = "http://127.0.0.1:3000/showdonewaqts/";
-    //     link = link.concat(uid);
-    //     fetch(link)
-    //         .then(res => res.json())
-    //         .then(
-    //             (result) => {
-    //                 setDisplayMySalah(result.data.waqts);
-    //                 console.log(result.data.waqts);
-    //             }
-    //         )
-    // })
+    const setisDone = (index, waqt) => {
 
-    const [error, setError] = useState("")
-    const { currentUser, logout } = useAuth()
-    const history = useHistory()
+        if (document.getElementsByClassName("checkimg")[index].alt == "check"){
+            document.getElementsByClassName("checkimg")[index].src = circle;
+            document.getElementsByClassName("checkimg")[index].alt = "circle";
+        }else {
+            document.getElementsByClassName("checkimg")[index].src = check;
+            document.getElementsByClassName("checkimg")[index].alt = "check";
+            document.getElementsByTagName("tr")[index+1].className = "";
+        }
 
-    console.log(displaySalahTime);
 
-    const setisDone = (waqt) => {
         var isDone = new Boolean(true);
+
         fetch('http://localhost:3000/addwaqtdone', {
             method: 'POST',
             body: JSON.stringify({
@@ -83,36 +81,7 @@ const Salah = () => {
             headers: {
                 "Content-type": "application/json; charset=UTF-8"
             }
-        })
-            .then(console.log(waqt));
-    }
-
-    function getIsDone(waqt) {
-        //var isDone = new Boolean(true);
-        var link = "http://localhost:3000/waqtdone/";
-        link = link.concat(uid);
-        link = link.concat('/' + waqt);
-        fetch(link, {
-            method: 'GET',
-            headers: {
-                "Content-type": "application/json; charset=UTF-8"
-            }
-        })
-            //.then(console.log(waqt));
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    console.log(result.data.waqts);
-                    //return false;
-                    if (result.data.waqts.length === 0) {
-                        return false;
-                    }
-                    else {
-                        console.log(result.data.waqts)
-                        return true;
-                    }
-                }
-            )
+        });
     }
 
     async function handleLogout() {
@@ -173,7 +142,7 @@ const Salah = () => {
                         </thead>
                         <tbody>
                             {
-                                displaySalahTime.map(Salah =>
+                                displaySalahTime.map((Salah, index) =>
                                     <tr className={
                                         ((Date.parse('01/01/2011 ' + moment(Date(dummy)).format("HH:mm").toString()) < Date.parse('01/01/2011 ' + Salah.times.Imsak))) ?
                                             //console.log((Date.parse('01/01/2011 '+time) > Date.parse('01/01/2011 '+Salah.times.Dhuhr)) || (Date.parse('01/01/2011 '+time) < Date.parse('01/01/2011 '+Salah.times.Asr)))
@@ -190,17 +159,14 @@ const Salah = () => {
                                         <td>{Salah.times.Imsak}</td>
                                         <td>
                                             <div >
-
-                                                <img onClick={() => setisDone("Tahajjud")} src={getIsDone("Tahajjud") ? check : circle} width="20" />
-
-                                                {/* <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onClick={() => setisDone("Tahajjud")} checked={getIsDone("Tahajjud")?'true':'false'}/> */}
+                                                <img className="checkimg" onClick={() => setisDone(0, "Tahajjud")} src={ts = false, donesalah.map(mp => (mp.waqt == "Tahajjud" && mp.isdone == true) ? ts = true : ts = ts), ts ? check : circle} alt={ts? "check":"circle"} alt={ts? "check":"circle"} width="20" />
                                             </div>
                                         </td>
                                         <td><Countdown date={Date.now() + (Date.parse(moment(new Date()).format("MM/DD/YYYY").toString() + ' ' + Salah.times.Imsak) - Date.now())} /></td>
                                     </tr>
                                 )}
                             {
-                                displaySalahTime.map(Salah =>
+                                displaySalahTime.map((Salah, index) =>
                                     <tr className={
                                         ((Date.parse('01/01/2011 ' + moment(Date(dummy)).format("HH:mm").toString()) >= Date.parse('01/01/2011 ' + Salah.times.Fajr)) && (Date.parse('01/01/2011 ' + moment(Date(dummy)).format("HH:mm").toString()) < Date.parse('01/01/2011 ' + Salah.times.Sunrise))) ?
                                             //console.log((Date.parse('01/01/2011 '+time) > Date.parse('01/01/2011 '+Salah.times.Dhuhr)) || (Date.parse('01/01/2011 '+time) < Date.parse('01/01/2011 '+Salah.times.Asr)))
@@ -216,15 +182,15 @@ const Salah = () => {
                                         <td>Fajr</td>
                                         <td>{Salah.times.Fajr}</td>
                                         <td>
-                                            <div className="form-check d-flex justify-content-center">
-                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onClick={() => setisDone("Fajr")} checked={getIsDone("Fajr") ? 'true' : 'false'} />
+                                            <div>
+                                                <img className="checkimg" onClick={() => setisDone(1, "Fajr")} src={ts = false, donesalah.map(mp => (mp.waqt == "Fajr" && mp.isdone == true) ? ts = true : ts = ts), ts ? check : circle} alt={ts? "check":"circle"} width="20" />
                                             </div>
                                         </td>
                                         <td><Countdown date={Date.now() + (Date.parse(moment(new Date()).format("MM/DD/YYYY").toString() + ' ' + Salah.times.Fajr) - Date.now())} /></td>
                                     </tr>
                                 )}
                             {
-                                displaySalahTime.map(Salah =>
+                                displaySalahTime.map((Salah, index) =>
                                     <tr className={
                                         ((Date.parse('01/01/2011 ' + moment(Date(dummy)).format("HH:mm").toString()) >= Date.parse('01/01/2011 ' + Salah.times.Sunrise)) && (Date.parse('01/01/2011 ' + moment(Date(dummy)).format("HH:mm").toString()) < Date.parse('01/01/2011 ' + Salah.times.Dhuhr))) ?
                                             //console.log((Date.parse('01/01/2011 '+time) > Date.parse('01/01/2011 '+Salah.times.Dhuhr)) || (Date.parse('01/01/2011 '+time) < Date.parse('01/01/2011 '+Salah.times.Asr)))
@@ -240,15 +206,15 @@ const Salah = () => {
                                         <td>Sunrise, Salat al-Ishraq, Chasht</td>
                                         <td>{Salah.times.Sunrise}</td>
                                         <td>
-                                            <div className="form-check d-flex justify-content-center">
-                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onClick={() => setisDone("Ishraq")} checked={getIsDone("Ishraq") ? 'true' : 'false'} />
+                                            <div>
+                                                <img className="checkimg" onClick={() => setisDone(2, "Ishraq")} src={ts = false, donesalah.map(mp => (mp.waqt == "Ishraq" && mp.isdone == true) ? ts = true : ts = ts), ts ? check : circle} alt={ts? "check":"circle"} width="20" />
                                             </div>
                                         </td>
                                         <td><Countdown date={Date.now() + (Date.parse(moment(new Date()).format("MM/DD/YYYY").toString() + ' ' + Salah.times.Sunrise) - Date.now())} /></td>
                                     </tr>
                                 )}
                             {
-                                displaySalahTime.map(Salah =>
+                                displaySalahTime.map((Salah, index) =>
                                     <tr className={
                                         ((Date.parse('01/01/2011 ' + moment(Date(dummy)).format("HH:mm").toString()) >= Date.parse('01/01/2011 ' + Salah.times.Dhuhr)) && (Date.parse('01/01/2011 ' + moment(Date(dummy)).format("HH:mm").toString()) < Date.parse('01/01/2011 ' + Salah.times.Asr))) ?
                                             //console.log((Date.parse('01/01/2011 '+time) > Date.parse('01/01/2011 '+Salah.times.Dhuhr)) || (Date.parse('01/01/2011 '+time) < Date.parse('01/01/2011 '+Salah.times.Asr)))
@@ -265,15 +231,15 @@ const Salah = () => {
                                         <td>{Salah.times.Dhuhr}</td>
                                         {/* <td>{(Date.parse('01/01/2011 '+dummy.toString().substr(16,5)) < Date.parse('01/01/2011 '+Salah.times.Dhuhr)).toString()}</td> */}
                                         <td>
-                                            <div className="form-check d-flex justify-content-center">
-                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onClick={() => setisDone("Dhuhr")} checked={getIsDone("Dhuhr") ? 'true' : 'false'} />
+                                            <div>
+                                                <img className="checkimg" onClick={() => setisDone(3, "Dhuhr")} src={ts = false, donesalah.map(mp => (mp.waqt == "Dhuhr" && mp.isdone == true) ? ts = true : ts = ts), ts ? check : circle} alt={ts? "check":"circle"} width="20" />
                                             </div>
                                         </td>
                                         <td><Countdown date={Date.now() + (Date.parse(moment(new Date()).format("MM/DD/YYYY").toString() + ' ' + Salah.times.Dhuhr) - Date.now())} /></td>
                                     </tr>
                                 )}
                             {
-                                displaySalahTime.map(Salah =>
+                                displaySalahTime.map((Salah, index) =>
                                     <tr className={
                                         ((Date.parse('01/01/2011 ' + moment(Date(dummy)).format("HH:mm").toString()) >= Date.parse('01/01/2011 ' + Salah.times.Asr)) && (Date.parse('01/01/2011 ' + moment(Date(dummy)).format("HH:mm").toString()) < Date.parse('01/01/2011 ' + Salah.times.Maghrib))) ?
                                             //console.log((Date.parse('01/01/2011 '+time) > Date.parse('01/01/2011 '+Salah.times.Dhuhr)) || (Date.parse('01/01/2011 '+time) < Date.parse('01/01/2011 '+Salah.times.Asr)))
@@ -289,8 +255,8 @@ const Salah = () => {
                                         <td>Asr</td>
                                         <td>{Salah.times.Asr}</td>
                                         <td>
-                                            <div className="form-check d-flex justify-content-center">
-                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onClick={() => setisDone("Asr")} checked={getIsDone("Asr") ? 'true' : 'false'} />
+                                            <div>
+                                                <img className="checkimg" onClick={() => setisDone(4, "Asr")} src={ts = false, donesalah.map(mp => (mp.waqt == "Asr" && mp.isdone == true) ? ts = true : ts = ts), ts ? check : circle} alt={ts? "check":"circle"} width="20" />
                                             </div>
                                         </td>
                                         <td><Countdown date={Date.now() + (Date.parse(moment(new Date()).format("MM/DD/YYYY").toString() + ' ' + Salah.times.Asr) - Date.now())} /></td>
@@ -298,7 +264,7 @@ const Salah = () => {
                                     </tr>
                                 )}
                             {
-                                displaySalahTime.map(Salah =>
+                                displaySalahTime.map((Salah, index) =>
                                     <tr className={
                                         ((Date.parse('01/01/2011 ' + moment(Date(dummy)).format("HH:mm").toString()) >= Date.parse('01/01/2011 ' + Salah.times.Maghrib)) && (Date.parse('01/01/2011 ' + moment(Date(dummy)).format("HH:mm").toString()) < Date.parse('01/01/2011 ' + Salah.times.Isha))) ?
                                             //console.log((Date.parse('01/01/2011 '+time) > Date.parse('01/01/2011 '+Salah.times.Dhuhr)) || (Date.parse('01/01/2011 '+time) < Date.parse('01/01/2011 '+Salah.times.Asr)))
@@ -314,8 +280,8 @@ const Salah = () => {
                                         <td>Maghrib, Iftar</td>
                                         <td>{Salah.times.Maghrib}</td>
                                         <td>
-                                            <div className="form-check d-flex justify-content-center">
-                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onClick={() => setisDone("Maghrib")} checked={getIsDone("Maghrib") ? 'true' : 'false'} />
+                                            <div>
+                                                <img className="checkimg" onClick={() => setisDone(5, "Maghrib")} src={ts = false, donesalah.map(mp => (mp.waqt == "Maghrib" && mp.isdone == true) ? ts = true : ts = ts), ts ? check : circle} alt={ts? "check":"circle"} width="20" />
                                             </div>
                                         </td>
                                         <td><Countdown date={Date.now() + (Date.parse(moment(new Date()).format("MM/DD/YYYY").toString() + ' ' + Salah.times.Maghrib) - Date.now())} /></td>
@@ -323,7 +289,7 @@ const Salah = () => {
                                     </tr>
                                 )}
                             {
-                                displaySalahTime.map(Salah =>
+                                displaySalahTime.map((Salah, index) =>
                                     <tr className={
                                         (Date.parse('01/01/2011 ' + moment(Date(dummy)).format("HH:mm").toString()) >= Date.parse('01/01/2011 ' + Salah.times.Isha)) ?
                                             //console.log((Date.parse('01/01/2011 '+time) > Date.parse('01/01/2011 '+Salah.times.Dhuhr)) || (Date.parse('01/01/2011 '+time) < Date.parse('01/01/2011 '+Salah.times.Asr)))
@@ -339,8 +305,8 @@ const Salah = () => {
                                         <td>Isha</td>
                                         <td>{Salah.times.Isha}</td>
                                         <td>
-                                            <div className="form-check d-flex justify-content-center">
-                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onClick={() => setisDone("Isha")} checked={getIsDone("Isha") ? 'true' : 'false'} />
+                                            <div>
+                                                <img className="checkimg" onClick={() => setisDone(6, "Isha")} src={ts = false, donesalah.map(mp => (mp.waqt == "Isha" && mp.isdone == true) ? ts = true : ts = ts), ts ? check : circle} alt={ts? "check":"circle"} width="20" />
                                             </div>
                                         </td>
                                         <td><Countdown date={Date.now() + (Date.parse(moment(new Date()).format("MM/DD/YYYY").toString() + ' ' + Salah.times.Isha) - Date.now())} /></td>
