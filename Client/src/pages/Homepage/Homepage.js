@@ -247,7 +247,7 @@ const Homepage = (props) => {
             </div>
             <Container>
             <Row className="cards">
-                <Col className="cardItem">
+                <div className="cardItem">
                     <Carousel indicators={false} indicatorLabels="[0]">
                         <Carousel.Item  className="quranAyahPara" interval={4000}>
                             <p>Next Salah: <br /> {nextWakt}, {nextHr}:{nextMin}{meridian}</p>
@@ -256,8 +256,8 @@ const Homepage = (props) => {
                             <p>{currentWakt} remaining: <br /> {remHr}hr, {remMin}min</p>
                         </Carousel.Item>
                     </Carousel>
-                </Col>
-                <Col className="cardItem">
+                </div>
+                <div className="cardItem">
                 <Carousel indicators={false} indicatorLabels="[0]">
                     {
                         displayMydayTask.map(myday =>
@@ -267,8 +267,8 @@ const Homepage = (props) => {
                             )
                     }
                     </Carousel>
-                </Col>
-                <Col className="cardItemDua">
+                </div>
+                <div className="cardItemDua">
                 <Carousel indicators={false} indicatorLabels="[0]">
                     {
                         displayfavourite.map(favdua =>
@@ -278,7 +278,7 @@ const Homepage = (props) => {
                             )
                     }
                     </Carousel>
-                </Col>
+                </div>
                 
 
             </Row>
