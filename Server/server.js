@@ -729,6 +729,25 @@ app.get("/showposts", async (req, res) => {
   }
 });
 
+//get current users all Posts
+app.get("/showuserposts/:id", async (req, res) => {
+  try {
+    const results = await db.query(
+      "select * from forumpost where userid=$1 order by postid desc;", [req.params.id]
+    );
+
+    res.status(200).json({
+      status: "success",
+      results: results.rows.length,
+      data: {
+        posts: results.rows,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 //add new Comment
 app.post("/createcomment", async (req, res) => {
   try {
@@ -1039,8 +1058,6 @@ app.get("/waqtdone/:id/:waqtname", async (req, res) => {
     const isDone = await db.query(
       "SELECT isDone FROM mysalah WHERE (userID = $1 AND waqt = $2) AND (day = CURRENT_DATE);", [req.params.id, req.params.waqtname]
     );
-    console.log(isDone.rows);
-
     res.status(200).json({
       status: "success",
       results: isDone.rows.length,

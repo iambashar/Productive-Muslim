@@ -109,7 +109,6 @@ const Emotion = () => {
     return (
         <div>
             <div class="sideMenuDua">
-
                 <div class="menuItem">
                     <a className="menuItem activeNav" href="#">
                         <div className="menuIcon" >

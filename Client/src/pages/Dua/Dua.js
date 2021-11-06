@@ -4,7 +4,7 @@ import textIcon from '../../Images/textIcon.svg'
 import mainIcon from '../../Images/mainIcon.svg';
 import userimg from '../../Images/user.png'
 import './Dua.css';
-import { BrowserRouter as Router, Switch, Route,} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import Favourites from './favourites/Favourites';
 import Emotion from './emotion/Emotion';
 import { useHistory } from "react-router";
