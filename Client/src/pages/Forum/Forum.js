@@ -6,7 +6,7 @@ import { Dropdown, Form, Navbar, Container, Nav } from 'react-bootstrap';
 import textIcon from '../../Images/textIcon.svg'
 import mainIcon from '../../Images/mainIcon.svg'
 import './Forum.css'
-import { Link, useHistory, BrowserRouter as Router, } from "react-router-dom";
+import { useHistory, BrowserRouter as Router, } from "react-router-dom";
 import userimg from '../../Images/user.png';
 import { useAuth } from "../../components/Authentication/AuthContext";
 
@@ -94,7 +94,7 @@ const Forum = () => {
                 "Content-type": "application/json; charset=UTF-8"
             }
         });
-        
+
         comment++;
 
         fetch('http://localhost:3000/updatecommentcount/', {
@@ -118,7 +118,7 @@ const Forum = () => {
     const toggleUpVote = (postID, index, vote) => {
         if (document.getElementsByTagName("i")[index].className == "far fa-thumbs-up fa-2x") {
             document.getElementsByTagName("i")[index].className = "fas fa-thumbs-up fa-2x";
-            document.getElementsByTagName("i")[index].innerHTML = (parseInt(document.getElementsByTagName("i")[index].innerHTML)+1);
+            document.getElementsByTagName("i")[index].innerHTML = (parseInt(document.getElementsByTagName("i")[index].innerHTML) + 1);
             fetch('http://127.0.0.1:3000/addupvote', {
                 method: 'POST',
                 body: JSON.stringify({ postID, uid }),
@@ -127,7 +127,7 @@ const Forum = () => {
                 }
             });
             vote++;
-            fetch('http://localhost:3000/updateupvote/', {
+            fetch('http://localhost:3000/updateupvote', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -145,8 +145,8 @@ const Forum = () => {
                 }
             });
             vote--;
-            document.getElementsByTagName("i")[index].innerHTML = (parseInt(document.getElementsByTagName("i")[index].innerHTML)-1);
-            fetch('http://localhost:3000/updateupvote/', {
+            document.getElementsByTagName("i")[index].innerHTML = (parseInt(document.getElementsByTagName("i")[index].innerHTML) - 1);
+            fetch('http://localhost:3000/updateupvote', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -228,11 +228,10 @@ const Forum = () => {
                                         <h3 className="forumBody">
                                             {allpost.description}
                                         </h3>
-                                        {/* <button id="upvotebtn" onClick={() => toggleUpVote(index)}>{allpost.upvote}</button> */}
                                         <i id="upVotebtn" className={ts = false, displayupVote.map(mp => mp.postid == allpost.postid ? ts = true : ts = ts), ts ? "fas fa-thumbs-up fa-2x" : "far fa-thumbs-up fa-2x"}
                                             onClick={() => toggleUpVote(allpost.postid, index, allpost.upvote)}>{allpost.upvote}</i>
                                         <Dropdown.Toggle id="commentbtn" variant="secondary" onClick={() => toggleShowList(index)}>
-                                           {allpost.commentcount}&nbsp;&nbsp;&nbsp;Comments
+                                            {allpost.commentcount}&nbsp;&nbsp;&nbsp;Comments
                                         </Dropdown.Toggle>
                                         <div className="commentbox">
                                             <Form id="forumbox2">

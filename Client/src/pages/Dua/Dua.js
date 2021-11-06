@@ -4,15 +4,7 @@ import textIcon from '../../Images/textIcon.svg'
 import mainIcon from '../../Images/mainIcon.svg';
 import userimg from '../../Images/user.png'
 import './Dua.css';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link,
-    useRouteMatch,
-    useParams
-} from "react-router-dom";
-import Recommendation from './recommendation/Recommendation';
+import { BrowserRouter as Router, Switch, Route,} from "react-router-dom";
 import Favourites from './favourites/Favourites';
 import Emotion from './emotion/Emotion';
 import { useHistory } from "react-router";
@@ -72,16 +64,12 @@ const Dua = () => {
 
             <div className="pageContent">
                 <Switch>
-                    <Route path="/pages/Dua/recommendation">
-                        <Recommendation></Recommendation>
-                    </Route>
                     <Route path="/pages/Dua/favourites">
                         <Favourites></Favourites>
                     </Route>
                     <Route path="/">
                         <Emotion></Emotion>
                     </Route>
-
                 </Switch>
             </div>
         </Router>

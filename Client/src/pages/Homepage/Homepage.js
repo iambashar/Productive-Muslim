@@ -48,9 +48,7 @@ const Homepage = (props) => {
                 setSurah(data.data.surah.englishName);
                 setAyahNo(data.data.surah.numberOfAyahs);
             });
-    }, []);
 
-    useEffect(() => {
         // if does not work then turn off your browser ad blocker :)
         fetch("http://ip-api.com/json")
             .then(res => res.json())
@@ -76,7 +74,19 @@ const Homepage = (props) => {
     }, [nextMin, nextHr12]);
 
     function getHadith() {
-        
+
+        // fetch('https://api.sunnah.com/v1/hadiths/random', {
+        //     method: 'GET',
+        //     headers: {
+        //         "x-api-key": "SqD712P3E82xnwOAEOkGd5JZH8s9wRR24TqNFzjk"
+        //     }})
+        //     .then(res => res.json())
+        //     .then(data => {
+        //         setAyah(data.hadit[0].body);
+        //         setSurah(data.hadit[0].chapterTitle);
+        //         setAyahNo(data.hadit[0].chapterNumber);
+        //     });
+
     }
 
     function retrieveTime() {

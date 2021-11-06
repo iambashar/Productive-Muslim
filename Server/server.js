@@ -20,7 +20,7 @@ app.use(express.json());
 app.get("/duas", async (req, res) => {
   try {
     const allduas = await db.query(
-      "select * from duas order by random();"
+      "select distinct on (duaid) * from duas;"
     );
 
     res.status(200).json({
@@ -744,6 +744,94 @@ app.get("/getupvotes/:id", async (req, res) => {
       results: results.rows.length,
       data: {
         upvotes: results.rows,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//add new favourite dua
+app.post("/addfavdua", async (req, res) => {
+  try {
+    const results = await db.query(
+      'INSERT INTO favouritecount (duaid, userid) values ($1, $2) returning *',
+      [req.body.duaID, req.body.uid]
+    );
+    res.status(201).json({
+      status: "success",
+      data: {
+        favouritecount: results.rows[0],
+      },
+    });
+
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//delete favourite dua
+app.delete("/deletefavdua", async (req, res) => {
+  try {
+    const results = db.query("DELETE FROM favouritecount where duaid = $1 and userid = $2;",
+      [req.body.duaID, req.body.uid]);
+    res.status(204).json({
+      status: "success",
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//get favourite dua favouritecount
+app.get("/getfavduacount/:id", async (req, res) => {
+  try {
+    const results = await db.query(
+      "select * from favouritecount where userid = $1;", [req.params.id],
+    );
+
+    res.status(200).json({
+      status: "success",
+      results: results.rows.length,
+      data: {
+        favouritecount: results.rows,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.get("/getfavdua/:id", async (req, res) => {
+  try {
+    const results = await db.query(
+      "select DISTINCT ON (duaid) * from duas where duaid in (select duaid from favouritecount where userid = $1);", [req.params.id],
+    );
+
+    res.status(200).json({
+      status: "success",
+      results: results.rows.length,
+      data: {
+        dua: results.rows,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//update 
+app.put("/updatefavdua", async (req, res) => {
+  try {
+    const results = await db.query(
+      "UPDATE duas SET favouritecount=$1 where duaid=$2 returning *",
+      [req.body.fc, req.body.duaID]
+    );
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        duas: results.rows,
       },
     });
   } catch (err) {
