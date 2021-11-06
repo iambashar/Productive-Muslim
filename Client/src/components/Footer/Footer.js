@@ -2,20 +2,21 @@ import React, { useEffect, useState } from 'react';
 import './Footer.css'
 import { Form, Button } from 'react-bootstrap';
 import emailjs from 'emailjs-com'
-import firebase from 'firebase/compat'
 import { useAuth } from '../../components/Authentication/AuthContext'; 
 
 const Footer = () => {
     const [modal, setModal] = useState(false);
-    const [uid, setUid] = useState();
-    const [userMail, setUserMail] = useState();
-    const [count, setCount] = useState(0);
-    //const { currentUser } = useAuth();
-
+    const [email, setEmail] = useState();
+    const [name, setName] = useState();
+    const { currentUser } = useAuth();
   
     useEffect(() => {
-            //setUid(currentUser.email);
-            console.log(uid);           
+        if(currentUser != null)
+        {
+            console.log(currentUser);
+            setEmail(currentUser.email);
+            setName(currentUser.displayName);
+        }
         document.getElementsByClassName("contactLink")[0].style.setProperty("text-decoration", "underline");
         
     }, []);
@@ -55,12 +56,12 @@ const Footer = () => {
                             <input type="radio" value="samiaislam@iut-dhaka.edu" name="emailID" className="radio" autocomplete="off"/> 
                             <label className="radio" for="samia">Samia Islam, 180041237</label><br/>
                             <input type="radio" value="bashar38@iut-dhaka.edu" name="emailID"  className="radio"/> 
-                            <label className="radio" for="samia">M. K. Bashar, 180041238</label>
+                            <label className="radio" for="bashar">M. K. Bashar, 180041238</label>
                         </div>
-                        <Form.Control id="subject" name="subject" type="text" placeholder="Subject" /><br/>
-                        {console.log()}
-                        <Form.Control id="usermail" name="usermail" type="text" value={uid} style={{display: "none"}}/>
-                        <Form.Control id="mail" name="message" as="textarea" placeholder="Message" rows={3} />
+                        <Form.Control id="subject" name="user_subject" type="text" placeholder="Subject" /><br/>
+                        <Form.Control id="name" name="user_name" type="text" value={name} style={{display: "none"}}/>
+                        <Form.Control id="usermail" name="user_mail" type="email" value={email} style={{display: "none"}}/>
+                        <Form.Control id="mail" name="user_message" as="textarea" placeholder="Message" rows={3} />
                     </Form.Group>
                     <Button type="submit" id="sendbtn" >
                         Send
