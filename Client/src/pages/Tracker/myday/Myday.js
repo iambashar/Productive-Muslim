@@ -26,9 +26,9 @@ const Myday = () => {
     const [modal, setModal] = useState(false);
     const [showList, setShowList] = useState(false);
     const [displayTaskList, setDisplayTaskList] = useState([]);
-    const {setListID, selectedlistID} = useAuth();
+    const { setListID, selectedlistID } = useAuth();
     const history = useHistory();
-    
+
 
     useEffect(() => {
         countFive();
@@ -273,7 +273,7 @@ const Myday = () => {
     async function passListID(ID) {
         await setListID(ID);
         history.push("/pages/Tracker/listofuser");
-        
+
     }
 
 
@@ -299,23 +299,23 @@ const Myday = () => {
                         <div className="menuText">Planned</div>
                     </a>
                 </div>
-                <div class="menuItem" >    
-                        <div className="menuIcon listNav" >
-                            <img src={listIcon} width="25"></img>
-                        </div>
-                        <div className="menuText" onClick={toggleShowList}>Lists</div>   
-                        <div className="menuIcon listNav" onClick={toggleShowList}>
-                            <img src={showList ? downArrow : leftArrow} width="20"></img>
-                        </div>   
+                <div class="menuItem" >
+                    <div className="menuIcon listNav" >
+                        <img src={listIcon} width="25"></img>
+                    </div>
+                    <div className="menuText" onClick={toggleShowList}>Lists</div>
+                    <div className="menuIcon listNav" onClick={toggleShowList}>
+                        <img src={showList ? downArrow : leftArrow} width="20"></img>
+                    </div>
                 </div>
                 {
                     displayTaskList.map((list, index) =>
-                    <a onClick={() => passListID(list.id)} className={showList ? "anlistItemShow" : "anlistItemHide"}>
-                    <div class="listItem">
-                        <div>{list.listname}</div>
-                    </div>
-                </a>
-            )
+                        <a onClick={() => passListID(list.id)} className={showList ? "anlistItemShow" : "anlistItemHide"}>
+                            <div class="listItem">
+                                <div>{list.listname}</div>
+                            </div>
+                        </a>
+                    )
                 }
                 <div class="menuItem addBtn" onClick={togglePopUp}>
                     <div className="menuIcon">
@@ -340,8 +340,8 @@ const Myday = () => {
                     displayMydayTask.map((myday, index) =>
                         <div className="taskBox">
                             <div class="taskCheckBox">
-                                <img className="check-input" onClick={() => setisCompleted(myday.id, index)} src ={myday.iscompleted? check:circle} width="20"/>
-                                </div>
+                                <img className="check-input" onClick={() => setisCompleted(myday.id, index)} src={myday.iscompleted ? check : circle} width="20" />
+                            </div>
                             <h2 className="taskText" contentEditable={false} onBlur={() => removeFocus(index)}
                                 onKeyPress={event => {
                                     if (event.key === "Enter") {
