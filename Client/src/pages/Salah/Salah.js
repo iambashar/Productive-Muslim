@@ -187,7 +187,7 @@ const Salah = () => {
                                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
                                         </div>
                                     </td> */}
-                                        <td>Fajr</td>
+                                        <td><b>Fajr</b></td>
                                         <td>{convert12hrFormat(Salah.times.Fajr)}</td>
                                         <td>
                                             <div>
@@ -235,7 +235,7 @@ const Salah = () => {
                                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
                                             </div>
                                         </td> */}
-                                        <td>Dhuhr</td>
+                                        <td><b>Dhuhr</b></td>
                                         <td>{convert12hrFormat(Salah.times.Dhuhr)}</td>
                                         {/* <td>{(Date.parse('01/01/2011 '+dummy.toString().substr(16,5)) < Date.parse('01/01/2011 '+Salah.times.Dhuhr)).toString()}</td> */}
                                         <td>
@@ -260,7 +260,7 @@ const Salah = () => {
                                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
                                             </div>
                                         </td> */}
-                                        <td>Asr</td>
+                                        <td><b>Asr</b></td>
                                         <td>{convert12hrFormat(Salah.times.Asr)}</td>
                                         <td>
                                             <div>
@@ -285,7 +285,7 @@ const Salah = () => {
                                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
                                             </div>
                                         </td> */}
-                                        <td>Maghrib, Iftar</td>
+                                        <td><b>Maghrib</b>, Iftar</td>
                                         <td>{convert12hrFormat(Salah.times.Maghrib)}</td>
                                         <td>
                                             <div>
@@ -310,7 +310,7 @@ const Salah = () => {
                                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
                                             </div>
                                         </td> */}
-                                        <td>Isha</td>
+                                        <td><b>Isha</b></td>
                                         <td>{convert12hrFormat(Salah.times.Isha)}</td>
                                         <td>
                                             <div>
