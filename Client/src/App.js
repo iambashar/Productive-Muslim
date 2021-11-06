@@ -13,9 +13,11 @@ import Reset from "./components/Authentication/Reset";
 import { AuthProvider } from "./components/Authentication/AuthContext"
 import PrivateRoute from "./components/Authentication/PrivateRoute"
 import UpdateProfile from './components/Authentication/UpdateProfile';
+import Footer from './components/Footer/Footer';
 
 function App() {
   return (
+    <>
     <Router>
       <AuthProvider>
         <Switch>
@@ -32,7 +34,10 @@ function App() {
           <Route path="/reset" component={Reset} />
         </Switch>
       </AuthProvider>
+      <Footer></Footer>
     </Router>
+    </>
+    
   );
 }
 

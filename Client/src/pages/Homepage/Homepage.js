@@ -8,6 +8,8 @@ import { useAuth } from "../../components/Authentication/AuthContext";
 import userimg from '../../Images/user.png';
 import { SalahContext } from '../SalahContextProvider';
 import firebase from 'firebase/compat'
+import Footer from '../../components/Footer/Footer'
+
 
 
 const Homepage = (props) => {
@@ -277,11 +279,7 @@ const Homepage = (props) => {
                     }
                     </Carousel>
                 </Col>
-                {/*<button id="btnHadithofDay" onClick={getHadith}>
-                    Hadith of the Day
-    </button>*/}
-
-                {/*} */}
+                
 
             </Row>
             </Container>

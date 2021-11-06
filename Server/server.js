@@ -932,7 +932,29 @@ app.put("/updatefavdua", async (req, res) => {
   }
 });
 
+//get user mail
+app.get("/getusermail/:id", async (req, res) => {
+  try {
+    const results = await db.query(
+      "select email from users where userid = $1;", [req.params.id],
+    );
+
+    res.status(200).json({
+      status: "success",
+      results: results.rows.length,
+      data: {
+        mail: results.rows,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
   console.log(`server is up and listening on port ${port}`);
 });
+
+
+

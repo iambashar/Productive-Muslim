@@ -1,0 +1,75 @@
+.main-footer {
+    background: #000000a4;
+    bottom: 0;
+    z-index: 10;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 20px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+}
+
+.footerText {
+    color: #02a8a6;
+    bottom: 0;
+    display: inline-block;
+    float: left;
+}
+
+.contactLink {
+    color: #02a8a6;
+    text-decoration: underline;
+    display: inline-block;
+    float: right;
+}
+
+.contactLink:hover {
+    color: #00908e;
+}
+
+.popUp {
+    background: rgba(0, 0, 0);
+    position: fixed;
+    z-index: 10;
+    width: 80%;
+    top: 20%;
+    left: 10%;
+    padding: 20px;
+    border: 4px;
+    margin: auto;
+    border-style: solid;
+    border-color: rgb(168, 223, 215)
+}
+
+.radio {
+    color: #e0d2b4;
+    margin-left: 5px;
+}
+
+
+#sendbtn,
+#sendbtn:visited {
+  background-color: #e0d2b4;
+  color: #044444;
+  border: #044444;
+  font-family: "El Messiri";
+  font-weight: bold;
+  font-size: 1.2rem;
+  width: fit-content;
+  float: right;
+}
+#sendbtn:hover {
+  background-color: #ad976a;
+  color: #044444;
+  border: #044444;
+}
+#sendbtn:focus,
+#sendbtn:focus-visible,
+#sendbtn:checked {
+  background-color: #e0d2b4;
+  color: #044444;
+  border: #044444;
+}
