@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import './Homepage.css'
-import { Navbar, Container, Nav, Carousel, Button } from 'react-bootstrap';
+import { Navbar, Container, Nav, Carousel, Button, Col, Row } from 'react-bootstrap';
 import textIcon from '../../Images/textIcon.svg'
 import mainIcon from '../../Images/mainIcon.svg'
 import { useHistory } from "react-router";
 import { useAuth } from "../../components/Authentication/AuthContext";
 import userimg from '../../Images/user.png';
 import { SalahContext } from '../SalahContextProvider';
+import firebase from 'firebase/compat'
+
 
 const Homepage = (props) => {
     const [ayah, setAyah] = useState();
@@ -21,11 +23,12 @@ const Homepage = (props) => {
     const [nextHr12, setNextHr12] = useState();
     const [meridian, setMeridian] = useState();
     var remTime;
-
     const [error, setError] = useState("")
     const { currentUser, logout } = useAuth()
     const history = useHistory()
-
+    const [uid, setUid] = useState();
+    const [displayMydayTask, setDisplayMydayTask] = useState([]);
+    const [displayfavourite, setDisplayfarourite] = useState([]);
     async function handleLogout() {
         setError("")
 
@@ -38,6 +41,12 @@ const Homepage = (props) => {
     }
 
     useEffect(() => {
+        if (firebase.auth().currentUser !== null) {
+            setUid(firebase.auth().currentUser.uid);
+        }
+    }, [uid]);
+
+    useEffect(() => {
         var id = Math.floor(Math.random() * 6236) + 1;
         var link = "http://api.alquran.cloud/v1/ayah/";
         link = link.concat(id, "/en.asad");
@@ -46,7 +55,8 @@ const Homepage = (props) => {
             .then(data => {
                 setAyah(data.data.text);
                 setSurah(data.data.surah.englishName);
-                setAyahNo(data.data.surah.numberOfAyahs);
+                setAyahNo(data.data.numberInSurah);
+                console.log(data.data);
             });
 
         // if does not work then turn off your browser ad blocker :)
@@ -62,6 +72,25 @@ const Homepage = (props) => {
                 (result) => {
                     getSalahTimes(result.results.datetime);
                 });
+
+        link = "http://localhost:3000/showmyday/";
+        link = link.concat(currentUser.uid);
+        console.log(currentUser.uid);
+        fetch(link)
+            .then(res => res.json()
+                .then(
+                    (result) => {
+                        setDisplayMydayTask(result.data.tasks);
+                        console.log(result.data.tasks);
+                    }));
+        fetch("http://127.0.0.1:3000/getfavdua/".concat(currentUser.uid))
+            .then(res => res.json())
+            .then(
+                (results) => {
+                    setDisplayfarourite(results.data.dua);
+                    console.log(results.data.dua);
+                }
+            );
     }, []);
 
     useEffect(() => {
@@ -211,27 +240,51 @@ const Homepage = (props) => {
                     </Container>
                 </Navbar>
             </header>
-            <div>
-                <div className="quranAyah">
-                    <p className="quranAyahPara">{ayah}<br />-Surah {surah}, Verse: {ayahNo}</p>
-                </div>
-                <div className="salahTime">
+            <div className="quranAyah">
+                <p>{ayah}<br />-Surah {surah}, Verse: {ayahNo}</p>
+            </div>
+            <Container>
+            <Row className="cards">
+                <Col className="cardItem">
                     <Carousel indicators={false} indicatorLabels="[0]">
-                        <Carousel.Item interval={4000}>
+                        <Carousel.Item  className="quranAyahPara" interval={4000}>
                             <p>Next Salah: <br /> {nextWakt}, {nextHr}:{nextMin}{meridian}</p>
                         </Carousel.Item>
                         <Carousel.Item interval={4000}>
                             <p>{currentWakt} remaining: <br /> {remHr}hr, {remMin}min</p>
                         </Carousel.Item>
                     </Carousel>
-                </div>
-
-            </div>
-            <div className="hadith">
-                <button id="btnHadithofDay" onClick={getHadith}>
+                </Col>
+                <Col className="cardItem">
+                <Carousel indicators={false} indicatorLabels="[0]">
+                    {
+                        displayMydayTask.map(myday =>
+                            <Carousel.Item interval={4000}>
+                            <p>Today's Task: <br/> {myday.task}</p>
+                        </Carousel.Item>
+                            )
+                    }
+                    </Carousel>
+                </Col>
+                <Col className="cardItemDua">
+                <Carousel indicators={false} indicatorLabels="[0]">
+                    {
+                        displayfavourite.map(favdua =>
+                            <Carousel.Item interval={8000}>
+                            <p>Make a Dua: <br/> {favdua.translation}</p>
+                        </Carousel.Item>
+                            )
+                    }
+                    </Carousel>
+                </Col>
+                {/*<button id="btnHadithofDay" onClick={getHadith}>
                     Hadith of the Day
-                </button>
-            </div>
+    </button>*/}
+
+                {/*} */}
+
+            </Row>
+            </Container>
         </div>
 
     );

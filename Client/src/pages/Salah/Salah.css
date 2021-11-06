@@ -34,3 +34,29 @@ td, th{
     border-radius: 10px;
     font-family: "El Messiri";
 }
+/* .highlightNextWaqt {
+    color:rgb(255, 255, 255);
+    background-color: rgba(252, 147, 9, 0.562);
+  } */
+  @-webkit-keyframes nextWaqt {
+    from { background-color: rgba(252, 147, 9, 0.562); }
+    to { background-color: inherit; }
+  }
+  @-moz-keyframes nextWaqt {
+    from { background-color: rgba(252, 147, 9, 0.562); }
+    to { background-color: inherit; }
+  }
+  @-o-keyframes nextWaqt {
+    from { background-color: rgba(252, 147, 9, 0.562); }
+    to { background-color: inherit; }
+  }
+  @keyframes nextWaqt {
+    from { background-color: rgba(252, 147, 9, 0.562) }
+    to { background-color: inherit; }
+  }
+  .highlightNextWaqt {
+    -webkit-animation: nextWaqt 1s infinite; /* Safari 4+ */
+    -moz-animation:    nextWaqt 1s infinite; /* Fx 5+ */
+    -o-animation:      nextWaqt 1s infinite; /* Opera 12+ */
+    animation:         nextWaqt 1s infinite; /* IE 10+ */
+  }

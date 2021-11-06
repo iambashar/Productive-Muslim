@@ -976,6 +976,84 @@ app.put("/updatefavdua", async (req, res) => {
   }
 });
 
+//add Salah Waqt Done
+app.post("/addwaqtdone", async (req, res) => {
+  try{
+    const res1 = await db.query(
+      "SELECT * from mysalah where userid = $1 and waqt = $2 AND (day = CURRENT_DATE);", [req.body.uid, req.body.waqt]
+    )
+    if(res1.rows.length){
+      const res2 = await db.query(
+        "DELETE from mysalah where userid = $1 and waqt = $2 AND (day = CURRENT_DATE) returning *;", [req.body.uid, req.body.waqt]
+      );
+      res.status(201).json({
+        status: "success",
+        data: {
+          mySalah: res2.rows[0],
+        },
+      });
+    }
+    else{
+    const results = await db.query(
+      "INSERT INTO mysalah (userid, waqt, isDone) values ($1, $2, $3) returning *",
+      [req.body.uid, req.body.waqt, req.body.isDone]
+    );
+    res.status(201).json({
+      status: "success",
+      data: {
+        mySalah: results.rows[0],
+      },
+    });
+  }
+  }
+  catch (err){
+    //console.log(req.body.uid, req.body.date, req.body.reason);
+    console.log(err);
+  }
+});
+
+// show done waqts
+app.get("/showdonewaqts/:id", async (req, res) => {
+  try{
+    const waqts = await db.query(
+      "SELECT * FROM mysalah WHERE userID = $1 AND day = CURRENT_DATE;", [req.params.id] //AND sawmdate >= (SELECT TO_CHAR(NOW() :: DATE, 'dd-mm-yyyy'))
+    );
+
+    res.status(200).json({
+      status: "success",
+      results: waqts.rows.length,
+      data: {
+        waqts: waqts.rows,
+      },
+    });
+  }
+  catch (err){
+    console.log(err);
+  }
+});
+
+// get waqt done?
+app.get("/waqtdone/:id/:waqtname", async (req, res) => {
+  try{
+    //console.log(req.params.waqtname);
+    const isDone = await db.query(
+      "SELECT isDone FROM mysalah WHERE (userID = $1 AND waqt = $2) AND (day = CURRENT_DATE);", [req.params.id, req.params.waqtname]
+    );
+    console.log(isDone.rows);
+
+    res.status(200).json({
+      status: "success",
+      results: isDone.rows.length,
+      data: {
+        waqts: isDone.rows,
+      },
+    });
+  }
+  catch (err){
+    console.log(err);
+  }
+});
+
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
   console.log(`server is up and listening on port ${port}`);

@@ -6,10 +6,32 @@ import './Salah.css'
 import userimg from '../../Images/user.png';
 import { useHistory } from "react-router";
 import { useAuth } from "../../components/Authentication/AuthContext";
+import moment from 'moment';
+import firebase from 'firebase/compat';
+import Countdown from "react-countdown";
 
 const Salah = (props) => {
 
     const [displaySalahTime, setdisplaySalahTime] = useState([]);
+    const [uid, setUid] = useState();
+    //const [displaySalahLocation, setdisplaySalahLocation] = useState([]);
+    //const [time, setTime] = useState(new Date().toLocaleTimeString('en-US', { hour12: false, hour: "numeric", minute: "numeric"}));
+    const [date, setDate] = useState(new Date());
+    const dummy = {date};
+    const [displayMySalah, setDisplayMySalah] = useState([]);
+    //console.log(Date.parse('01/01/2011 '+dummy.toString().substr(16,5)));
+    console.log(moment(Date(dummy)).format("HH:mm"))
+    //const date = new Date();
+    const onChange = date => {
+        setDate(date);
+        //handleShow();
+    }
+    useEffect(() => {
+        if (firebase.auth().currentUser !== null) {
+            setUid(firebase.auth().currentUser.uid);
+        }
+        console.log(uid);
+    }, [uid]);
 
     useEffect(() => {
         // if does not work then turn off your browser ad blocker :)
@@ -24,14 +46,72 @@ const Salah = (props) => {
             .then(
                 (result) => {
                     setdisplaySalahTime(result.results.datetime);
+                    //setdisplaySalahLocation(result.results.location);
                 });
     }, []);
+    
+    // useEffect(() => {
+    //     var link = "http://127.0.0.1:3000/showdonewaqts/";
+    //     link = link.concat(uid);
+    //     fetch(link)
+    //         .then(res => res.json())
+    //         .then(
+    //             (result) => {
+    //                 setDisplayMySalah(result.data.waqts);
+    //                 console.log(result.data.waqts);
+    //             }
+    //         )
+    // })
 
     const [error, setError] = useState("")
     const { currentUser, logout } = useAuth()
     const history = useHistory()
 
     console.log(displaySalahTime);
+    
+    const setisDone = (waqt) => {
+        var isDone = new Boolean(true);
+        fetch('http://localhost:3000/addwaqtdone', {
+            method: 'POST',
+            body: JSON.stringify({
+                uid,
+                waqt,
+                isDone
+            }),
+            headers:{
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+        .then(console.log(waqt));
+    }
+
+    function getIsDone (waqt) {
+        //var isDone = new Boolean(true);
+        var link = "http://localhost:3000/waqtdone/";
+        link = link.concat(uid);
+        link = link.concat('/' + waqt);
+        fetch(link, {
+            method: 'GET',
+            headers:{
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+        //.then(console.log(waqt));
+        .then(res => res.json())
+        .then(
+            (result) => {
+                console.log(result.data.waqts);
+                //return false;
+                if(result.data.waqts.length === 0){
+                    return false;
+                }
+                else{
+                    console.log(result.data.waqts)
+                    return true;
+                }
+            }
+        )
+    }
 
     async function handleLogout() {
         setError("")
@@ -79,100 +159,186 @@ const Salah = (props) => {
                 </header>
             <div className="salahdiv">
                 <div className="salahtable">
-                    <table className="table">
+                    <table className="table" onChange={onChange} >
                         <thead>
                             <tr>
-                                <th scope="col">Favourite</th>
+                                {/* <th scope="col">Favourite</th> */}
                                 <th scope="col">Salah</th>
                                 <th scope="col">Time</th>
                                 <th scope="col">Done</th>
+                                <th scope="col">Time Remaining</th>
                             </tr>
                         </thead>
-                        <tbody>{
+                        <tbody>
+                        {
                             displaySalahTime.map(Salah =>
-                                <tr>
-                                    <td>
+                                <tr className={
+                                    ((Date.parse('01/01/2011 '+moment(Date(dummy)).format("HH:mm").toString()) < Date.parse('01/01/2011 '+Salah.times.Imsak)))?
+                                        //console.log((Date.parse('01/01/2011 '+time) > Date.parse('01/01/2011 '+Salah.times.Dhuhr)) || (Date.parse('01/01/2011 '+time) < Date.parse('01/01/2011 '+Salah.times.Asr)))
+                                        "highlightNextWaqt":""
+                                    //console.log((Date.parse('01/01/2011 '+time) > Date.parse('01/01/2011 '+Salah.times.Dhuhr)) || (Date.parse('01/01/2011 '+time) < Date.parse('01/01/2011 '+Salah.times.Asr)))
+                                
+                            }>
+                                    {/* <td>
                                         <div class="form-check d-flex justify-content-center">
                                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
                                         </div>
+                                    </td> */}
+                                    <td>Tahajjud, Sehri ends</td>
+                                    <td>{Salah.times.Imsak}</td>
+                                    <td>
+                                        <div className="form-check d-flex justify-content-center">
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onClick={() => setisDone("Tahajjud")} checked={getIsDone("Tahajjud")?'true':'false'}/>
+                                        </div>
                                     </td>
+                                    <td><Countdown date={Date.now() + (Date.parse(moment(new Date()).format("MM/DD/YYYY").toString()+' '+Salah.times.Imsak) -Date.now())} /></td>
+                                </tr>
+                            )}
+                            {
+                            displaySalahTime.map(Salah =>
+                                <tr className={
+                                    ((Date.parse('01/01/2011 '+moment(Date(dummy)).format("HH:mm").toString()) >= Date.parse('01/01/2011 '+Salah.times.Fajr)) && (Date.parse('01/01/2011 '+moment(Date(dummy)).format("HH:mm").toString()) < Date.parse('01/01/2011 '+Salah.times.Sunrise)))?
+                                        //console.log((Date.parse('01/01/2011 '+time) > Date.parse('01/01/2011 '+Salah.times.Dhuhr)) || (Date.parse('01/01/2011 '+time) < Date.parse('01/01/2011 '+Salah.times.Asr)))
+                                        "highlightNextWaqt":""
+                                    //console.log((Date.parse('01/01/2011 '+time) > Date.parse('01/01/2011 '+Salah.times.Dhuhr)) || (Date.parse('01/01/2011 '+time) < Date.parse('01/01/2011 '+Salah.times.Asr)))
+                                
+                                    }>
+                                    {/* <td>
+                                        <div class="form-check d-flex justify-content-center">
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                        </div>
+                                    </td> */}
                                     <td>Fajr</td>
                                     <td>{Salah.times.Fajr}</td>
                                     <td>
                                         <div className="form-check d-flex justify-content-center">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onClick={() => setisDone("Fajr")} checked={getIsDone("Fajr")?'true':'false'}/>
                                         </div>
                                     </td>
+                                    <td><Countdown date={Date.now() + (Date.parse(moment(new Date()).format("MM/DD/YYYY").toString()+' '+Salah.times.Fajr) -Date.now())} /></td>
+                                </tr>
+                            )}
+                            {
+                            displaySalahTime.map(Salah =>
+                                <tr className={
+                                    ((Date.parse('01/01/2011 '+moment(Date(dummy)).format("HH:mm").toString()) >= Date.parse('01/01/2011 '+Salah.times.Sunrise)) && (Date.parse('01/01/2011 '+moment(Date(dummy)).format("HH:mm").toString()) < Date.parse('01/01/2011 '+Salah.times.Dhuhr)))?
+                                        //console.log((Date.parse('01/01/2011 '+time) > Date.parse('01/01/2011 '+Salah.times.Dhuhr)) || (Date.parse('01/01/2011 '+time) < Date.parse('01/01/2011 '+Salah.times.Asr)))
+                                        "highlightNextWaqt":""
+                                    //console.log((Date.parse('01/01/2011 '+time) > Date.parse('01/01/2011 '+Salah.times.Dhuhr)) || (Date.parse('01/01/2011 '+time) < Date.parse('01/01/2011 '+Salah.times.Asr)))
+                                
+                            }>
+                                    {/* <td>
+                                        <div class="form-check d-flex justify-content-center">
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                        </div>
+                                    </td> */}
+                                    <td>Sunrise, Salat al-Ishraq, Chasht</td>
+                                    <td>{Salah.times.Sunrise}</td>
+                                    <td>
+                                        <div className="form-check d-flex justify-content-center">
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onClick={() => setisDone("Ishraq")} checked={getIsDone("Ishraq")?'true':'false'}/>
+                                        </div>
+                                    </td>
+                                    <td><Countdown date={Date.now() + (Date.parse(moment(new Date()).format("MM/DD/YYYY").toString()+' '+Salah.times.Sunrise) -Date.now())} /></td>
                                 </tr>
                             )}
                             {
                                 displaySalahTime.map(Salah =>
-                                    <tr>
-                                        <td>
+                                    <tr className={
+                                            ((Date.parse('01/01/2011 '+moment(Date(dummy)).format("HH:mm").toString()) >= Date.parse('01/01/2011 '+Salah.times.Dhuhr)) && (Date.parse('01/01/2011 '+moment(Date(dummy)).format("HH:mm").toString()) < Date.parse('01/01/2011 '+Salah.times.Asr)))?
+                                                //console.log((Date.parse('01/01/2011 '+time) > Date.parse('01/01/2011 '+Salah.times.Dhuhr)) || (Date.parse('01/01/2011 '+time) < Date.parse('01/01/2011 '+Salah.times.Asr)))
+                                                "highlightNextWaqt":""
+                                            //console.log((Date.parse('01/01/2011 '+time) > Date.parse('01/01/2011 '+Salah.times.Dhuhr)) || (Date.parse('01/01/2011 '+time) < Date.parse('01/01/2011 '+Salah.times.Asr)))
+                                        
+                                    }>
+                                        {/* <td>
                                             <div class="form-check d-flex justify-content-center">
                                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
                                             </div>
-                                        </td>
+                                        </td> */}
                                         <td>Dhuhr</td>
                                         <td>{Salah.times.Dhuhr}</td>
+                                        {/* <td>{(Date.parse('01/01/2011 '+dummy.toString().substr(16,5)) < Date.parse('01/01/2011 '+Salah.times.Dhuhr)).toString()}</td> */}
                                         <td>
                                             <div className="form-check d-flex justify-content-center">
-                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onClick={() => setisDone("Dhuhr")} checked={getIsDone("Dhuhr")?'true':'false'}/>
                                             </div>
                                         </td>
+                                        <td><Countdown date={Date.now() + (Date.parse(moment(new Date()).format("MM/DD/YYYY").toString()+' '+Salah.times.Dhuhr) -Date.now())} /></td>
                                     </tr>
                                 )}
                             {
                                 displaySalahTime.map(Salah =>
-                                    <tr>
-                                        <td>
+                                    <tr className={
+                                        ((Date.parse('01/01/2011 '+moment(Date(dummy)).format("HH:mm").toString()) >= Date.parse('01/01/2011 '+Salah.times.Asr)) && (Date.parse('01/01/2011 '+moment(Date(dummy)).format("HH:mm").toString()) < Date.parse('01/01/2011 '+Salah.times.Maghrib)))?
+                                            //console.log((Date.parse('01/01/2011 '+time) > Date.parse('01/01/2011 '+Salah.times.Dhuhr)) || (Date.parse('01/01/2011 '+time) < Date.parse('01/01/2011 '+Salah.times.Asr)))
+                                            "highlightNextWaqt":""
+                                        //console.log((Date.parse('01/01/2011 '+time) > Date.parse('01/01/2011 '+Salah.times.Dhuhr)) || (Date.parse('01/01/2011 '+time) < Date.parse('01/01/2011 '+Salah.times.Asr)))
+                                    
+                                }>
+                                        {/* <td>
                                             <div class="form-check d-flex justify-content-center">
                                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
                                             </div>
-                                        </td>
+                                        </td> */}
                                         <td>Asr</td>
                                         <td>{Salah.times.Asr}</td>
                                         <td>
                                             <div className="form-check d-flex justify-content-center">
-                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onClick={() => setisDone("Asr")} checked={getIsDone("Asr")?'true':'false'}/>
                                             </div>
                                         </td>
+                                        <td><Countdown date={Date.now() + (Date.parse(moment(new Date()).format("MM/DD/YYYY").toString()+' '+Salah.times.Asr) -Date.now())} /></td>
 
                                     </tr>
                                 )}
                             {
                                 displaySalahTime.map(Salah =>
-                                    <tr>
-                                        <td>
+                                    <tr className={
+                                        ((Date.parse('01/01/2011 '+moment(Date(dummy)).format("HH:mm").toString()) >= Date.parse('01/01/2011 '+Salah.times.Maghrib)) && (Date.parse('01/01/2011 '+moment(Date(dummy)).format("HH:mm").toString()) < Date.parse('01/01/2011 '+Salah.times.Isha)))?
+                                            //console.log((Date.parse('01/01/2011 '+time) > Date.parse('01/01/2011 '+Salah.times.Dhuhr)) || (Date.parse('01/01/2011 '+time) < Date.parse('01/01/2011 '+Salah.times.Asr)))
+                                            "highlightNextWaqt":""
+                                        //console.log((Date.parse('01/01/2011 '+time) > Date.parse('01/01/2011 '+Salah.times.Dhuhr)) || (Date.parse('01/01/2011 '+time) < Date.parse('01/01/2011 '+Salah.times.Asr)))
+                                    
+                                }>
+                                        {/* <td>
                                             <div class="form-check d-flex justify-content-center">
                                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
                                             </div>
-                                        </td>
-                                        <td>Maghrib</td>
+                                        </td> */}
+                                        <td>Maghrib, Iftar</td>
                                         <td>{Salah.times.Maghrib}</td>
                                         <td>
                                             <div className="form-check d-flex justify-content-center">
-                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onClick={() => setisDone("Maghrib")} checked={getIsDone("Maghrib")?'true':'false'}/>
                                             </div>
                                         </td>
+                                        <td><Countdown date={Date.now() + (Date.parse(moment(new Date()).format("MM/DD/YYYY").toString()+' '+Salah.times.Maghrib) -Date.now())} /></td>
 
                                     </tr>
                                 )}
                             {
                                 displaySalahTime.map(Salah =>
-                                    <tr>
-                                        <td>
+                                    <tr className={
+                                        (Date.parse('01/01/2011 '+moment(Date(dummy)).format("HH:mm").toString()) >= Date.parse('01/01/2011 '+Salah.times.Isha))?
+                                            //console.log((Date.parse('01/01/2011 '+time) > Date.parse('01/01/2011 '+Salah.times.Dhuhr)) || (Date.parse('01/01/2011 '+time) < Date.parse('01/01/2011 '+Salah.times.Asr)))
+                                            "highlightNextWaqt":""
+                                        //console.log((Date.parse('01/01/2011 '+time) > Date.parse('01/01/2011 '+Salah.times.Dhuhr)) || (Date.parse('01/01/2011 '+time) < Date.parse('01/01/2011 '+Salah.times.Asr)))
+                                    
+                                }>
+                                        {/* <td>
                                             <div class="form-check d-flex justify-content-center">
                                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
                                             </div>
-                                        </td>
+                                        </td> */}
                                         <td>Isha</td>
                                         <td>{Salah.times.Isha}</td>
                                         <td>
                                             <div className="form-check d-flex justify-content-center">
-                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onClick={() => setisDone("Isha")} checked={getIsDone("Isha")?'true':'false'}/>
                                             </div>
                                         </td>
+                                        <td><Countdown date={Date.now() + (Date.parse(moment(new Date()).format("MM/DD/YYYY").toString()+' '+Salah.times.Isha) -Date.now())} /></td>
 
                                     </tr>
                                 )}
