@@ -1,4 +1,4 @@
-
+@media only screen and (min-width: 768px) {
 .bdy{
   overflow: hidden;
 }
@@ -6,10 +6,9 @@
   font-family: 'El Messiri';
   background-color:rgba(0, 0, 0, 0.6);
 }
-header {
-  position: fixed;
-  width: 100%;
-}
+
+
+
 
 .pageContent{
   margin-top: 76px;
@@ -41,7 +40,7 @@ header {
   color: rgb(168, 223, 215);
   font-size: 25px;
   font-family: 'El Messiri';
-  height: 200px;
+  height: 250px;
   overflow: auto;
   background: rgba(0, 0, 0, 0.5);
   box-shadow: 40px 40px 40px rgba(0, 0, 0, 0);
@@ -56,7 +55,7 @@ header {
   color: rgb(168, 223, 215);
   font-size: 16px;
   font-family: 'El Messiri';
-  height: 200px;
+  height: 250px;
   overflow: auto;
   background: rgba(0, 0, 0, 0.5);
   box-shadow: 40px 40px 40px rgba(0, 0, 0, 0);
@@ -110,72 +109,157 @@ header {
   cursor: pointer;
 }
 
-.toggle-nav{
-  position: fixed;
-  right: 15px;
-  top: 15px;
-  
+
+
+
+
 }
 
+@media only screen and (max-width: 900px) and (min-width: 600px) {
 
-@media screen and (max-width: 500px) {
+  .quranAyah{
+    padding: auto 20px;
+    color: #e0d2b4;
+    font-size: 18px;
+    font-family: 'El Messiri';
+    display: block;
+    width: 100%;
+    height: 150px;
+    overflow: auto;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));;
+    text-align: center;
+    text-align-last: center;
+  }
+  .carousel-control-prev{
+    display: none;
+  }
+  
+  .carousel-control-next{
+    display: none;
+  }
+  container2{
+    width: fit-content;
+  }
+  
+  #btnHadithofDay{
+    background-color: #105f5e;
+    border: #00908e;
+    color:#e0d2b4;
+    border-radius: 5px;
+    padding: 5px;
+  }
+  
+  #navbarDropdownMenuLink::after {
+    display:none;
+  }
+  
+  .dropdown-menu-right{
+    background-color: #e0d2b4;
+    text-transform: capitalize;
+    font-family: 'El Messiri';
+    overflow:auto;
+    width: 20px;
+  }
+  
+  .dropdown-item:hover{
+    background-color: #caba93;
+    cursor: pointer;
+  }
+
+  header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+  .content {
+    margin-top: 76px;
+  }
+  
+  .cardItemDua{
+    color: rgb(168, 223, 215);
+    font-size: 16px;
+    font-family: 'El Messiri';
+    height: 140px;
+    overflow: auto;
+    background: rgba(0, 0, 0, 0.5);
+    box-shadow: 40px 40px 40px rgba(0, 0, 0, 0);
+    width: 100%;
+    margin: 5px;
+    margin-bottom: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+ 
+  .cardItem{
+    color: rgb(168, 223, 215);
+    font-size: 20px;
+    font-family: 'El Messiri';
+    height: 120px;
+    overflow: auto;
+    background: rgba(0, 0, 0, 0.5);
+    box-shadow: 40px 40px 40px rgba(0, 0, 0, 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+    width: 100%;
+  }
+  .cards{
+    font-family: 'El Messiri';
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  .toggle-nav{
+    position: fixed;
+    right: 15px;
+    top: 15px;
+    
+  }
+  
+  
+  }
+  
+  
+@media only screen and (max-width: 599px) {
+  header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+  .content {
+    margin-top: 76px;
+  }
+  .carousel-control-prev{
+    display: none;
+  }
+  
+  .carousel-control-next{
+    display: none;
+  }
 .salahTime{
   padding: 20px;
   font-size: 15px;
   width: 100%;
 }
 .quranAyah{
-  font-size: 15px;
+  padding: auto 20px;
+  color: #e0d2b4;
+  font-size: 20px;
+  font-family: 'El Messiri';
+  display: block;
+  width: 100%;
+  height: 200px;
+  overflow: auto;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));;
+  text-align: center;
+  text-align-last: center;
 }
 .cardItem{
   color: rgb(168, 223, 215);
-  font-size: 8px;
-  font-family: 'El Messiri';
-  height: 150px;
-  overflow: auto;
-  background: rgba(0, 0, 0, 0.5);
-  box-shadow: 40px 40px 40px rgba(0, 0, 0, 0);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 10px;
-  width: 100%;
-}
-.cardItemDua{
-  color: rgb(168, 223, 215);
-  font-size: 8px;
-  font-family: 'El Messiri';
-  height: 150px;
-  overflow: auto;
-  background: rgba(0, 0, 0, 0.5);
-  box-shadow: 40px 40px 40px rgba(0, 0, 0, 0);
-  width: 100%;
-}
-.cards{
-  font-family: 'El Messiri';
-  padding: 5px;
-  padding: 5px;
-}
-
-}
-
-@media screen and (max-width: 767px) {
-.quranAyah{
   font-size: 18px;
-}
-.cardItemDua{
-  color: rgb(168, 223, 215);
-  font-size: 10px;
-  font-family: 'El Messiri';
-  height: 150px;
-  overflow: auto;
-  background: rgba(0, 0, 0, 0.5);
-  box-shadow: 40px 40px 40px rgba(0, 0, 0, 0);
-  width: 100%;
-}
-.cardItem{
-  color: rgb(168, 223, 215);
-  font-size: 16px;
   font-family: 'El Messiri';
   height: 150px;
   overflow: auto;
@@ -187,12 +271,55 @@ header {
   margin: 10px;
   width: 100%;
 }
+.cardItemDua{
+  color: rgb(168, 223, 215);
+  font-size: 15px;
+  font-family: 'El Messiri';
+  height: 150px;
+  overflow: auto;
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 40px 40px 40px rgba(0, 0, 0, 0);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  margin-bottom: 50px;
+}
 .cards{
   font-family: 'El Messiri';
-  padding-left: 5px;
-  padding-right: 5px;
+  padding: 5px;
+  padding: 5px;
 }
 
+.container2{
+  width: fit-content;
+}
+
+#btnHadithofDay{
+  background-color: #105f5e;
+  border: #00908e;
+  color:#e0d2b4;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+#navbarDropdownMenuLink::after {
+  display:none;
+}
+
+.dropdown-menu-right{
+  background-color: #e0d2b4;
+  text-transform: capitalize;
+  font-family: 'El Messiri';
+  overflow:auto;
+  width: 20px;
+}
+
+.dropdown-item:hover{
+  background-color: #caba93;
+  cursor: pointer;
+}
 
 }
 
