@@ -1052,11 +1052,11 @@ app.get("/showdonewaqts/:id", async (req, res) => {
 });
 
 // get waqt done?
-app.get("/waqtdone/:id/:waqtname", async (req, res) => {
+app.get("/waqtdone/:uid", async (req, res) => {
   try{
-    //console.log(req.params.waqtname);
     const isDone = await db.query(
-      "SELECT isDone FROM mysalah WHERE (userID = $1 AND waqt = $2) AND (day = CURRENT_DATE);", [req.params.id, req.params.waqtname]
+      "SELECT * FROM mysalah WHERE userID = $1 AND day = CURRENT_DATE;", 
+        [req.params.uid]
     );
     res.status(200).json({
       status: "success",
