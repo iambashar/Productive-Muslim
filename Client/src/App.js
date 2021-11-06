@@ -33,8 +33,8 @@ function App() {
           <Route path="/register" component={Register} />
           <Route path="/reset" component={Reset} />
         </Switch>
+        <Footer></Footer>
       </AuthProvider>
-      <Footer></Footer>
     </Router>
     </>
     
