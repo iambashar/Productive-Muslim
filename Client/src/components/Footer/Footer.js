@@ -10,7 +10,7 @@ const Footer = () => {
     const [uid, setUid] = useState();
     const [userMail, setUserMail] = useState();
     const [count, setCount] = useState(0);
-    const { currentUser } = useAuth();
+    //const { currentUser } = useAuth();
 
   
     useEffect(() => {
