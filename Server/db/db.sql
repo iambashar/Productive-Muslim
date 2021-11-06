@@ -97,3 +97,11 @@ CREATE TABLE favouritecount(
     userID VARCHAR NOT NULL,
     day DATE DEFAULT CURRENT_DATE
 );
+
+CREATE TABLE mysalah(
+        ID SERIAL NOT NULL PRIMARY KEY,
+        userID VARCHAR NOT NULL,
+        waqt VARCHAR NOT NULL,
+        isDone BOOL NOT NULL,
+        day DATE DEFAULT CURRENT_DATE 
+);
