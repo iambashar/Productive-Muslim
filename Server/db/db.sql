@@ -81,7 +81,7 @@ CREATE TABLE comments(
     userName VARCHAR NOT NULL,
     day DATE DEFAULT CURRENT_DATE,
     comment VARCHAR NOT NULL,
-        CONSTRAINT fk_comment FOREIGN KEY(postID) REFERENCES forumpost(postID)
+        CONSTRAINT fk_comment FOREIGN KEY(postID) REFERENCES forumpost(postID) ON DELETE CASCADE
 );
 
 CREATE TABLE upvotes(

@@ -53,6 +53,7 @@
     color: #e0d2b4;
     font-size: 12px;
     margin-top: 5px;
+    display: 'inline-block';
 }
 
 h3{
@@ -169,7 +170,7 @@ h3{
   width: 50%;
 }
 
-#commentbtn{
+.commentbtn{
   background: rgba(0, 0, 0, 0.3);
   color: #e0d2b4;
   border-color: rgb(168, 223, 215);
@@ -182,13 +183,13 @@ h3{
   justify-content: center;
 }
 
-#commentbtn:hover{
+.commentbtn:hover{
   background: rgba(0, 0, 0, 0.3);
   color: #e0d2b4;
   border-color: rgb(168, 223, 215);
 }
 
-#commentbtn:focus, #commentbtn:focus-visible, #commentbtn:checked {
+.commentbtn:focus, .commentbtn:focus-visible, .commentbtn:checked {
   background: rgba(0, 0, 0, 0.3);
   color: #e0d2b4;
   border-color: rgb(168, 223, 215);
@@ -205,4 +206,13 @@ h3{
 
 .far{
   letter-spacing: 15px;
+}
+
+.posttitle{
+  display: inline-block;
+}
+
+.input-group-text{
+  background-color: inherit;
+  color: #e0d2b4;
 }

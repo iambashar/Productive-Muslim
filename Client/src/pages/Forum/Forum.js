@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useEffect, useRef } from "react"
 import moment from 'moment';
-import { Button, Card, Alert } from "react-bootstrap"
+import { InputGroup, Button, Card, Alert } from "react-bootstrap"
 import { Dropdown, Form, Navbar, Container, Nav } from 'react-bootstrap';
 import textIcon from '../../Images/textIcon.svg'
 import mainIcon from '../../Images/mainIcon.svg'
@@ -9,6 +9,7 @@ import './Forum.css'
 import { useHistory, BrowserRouter as Router, } from "react-router-dom";
 import userimg from '../../Images/user.png';
 import { useAuth } from "../../components/Authentication/AuthContext";
+import deleteIcon from '../../../src/Images/deleteIcon.svg';
 
 const Forum = () => {
     const titleRef = useRef()
@@ -22,6 +23,7 @@ const Forum = () => {
     const { currentUser, logout } = useAuth()
     const history = useHistory()
     var ts = false;
+    var cmnt = 0;
 
     useEffect(() => {
         fetch("http://127.0.0.1:3000/userprofile/".concat(currentUser.uid))
@@ -128,7 +130,8 @@ const Forum = () => {
                 }
             });
             vote++;
-            fetch('http://localhost:3000/updateupvote', {
+            console.log(vote);
+            fetch('http://127.0.0.1:3000/updateupvote', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -155,6 +158,38 @@ const Forum = () => {
                 body: JSON.stringify({ vote, postID })
             });
         }
+    }
+
+    function deletePost(postID, index) {
+        document.getElementsByClassName("forumbox")[index].style.display = "none";
+        fetch('http://127.0.0.1:3000/deleteforumpost', {
+            method: 'DELETE',
+            body: JSON.stringify({ postID, uid }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
+    }
+
+    function deleteComment(commentid, idx, comment, postID, index) {
+        document.getElementsByClassName("onecomment")[idx].style.display = "none";
+        fetch('http://127.0.0.1:3000/deletecomment', {
+            method: 'DELETE',
+            body: JSON.stringify({ commentid, uid }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
+        comment--;
+        document.getElementsByClassName("commentbtn")[index].innerHTML = cmnt+"&nbsp;&nbsp;&nbsp;Comments";
+        fetch('http://localhost:3000/updatecommentcount', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ comment, postID })
+        });
+        console.log(index);
     }
 
     return (
@@ -224,14 +259,17 @@ const Forum = () => {
                             <div className="postdiv">
                                 <div className="forumbox">
                                     <div>
-                                        <h1>{allpost.title}</h1>
+                                        <h1 className="posttitle">{allpost.title}</h1>
+                                        <div className="deleteIcon" onClick={() => deletePost(allpost.postid, index)} style={allpost.userid == uid ? { display: 'inline-block', float: 'right' } : { display: 'none' }}>
+                                            <img src={deleteIcon} width="20"></img>
+                                        </div>
                                         <h2 className="forumTimeAndAuthor">Posted on {moment(allpost.posteddate).format('DD-MM-YYYY')} by <u>{allpost.username}</u></h2>
                                         <h3 className="forumBody">
                                             {allpost.description}
                                         </h3>
                                         <i id="upVotebtn" className={ts = false, displayupVote.map(mp => mp.postid == allpost.postid ? ts = true : ts = ts), ts ? "fas fa-thumbs-up fa-2x" : "far fa-thumbs-up fa-2x"}
                                             onClick={() => toggleUpVote(allpost.postid, index, allpost.upvote)}>{allpost.upvote}</i>
-                                        <Dropdown.Toggle id="commentbtn" variant="secondary" onClick={() => toggleShowList(index)}>
+                                        <Dropdown.Toggle className="commentbtn" variant="secondary" onClick={() => toggleShowList(index)}>
                                             {allpost.commentcount}&nbsp;&nbsp;&nbsp;Comments
                                         </Dropdown.Toggle>
                                         <div className="commentbox">
@@ -241,25 +279,34 @@ const Forum = () => {
                                                     <Form.Control className="usercomment" as="textarea" placeholder="I was thinking.." />
                                                 </Form.Group>
                                                 <div>
-                                                <Button id="postbtn" onClick={() => addnewcomment(allpost.postid, index, allpost.commentcount)} type="submit">
-                                                    Post
-                                                </Button>
+                                                    <Button id="postbtn" onClick={() => addnewcomment(allpost.postid, index, allpost.commentcount)} type="submit">
+                                                        Post
+                                                    </Button>
                                                 </div>
                                                 <div>
-                                                {
-                                                    displayComment.map(comment =>
-                                                        comment.postid == allpost.postid ?
-                                                            <Form.Group className="mb-3" >
-                                                                <Form.Label>{allpost.username}
-                                                                    <h2 className="forumTimeAndAuthor">Posted on {moment(allpost.posteddate).format('DD-MM-YYYY')}</h2>
-                                                                </Form.Label>
-                                                                <Form.Control id="otherusercomment" type="text" readOnly="true" defaultValue={comment.comment} />
-                                                            </Form.Group>
-                                                            :
-                                                            <div>
-                                                            </div>
-                                                    )
-                                                }
+                                                    {cmnt=allpost.commentcount,
+                                                        displayComment.map((comment, idx) =>
+                                                            comment.postid == allpost.postid ?
+                                                                <Form.Group className="onecomment">
+                                                                    <Form.Label>{comment.username}
+                                                                        <h2 className="forumTimeAndAuthor">Posted on {moment(allpost.posteddate).format('DD-MM-YYYY')}</h2>
+                                                                    </Form.Label>
+                                                                    <InputGroup>
+                                                                        <Form.Control id="otherusercomment" type="text" readOnly="true" defaultValue={comment.comment} />
+                                                                        <InputGroup.Append style={comment.userid == uid ? { display: 'inline-block' } : { display: 'none'}}>
+                                                                            <InputGroup.Text>
+                                                                                <div type="submit" className="deleteIcon" onClick={() => deleteComment(comment.commentid, idx, cmnt--, allpost.postid, index)} style={comment.userid == uid ? { display: 'inline-block' } : { display: 'none'}}>
+                                                                                    <img src={deleteIcon} width="20"></img>
+                                                                                </div>
+                                                                            </InputGroup.Text>
+                                                                        </InputGroup.Append>
+                                                                    </InputGroup>
+                                                                </Form.Group>
+                                                                :
+                                                                <div>
+                                                                </div>
+                                                        )
+                                                    }
                                                 </div>
                                             </Form>
 

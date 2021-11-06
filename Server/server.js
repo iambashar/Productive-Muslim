@@ -698,6 +698,18 @@ app.post("/createpost/:id", async (req, res) => {
   }
 });
 
+//delete forum post
+app.delete("/deleteforumpost", async (req, res) => {
+  try {
+    const results = db.query("DELETE FROM forumpost where postid = $1", [req.body.postID]);
+    res.status(204).json({
+      status: "success",
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 //get all Posts
 app.get("/showposts", async (req, res) => {
   try {
@@ -736,6 +748,19 @@ app.post("/createcomment", async (req, res) => {
   }
 });
 
+//delete comment
+app.delete("/deletecomment", async (req, res) => {
+  try {
+    const results = db.query("DELETE FROM comments where commentid = $1 and userid = $2",
+     [req.body.commentid, req.body.uid]);
+    res.status(204).json({
+      status: "success",
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 //get all Comments
 app.get("/showcomments", async (req, res) => {
   try {
@@ -755,6 +780,25 @@ app.get("/showcomments", async (req, res) => {
   }
 });
 
+//update commetcount
+app.put("/updatecommentcount", async (req, res) => {
+  try {
+    const results = await db.query(
+      "UPDATE forumpost SET commentcount=$1 where postid=$2 returning *",
+      [req.body.comment, req.body.postID]
+    );
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        posts: results.rows,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 //update upvote
 app.put("/updateupvote", async (req, res) => {
   try {
@@ -766,7 +810,7 @@ app.put("/updateupvote", async (req, res) => {
     res.status(200).json({
       status: "success",
       data: {
-        posts: results.rows,
+        forumpost: results.rows,
       },
     });
   } catch (err) {

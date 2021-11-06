@@ -100,7 +100,7 @@ const Salah = (props) => {
                                     <td>{Salah.times.Fajr}</td>
                                     <td>
                                         <div className="form-check d-flex justify-content-center">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
                                         </div>
                                     </td>
                                 </tr>
