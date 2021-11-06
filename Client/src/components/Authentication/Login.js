@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useCallback, useEffect, useRef, useState } from "react"
 import { InputGroup, Form, Button, Card, Alert } from "react-bootstrap"
 import { useAuth } from "./AuthContext"
 import { Link, useHistory } from "react-router-dom"
@@ -14,9 +14,9 @@ export default function Login() {
   const passwordRef = useRef()
   const { login, signInWithGoogle } = useAuth()
   const [error, setError] = useState("")
+  const [user, setUser] = useState("")
   const [loading, setLoading] = useState(false)
   const history = useHistory()
-  const [userdata, setUser] = useState([])
   const [passwordShown, setPasswordShown] = useState(false)
 
   async function handleSubmit(e) {
@@ -36,38 +36,62 @@ export default function Login() {
   async function googleSingin(e) {
     e.preventDefault()
     try {
+      const promises = []
       setError("")
       setLoading(true)
-      const res = await signInWithGoogle();
-      const user = res.user;
-      var link = "http://127.0.0.1:3000/userprofile/".concat(user.uid);
-      await fetch(link)
-        .then(res => res.json())
-        .then(
-          (result) => {
-            setUser(result.data.user);
-          }
-        );
-      if (userdata.length == 0){
-        var uid = user.uid;
-        var name = user.displayName;
-        var email = user.email;
-        var madhab = 'Hanafi';
-        var country = 'Bangladesh';
-        var city = 'Dhaka';
-        fetch('http://localhost:3000/adduser', {
-            method: 'POST',
-            body: JSON.stringify({ uid, name, email, madhab, country, city }),
-            headers: {
-                "Content-type": "application/json; charset=UTF-8"
+
+      promises.push(
+        await signInWithGoogle()
+          .then((res) => {
+            setUser(res.user)
+          })
+      );
+      var uid;
+      var name;
+      var email;
+      var madhab;
+      var country;
+      var city;
+      var len;
+
+      promises.push(
+        await fetch("http://127.0.0.1:3000/userprofile/".concat(user.uid))
+          .then(res => res.json())
+          .then(
+            (result) => {
+              len = result.results;
+              uid = user.uid;
+              name = user.displayName;
+              email = user.email;
+              madhab = 'Hanafi';
+              country = 'Bangladesh';
+              city = 'Dhaka'; 
             }
+          )
+      );
+
+      Promise.all(promises)
+        .then(() => {
+          (len != 0) ?
+            fetch('http://localhost:3000/adduser', {
+              method: 'POST',
+              body: JSON.stringify({ uid, name, email, madhab, country, city }),
+              headers: {
+                "Content-type": "application/json; charset=UTF-8"
+              }
+            }) : call()
+        })
+        .then(() => {
+          history.push("/")
         });
-      }
-      history.push("/")
     } catch {
       setError("Failed to log in with Google Account")
     }
     setLoading(false)
+  }
+
+  function call() {
+
   }
 
   const togglePasswordVisiblity = () => {
