@@ -467,6 +467,20 @@ app.get("/showupcomingsawmdates/:id", async (req, res) => {
   }
 });
 
+//delete sawm
+app.delete("/deletesawm/:id", async (req, res) => {
+  try {
+    const results = db.query("DELETE FROM mysawm where id = $1", [
+      req.params.id,
+    ]);
+    res.status(204).json({
+      status: "success",
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 //get all missed planned task
 app.get("/showplannedmissedtask/:id", async (req, res) => {
   try {
@@ -506,6 +520,33 @@ app.post("/createnewlist", async (req, res) => {
   }
 });
 
+//delete task list
+app.delete("/deletelist/:id", async (req, res) => {
+  try {
+    const results = db.query("DELETE FROM tasklist where id = $1", [
+      req.params.id,
+    ]);
+    res.status(204).json({
+      status: "success",
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//delete list content against list
+app.delete("/deletelistcontentagainstlist/:id", async (req, res) => {
+  try {
+    const results = db.query("DELETE FROM tasklistcontent where listid = $1", [
+      req.params.id,
+    ]);
+    res.status(204).json({
+      status: "success",
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
 
 //get all task list
 app.get("/showtasklist/:id", async (req, res) => {
@@ -567,11 +608,63 @@ app.get("/showlistcontent/:id", async (req, res) => {
 });
 
 //set completed list content
-//set completed task
 app.put("/setcompletedcontent/:id", async (req, res) => {
   try {
     const results = await db.query(
       "UPDATE tasklistcontent SET isCompleted = $1 where id = $2 returning *",
+      [req.body.task, req.params.id]
+    );
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        tasks: results.rows[0],
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//delete list content
+app.delete("/deletelistcontent/:id", async (req, res) => {
+  try {
+    const results = db.query("DELETE FROM tasklistcontent where id = $1", [
+      req.params.id,
+    ]);
+    res.status(204).json({
+      status: "success",
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+
+//add to myday from list
+app.post("/addmydayfromlist", async (req, res) => {
+  try {
+    const results = await db.query(
+      "INSERT INTO myday (userid, task) values ($1, $2) returning *",
+      [req.body.uid, req.body.task]
+    );
+    res.status(201).json({
+      status: "success",
+      data: {
+        myday: results.rows[0],
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//edit list content
+app.put("/editlistcontent/:id", async (req, res) => {
+  console.log(req);
+  try {
+    const results = await db.query(
+      "UPDATE tasklistcontent SET task = $1 where id = $2 returning *",
       [req.body.task, req.params.id]
     );
 

@@ -178,6 +178,12 @@
     font-size: 18px;
     cursor: pointer;
   }
+  .listItemActive{
+    margin-left: 55px;
+    color: #e0d2b4;
+    font-size: 18px;
+    cursor: pointer;
+  }
   .listItem:hover {
     background-color: #044444;
     color: #13bdba;
@@ -195,7 +201,15 @@
  .listDeleteIcon {
     display: inline-block;
     float: right;
-    width: 100px;
+    width: fit-content;
     padding: 30px;
+}
+
+#deletelistbtn {
+ background-color: rgba(0, 0, 0, 0.452);
+  border: #00908e;
+  color:#e0d2b4;
+  padding: 7px;
+  cursor: pointer;
 }
   

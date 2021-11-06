@@ -12,10 +12,11 @@
 
 .sawmBox{
   background: rgba(0, 0, 0, 0.3);
-  width: 70%;
+  width: 90%;
+  height: 450px;
   margin: 0 auto;
   margin-top: 30px;
-  justify-items: center;
+  justify-content: center;
   text-align: center;
   border: 4px;
   border-style: solid;
@@ -25,12 +26,13 @@
 }
 
 .calendar{
-  width: 50%;
-  display: inline-table;
+  width: 40%;
+  display: inline-flex;
+  float: left;
 }
 
 .sawmlist{
-  width: 50%;
+  width: 60%;
   display: inline-table;
   margin-top: 0;
 }
@@ -39,7 +41,7 @@
   width: 350px;
   max-width: 100%;
   background: rgba(162, 255, 227, 0.651);
-  border: 2px solid #ffff9fcc;
+  border: 2px solid #e0d2b4;
   font-family: El Messiri;
   line-height: 1.125em;
   display: block;
@@ -133,11 +135,11 @@
   background-color: #e6e6e6;
 }
 .react-calendar__tile--now {
-  background: #ffff76;
+  background: #e0d2b4;
 }
 .react-calendar__tile--now:enabled:hover,
 .react-calendar__tile--now:enabled:focus {
-  background: #ffffa9;
+  background: #e0d2b4;
 }
 .react-calendar__tile--hasActive {
   background: #76baff;
@@ -170,4 +172,31 @@
 #outer {
 border: 1px solid red;
 width:100%
+}
+
+.sawmTitle {
+  font-size: 35px;
+  font-weight: normal;
+}
+
+.sawmlistContent {
+  max-height: 350px;
+  padding: 10px;
+  overflow: auto;
+}
+
+.sawmDeleteIconShow {
+  margin-left: 30px;
+  display: inline-block;
+}
+.sawmDeleteIcon {
+  margin-left: 30px;
+  display: none;
+}
+
+.sawmNameText:hover .sawmDeleteIcon {
+  display: inline-block;
+}
+.sawmNameText:hover {
+  background: rgba(0, 0, 0, 0.3);
 }

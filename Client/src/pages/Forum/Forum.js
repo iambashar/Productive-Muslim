@@ -82,6 +82,7 @@ const Forum = () => {
                 "Content-type": "application/json; charset=UTF-8"
             }
         });
+        console.log(name);
     }
 
     const addnewcomment = (postID, index, comment) => {
@@ -236,12 +237,15 @@ const Forum = () => {
                                         <div className="commentbox">
                                             <Form id="forumbox2">
                                                 <Form.Group className="mb-3" >
-                                                    <Form.Label>Post you comment</Form.Label>
+                                                    <Form.Label>Post your comment</Form.Label>
                                                     <Form.Control className="usercomment" as="textarea" placeholder="I was thinking.." />
                                                 </Form.Group>
+                                                <div>
                                                 <Button id="postbtn" onClick={() => addnewcomment(allpost.postid, index, allpost.commentcount)} type="submit">
                                                     Post
                                                 </Button>
+                                                </div>
+                                                <div>
                                                 {
                                                     displayComment.map(comment =>
                                                         comment.postid == allpost.postid ?
@@ -256,6 +260,7 @@ const Forum = () => {
                                                             </div>
                                                     )
                                                 }
+                                                </div>
                                             </Form>
 
                                         </div>
