@@ -14,7 +14,7 @@ const Footer = () => {
 
   
     useEffect(() => {
-            setUid(currentUser.email);
+            //setUid(currentUser.email);
             console.log(uid);           
         document.getElementsByClassName("contactLink")[0].style.setProperty("text-decoration", "underline");
         
