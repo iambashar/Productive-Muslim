@@ -41,7 +41,7 @@ export default function Login() {
       const res = await signInWithGoogle();
       const user = res.user;
       var link = "http://127.0.0.1:3000/userprofile/".concat(user.uid);
-      fetch(link)
+      await fetch(link)
         .then(res => res.json())
         .then(
           (result) => {

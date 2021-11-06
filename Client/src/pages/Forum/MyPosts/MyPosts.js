@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
-import { useEffect, useRef } from "react"
+import React, { useEffect, useRef, useState } from 'react';
 import moment from 'moment';
-import { InputGroup, Button } from "react-bootstrap"
-import { Dropdown, Form } from 'react-bootstrap';
+import { Dropdown, Form, InputGroup, Button } from "react-bootstrap"
 import './MyPosts.css'
-import { useHistory } from "react-router-dom";
 import { useAuth } from "../../../components/Authentication/AuthContext";
 import deleteIcon from '../../../../src/Images/deleteIcon.svg';
+import mypostact from '../../../Images/myPostActive.svg';
+import allpost from '../../../Images/allPost.svg';
 
 const MyPosts = () => {
     const titleRef = useRef()
@@ -16,9 +15,7 @@ const MyPosts = () => {
     const [displayPosts, setPost] = useState([])
     const [displayComment, setdisplayComment] = useState([])
     const [displayupVote, setdisplayupVote] = useState([])
-    const [error, setError] = useState("")
     const { currentUser } = useAuth()
-    const history = useHistory()
     var ts = false;
     var cmnt = 0;
 
@@ -184,7 +181,7 @@ const MyPosts = () => {
                 <div class="menuItem">
                     <a className="menuItem" href="../../pages/Forum/AllPosts">
                         <div className="menuIcon">
-                            <img src={deleteIcon} width="25"></img>
+                            <img src={allpost} width="25"></img>
                         </div>
                         <div className="menuText">All Posts</div>
                     </a>
@@ -192,7 +189,7 @@ const MyPosts = () => {
                 <div class="menuItem">
                     <a className="menuItem activeNav" href="#">
                         <div className="menuIcon">
-                            <img src={deleteIcon} width="25"></img>
+                            <img src={mypostact} width="25"></img>
                         </div>
                         <div className="menuText">My Posts</div>
                     </a>

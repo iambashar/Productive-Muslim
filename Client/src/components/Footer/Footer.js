@@ -3,6 +3,7 @@ import './Footer.css'
 import { Form, Button } from 'react-bootstrap';
 import emailjs from 'emailjs-com'
 import { useAuth } from '../../components/Authentication/AuthContext';
+import heart from '../../Images/heart.svg'
 
 const Footer = () => {
     const [modal, setModal] = useState(false);
@@ -65,7 +66,7 @@ const Footer = () => {
             </div>
             <div className="main-footer">
                 <div>
-                    <p className="footerText">From the love for Islam...</p>
+                    <div className="footerText">Made with <img src={heart} height="20px" width="20px"/> for Islam</div>
                     <a href="#" className="contactLink" onClick={togglePopUp}>Contact us</a>
                 </div>
                 <div></div>

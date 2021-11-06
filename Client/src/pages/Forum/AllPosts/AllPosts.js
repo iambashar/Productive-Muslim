@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { useEffect, useRef } from "react"
+import React, {useEffect, useRef, useState } from 'react';
 import moment from 'moment';
-import { InputGroup, Button } from "react-bootstrap"
-import { Dropdown, Form } from 'react-bootstrap';
+import { Dropdown, Form, InputGroup, Button } from "react-bootstrap"
 import './AllPosts.css';
 import { useAuth } from "../../../components/Authentication/AuthContext";
 import deleteIcon from '../../../../src/Images/deleteIcon.svg';
+import mypost from '../../../Images/myPost.svg';
+import allpostact from '../../../Images/allPostActive.svg';
 
 const AllPosts = () => {
     const titleRef = useRef()
@@ -181,7 +181,7 @@ const AllPosts = () => {
                 <div class="menuItem">
                     <a className="menuItem activeNav" href="#">
                         <div className="menuIcon" >
-                            <img src={deleteIcon} width="25"></img>
+                            <img src={allpostact} width="25"></img>
                         </div>
                         <div className="menuText">All Posts</div>
                     </a>
@@ -189,7 +189,7 @@ const AllPosts = () => {
                 <div class="menuItem">
                     <a className="menuItem" href="../../pages/Forum/Myposts">
                         <div className="menuIcon">
-                            <img src={deleteIcon} width="25"></img>
+                            <img src={mypost} width="25"></img>
                         </div>
                         <div className="menuText">My Posts</div>
                     </a>
