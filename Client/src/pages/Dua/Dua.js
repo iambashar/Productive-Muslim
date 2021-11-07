@@ -32,7 +32,7 @@ const Dua = () => {
                 <header class="duaHeader">
                     <Navbar collapseOnSelect expand="lg" variant="dark" >
                         <Container>
-                            <Navbar.Brand href="#">
+                            <Navbar.Brand href="/">
                                 <img src={mainIcon} alt="logo" width="50" />
                                 <img src={textIcon} alt="logo" width="200" />
                             </Navbar.Brand>

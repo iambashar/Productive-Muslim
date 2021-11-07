@@ -6,18 +6,18 @@ import './Login.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { faEyeSlash } from "@fortawesome/free-solid-svg-icons"
+import { sendSignInLinkToEmail } from "@firebase/auth"
 const eye = <FontAwesomeIcon icon={faEye} />;
 const eyeclose = <FontAwesomeIcon icon={faEyeSlash} />;
 
 export default function Login() {
   const emailRef = useRef()
   const passwordRef = useRef()
-  const { login, signInWithGoogle } = useAuth()
+  const { login, signInWithGoogle, signInAnonymously } = useAuth()
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const history = useHistory()
   const [passwordShown, setPasswordShown] = useState(false)
-  const [userdata, setUser] = useState([])
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -33,58 +33,73 @@ export default function Login() {
     setLoading(false)
   }
 
+  async function anonymousSignIn(e) {
+    e.preventDefault()
+
+    try {
+      setError("")
+      setLoading(true)
+      await signInAnonymously()
+      history.push("/")
+    } catch {
+      setError("Failed to log in")
+    }
+    setLoading(false)
+  }
+
   async function googleSingin(e) {
     e.preventDefault()
     try {
       setError("")
       setLoading(true)
-      const res = await signInWithGoogle();
-      const user = res.user;
-      var uid;
-      var name;
-      var email;
-      var madhab;
-      var country;
-      var city;
-      var len;
 
-      await signInWithGoogle()
-        .then((res) => {
-          setUser(res.user)
+      var madhab = "Hanafi";
+      var country = "Bangladesh";
+      var city = "Dhaka";
+      var user;
+
+      signInWithGoogle()
+        .then((res) => {          
+          user = res.user;
+          console.log(user)
+          return fetch("/userprofile/".concat(res.user.uid))
         })
-
-
-      await fetch("/userprofile/".concat(user.uid))
         .then(res => res.json())
         .then(
           (result) => {
-            len = result.results
-            uid = user.uid
-            name = user.displayName
-            email = user.email
-            madhab = 'Hanafi'
-            country = 'Bangladesh'
-            city = 'Dhaka'
-
+            console.log(result)
+            return result.results
           }
-        )
-
-      if (len == 0) {
-        await fetch('/adduser', {
-          method: 'POST',
-          body: JSON.stringify({ uid, name, email, madhab, country, city }),
-          headers: {
-            "Content-type": "application/json; charset=UTF-8"
+        ).then((len) => {
+          const uid = user.uid;
+          const name = user.displayName;
+          const email = user.email;
+          console.log("len is :       ", len)
+          console.log("uid is :       ", uid)
+          console.log("name is :       ", name)
+          console.log("email is :       ", email)
+          if (len == 0) {
+              fetch('/adduser', {
+              method: 'POST',
+              body: JSON.stringify({ uid, name, email, madhab, country, city }),
+              headers: {
+                "Content-type": "application/json; charset=UTF-8"
+              }
+            }).then((res)=>{
+              console.log(res)
+            })
           }
         })
-      }
-
-      history.push("/")
-
+        .then(() => {
+          console.log("History")
+          setLoading(false)
+          history.push("/")
+        })
     } catch {
       setError("Failed to log in with Google Account")
+      setLoading(false)
+      history.push("/")
     }
-    setLoading(false)
   }
 
   const togglePasswordVisiblity = () => {
@@ -120,6 +135,11 @@ export default function Login() {
           <div className="btng">
             <Button disabled={loading} className="w-100" id="btn" onClick={googleSingin}>
               Sign in With Google
+            </Button>
+          </div>
+          <div className="btng">
+            <Button disabled={loading} className="w-100" id="btn" onClick={anonymousSignIn}>
+              Continue Without Account
             </Button>
           </div>
           <div className="w-100 text-center mt-3">

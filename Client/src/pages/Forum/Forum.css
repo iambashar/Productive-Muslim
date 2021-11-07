@@ -7,3 +7,20 @@
   display: inline;
   background-color: rgba(0, 0, 0, 0.6);
 }
+
+.annonimousalingment{
+  font-size: 20px;
+}
+
+.annonimousdiv{
+  width: 60%;
+  margin: auto auto;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
+  padding: 30px;
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+}

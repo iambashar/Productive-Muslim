@@ -11,7 +11,7 @@ import AllPosts from './AllPosts/AllPosts';
 
 const Forum = () => {
 
-    const { logout } = useAuth();
+    const { logout, currentUser } = useAuth();
     const history = useHistory();
     const [error, setError] = useState("");
 
@@ -32,7 +32,7 @@ const Forum = () => {
                 <header class="forumHeader">
                     <Navbar collapseOnSelect expand="lg" variant="dark">
                         <Container>
-                            <Navbar.Brand href="#">
+                            <Navbar.Brand href="/">
                                 <img src={mainIcon} alt="logo" width="50" />
                                 <img src={textIcon} alt="logo" width="200" />
                             </Navbar.Brand>
@@ -62,14 +62,17 @@ const Forum = () => {
                 </header>
             </div>
             <div className="pageContent">
-                <Switch>
-                    <Route path="/pages/forum/myposts">
-                        <MyPosts></MyPosts>
-                    </Route>
-                    <Route path="/">
-                        <AllPosts></AllPosts>
-                    </Route>
-                </Switch>
+                {currentUser.displayName == null ? <div className="annonimousdiv"><h1 className="annonimousalingment">Please login with an account to see the posts!<br/><br/>Jazakumullah Khair</h1> </div> :
+
+                    <Switch>
+                        <Route path="/pages/forum/myposts">
+                            <MyPosts></MyPosts>
+                        </Route>
+                        <Route path="/">
+                            <AllPosts></AllPosts>
+                        </Route>
+                    </Switch>
+                }
             </div>
         </Router >
     );

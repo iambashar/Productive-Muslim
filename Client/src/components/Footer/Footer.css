@@ -3,6 +3,7 @@
     bottom: 0;
     z-index: 10;
     padding-top: 10px;
+    padding-bottom: 10px;
     padding-left: 10px;
     padding-right: 20px;
     position: fixed;
@@ -16,7 +17,7 @@
     color: #02a8a6;
     bottom: 0;
     display: inline-block;
-    float: left;
+    float: center;
 }
 
 .contactLink {

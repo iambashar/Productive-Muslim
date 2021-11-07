@@ -103,22 +103,6 @@ const Homepage = (props) => {
         }
     }, [nextMin, nextHr12]);
 
-    function getHadith() {
-
-        // fetch('https://api.sunnah.com/v1/hadiths/random', {
-        //     method: 'GET',
-        //     headers: {
-        //         "x-api-key": "SqD712P3E82xnwOAEOkGd5JZH8s9wRR24TqNFzjk"
-        //     }})
-        //     .then(res => res.json())
-        //     .then(data => {
-        //         setAyah(data.hadit[0].body);
-        //         setSurah(data.hadit[0].chapterTitle);
-        //         setAyahNo(data.hadit[0].chapterNumber);
-        //     });
-
-    }
-
     function retrieveTime() {
         var today = new Date();
         var hr = today.getHours();
@@ -213,7 +197,7 @@ const Homepage = (props) => {
             <header class="headerDiv">
                 <Navbar collapseOnSelect expand="lg" variant="dark">
                     <Container>
-                        <Navbar.Brand href="#">
+                        <Navbar.Brand href="/">
                             <img src={mainIcon} alt="logo" width="50" />
                             <img src={textIcon} alt="logo" width="200" />
                         </Navbar.Brand>
@@ -245,7 +229,7 @@ const Homepage = (props) => {
             <div className="quranAyah">
                 <p>{ayah}<br />-Surah {surah}, Verse: {ayahNo}</p>
             </div>
-            <Container>
+            <Container className="cardparent">
             <Row className="cards">
                 <div className="cardItem">
                     <Carousel indicators={false} indicatorLabels="[0]">

@@ -5,10 +5,8 @@
 .headerDiv{
   font-family: 'El Messiri';
   background-color:rgba(0, 0, 0, 0.6);
+  z-index: 10;
 }
-
-
-
 
 .pageContent{
   margin-top: 76px;
@@ -67,18 +65,11 @@
   padding: 5px;
 }
 
-
-
-
-
 .cards{
   font-family: 'El Messiri';
   padding-left: 10px;
   padding-right: 10px;
 }
-
-
-
 
 .container2{
   width: fit-content;
@@ -116,7 +107,11 @@
 }
 
 @media only screen and (max-width: 900px) and (min-width: 600px) {
-
+  .headerDiv{
+    font-family: 'El Messiri';
+    background-color:rgba(0, 0, 0, 0.6);
+    z-index: 10;
+  }
   .quranAyah{
     padding: auto 20px;
     color: #e0d2b4;
@@ -223,6 +218,11 @@
   
   
 @media only screen and (max-width: 599px) {
+  .headerDiv{
+    font-family: 'El Messiri';
+    background-color:rgba(0, 0, 0, 0.6);
+    z-index: 10;
+  }
   header {
     position: fixed;
     top: 0;

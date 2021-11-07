@@ -78,7 +78,7 @@ export default function UpdateProfile() {
 
   return (
     <>
-      {
+      {currentUser.displayName == null ? <div className="annonimousdiv"><h1 className="annonimousalingment">Please login with an account to see the posts!<br/><br/>Jazakumullah Khair</h1> </div> :
         <Card className="emotionBox2">
           <Card.Body>
             <h1 className="text-center mb-4">Update Profile</h1>
@@ -131,12 +131,18 @@ export default function UpdateProfile() {
                 Update
               </Button>
             </Form>
+
             <div className="w-100 text-center link mt-2">
               <Link to="/">Cancel</Link>
             </div>
           </Card.Body>
         </Card>
       };
+          <div className="btng" id="cancelbtn">
+            <Button className="w-100" id="btn" onClick={()=>history.push("/")}>
+              Cancel
+            </Button>
+          </div>
     </>
   )
 }

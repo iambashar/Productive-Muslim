@@ -16,7 +16,10 @@
   width: 90%;
   height: 450px;
   margin: 0 auto;
-  margin-top: 15px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   justify-content: center;
   text-align: center;
   border: 4px;
@@ -24,7 +27,6 @@
   border-color: rgb(168, 223, 215);
   font-family: 'El Messiri';
   padding: 20px;
-  margin-bottom: 60px;
 }
 
 .calendar{
@@ -221,8 +223,10 @@ width:100%
   background: rgba(0, 0, 0, 0.3);
   width: 90%;
   height: 400px;
-  margin: 0 auto;
-  margin-top: 15px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   justify-content: center;
   text-align: center;
   border: 4px;
@@ -230,7 +234,6 @@ width:100%
   border-color: rgb(168, 223, 215);
   font-family: 'El Messiri';
   padding: 20px;
-  margin-bottom: 60px;
 }
 
 .calendar{

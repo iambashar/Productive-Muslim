@@ -19,6 +19,10 @@ function setListID(ID) {
   return setSelectedListID(ID);
 }
 
+function signInAnonymously() {
+  return auth.signInAnonymously()
+}
+
 function signInWithGoogle() {
   
   return auth.signInWithPopup(googleProvider)
@@ -66,6 +70,7 @@ const value = {
   updateEmail,
   updatePassword,
   signInWithGoogle,
+  signInAnonymously,
   selectedlistID,
   setListID
 }

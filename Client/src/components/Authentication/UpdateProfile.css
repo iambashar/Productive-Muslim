@@ -67,6 +67,13 @@
     color: #e0d2b4;
     border-color: rgb(168, 223, 215);
   }
+  #cancelbtn{
+    width: 15%;
+    position: absolute;
+    left: 50%;
+    top: 54%;
+    transform: translate(-50%, -50%);
+  }
 }
 
 
@@ -138,13 +145,21 @@
     color: #e0d2b4;
     border-color: rgb(168, 223, 215);
   }
+
+  #cancelbtn{
+    width: 15%;
+    position: absolute;
+    left: 50%;
+    top: 54%;
+    transform: translate(-50%, -50%);
+  }
 }
 
 @media screen and (max-width: 599px) {
   .emotionBox2 {
     background: rgba(0, 0, 0, 0.3);
     width: 70%;
-    height: 340px;
+    height: 500px;
     overflow: auto;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -199,5 +214,12 @@
     background: rgba(0, 0, 0, 0.3);
     color: #e0d2b4;
     border-color: rgb(168, 223, 215);
+  }
+  #cancelbtn{
+    width: 22%;
+    position: absolute;
+    left: 50%;
+    top: 56%;
+    transform: translate(-50%, -50%);
   }
 }

@@ -67,8 +67,8 @@ const Footer = () => {
             </div>
             <div className="main-footer">
                 <div>
-                    <div className="footerText">Made with <img src={heart} height="20px" width="20px"/> for Islam</div>
-                    <a href="#" className="contactLink" onClick={togglePopUp}>Contact us</a>
+                    <div className="footerText">Made with <img src={heart} height="20px" width="20px"/> for Islam&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="#" className="contactLink" onClick={togglePopUp}>Contact us</a></div>
                 </div>
                 <div></div>
             </div>
