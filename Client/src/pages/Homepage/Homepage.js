@@ -243,47 +243,47 @@ const Homepage = (props) => {
                 </Navbar>
             </header>
             <div className="content">
-                <div className="quranAyah">
-                    <p>{ayah}<br />-Surah {surah}, Verse: {ayahNo}</p>
+            <div className="quranAyah">
+                <p>{ayah}<br />-Surah {surah}, Verse: {ayahNo}</p>
+            </div>
+            <Container>
+            <Row className="cards">
+                <div className="cardItem">
+                    <Carousel indicators={false} indicatorLabels="[0]">
+                        <Carousel.Item  className="quranAyahPara" interval={4000}>
+                            <p>Next Salah: <br /> {nextWakt}, {nextHr}:{nextMin}{meridian}</p>
+                        </Carousel.Item>
+                        <Carousel.Item interval={4000}>
+                            <p>{currentWakt} remaining: <br /> {remHr}hr, {remMin}min</p>
+                        </Carousel.Item>
+                    </Carousel>
                 </div>
-                <Container>
-                    <Row className="cards">
-                        <div className="cardItem">
-                            <Carousel indicators={false} indicatorLabels="[0]">
-                                <Carousel.Item className="quranAyahPara" interval={4000}>
-                                    <p>Next Salah: <br /> {nextWakt}, {nextHr}:{nextMin}{meridian}</p>
-                                </Carousel.Item>
-                                <Carousel.Item interval={4000}>
-                                    <p>{currentWakt} remaining: <br /> {remHr}hr, {remMin}min</p>
-                                </Carousel.Item>
-                            </Carousel>
-                        </div>
-                        <div className="cardItem">
-                            <Carousel indicators={false} indicatorLabels="[0]">
-                                {
-                                    displayMydayTask.map(myday =>
-                                        <Carousel.Item interval={4000}>
-                                            <p>Today's Task: <br /> {myday.task}</p>
-                                        </Carousel.Item>
-                                    )
-                                }
-                            </Carousel>
-                        </div>
-                        <div className="cardItemDua">
-                            <Carousel indicators={false} indicatorLabels="[0]">
-                                {
-                                    displayfavourite.map(favdua =>
-                                        <Carousel.Item interval={8000}>
-                                            <p>Make a Dua: <br /> {favdua.translation}</p>
-                                        </Carousel.Item>
-                                    )
-                                }
-                            </Carousel>
-                        </div>
+                <div className="cardItem">
+                <Carousel indicators={false} indicatorLabels="[0]">
+                    {
+                        displayMydayTask.map(myday =>
+                            <Carousel.Item interval={4000}>
+                            <p>Today's Task: <br/> {myday.task}</p>
+                        </Carousel.Item>
+                            )
+                    }
+                    </Carousel>
+                </div>
+                <div className="cardItemDua">
+                <Carousel indicators={false} indicatorLabels="[0]">
+                    {
+                        displayfavourite.map(favdua =>
+                            <Carousel.Item interval={8000}>
+                            <p>Make a Dua: <br/> {favdua.translation}</p>
+                        </Carousel.Item>
+                            )
+                    }
+                    </Carousel>
+                </div>
+                
 
-
-                    </Row>
-                </Container>
+            </Row>
+            </Container>
             </div>
         </div>
 

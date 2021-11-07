@@ -196,29 +196,9 @@ const MyPosts = () => {
                 </div>
             </div>
             <br />
-            <Dropdown>
-                <Dropdown.Toggle id="postbox" variant="secondary">
-                    Want to Post something
-                </Dropdown.Toggle>
+            
 
-                <Dropdown.Menu id="postdrop" >
-                    <Form id="forumbox2">
-                        <Form.Group className="mb-3" >
-                            <Form.Label>Title</Form.Label>
-                            <Form.Control id="title" type="text" placeholder="What is the meaning of life?" ref={titleRef} required />
-                        </Form.Group>
-                        <Form.Group className="mb-3" >
-                            <Form.Label>Description</Form.Label>
-                            <Form.Control id="description" as="textarea" placeholder="If anyone can briefly explain this.." rows={3} ref={descRef} required />
-                        </Form.Group>
-                        <Button id="postbtn" type="submit" onClick={addnewpost}>
-                            Post
-                        </Button>
-                    </Form>
-                </Dropdown.Menu>
-            </Dropdown>
-
-            <div>
+            <div className="forumContent rightDiv">
                 {
                     displayPosts.map((allpost, index) =>
                         <div className="postdiv">
