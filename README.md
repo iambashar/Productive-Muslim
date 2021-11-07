@@ -138,3 +138,14 @@ Users will be able to interact with each other in a discussion forum. They can a
 ## Edit Profile
 Users can update their profile credentials.
 ![UpdateProfile](demoImages/updateprofile.PNG)
+
+# Resources
+## Tutorials
+* [PERNStackTutorial](https://www.youtube.com/watch?v=J01rYl9T3BU&t=10223s)
+
+## Inspirations
+We were inspired by similar projects like:
+* [Sujood.co](https://www.sujood.co/)
+* [IslamicFinder](https://www.islamicfinder.org/)
+* [Prayer Times](https://chrome.google.com/webstore/detail/namaz-vakitleri/ieelbggiidmnfbkjcjceknbhjgnhkjnf)
+* [Islam Stack Exchange](https://islam.stackexchange.com/)
