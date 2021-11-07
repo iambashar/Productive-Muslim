@@ -141,7 +141,7 @@ Users can update their profile credentials.
 
 # Resources
 ## Tutorials
-* [PERNStackTutorial](https://www.youtube.com/watch?v=J01rYl9T3BU&t=10223s)
+* [PERN Stack Tutorial](https://www.youtube.com/watch?v=J01rYl9T3BU&t=10223s)
 
 ## Inspirations
 We were inspired by similar projects like:
