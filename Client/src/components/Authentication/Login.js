@@ -14,10 +14,10 @@ export default function Login() {
   const passwordRef = useRef()
   const { login, signInWithGoogle } = useAuth()
   const [error, setError] = useState("")
-  const [user, setUser] = useState("")
   const [loading, setLoading] = useState(false)
   const history = useHistory()
   const [passwordShown, setPasswordShown] = useState(false)
+  const [userdata, setUser] = useState([])
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -36,62 +36,38 @@ export default function Login() {
   async function googleSingin(e) {
     e.preventDefault()
     try {
-      const promises = []
       setError("")
       setLoading(true)
-
-      promises.push(
-        await signInWithGoogle()
-          .then((res) => {
-            setUser(res.user)
-          })
-      );
-      var uid;
-      var name;
-      var email;
-      var madhab;
-      var country;
-      var city;
-      var len;
-
-      promises.push(
-        await fetch("/userprofile/".concat(user.uid))
-          .then(res => res.json())
-          .then(
-            (result) => {
-              len = result.results;
-              uid = user.uid;
-              name = user.displayName;
-              email = user.email;
-              madhab = 'Hanafi';
-              country = 'Bangladesh';
-              city = 'Dhaka'; 
-            }
-          )
-      );
-
-      Promise.all(promises)
-        .then(() => {
-          (len != 0) ?
-            fetch('/adduser', {
-              method: 'POST',
-              body: JSON.stringify({ uid, name, email, madhab, country, city }),
-              headers: {
-                "Content-type": "application/json; charset=UTF-8"
-              }
-            }) : call()
-        })
-        .then(() => {
-          history.push("/")
+      const res = await signInWithGoogle();
+      const user = res.user;
+      var link = "/userprofile/".concat(user.uid);
+      fetch(link)
+        .then(res => res.json())
+        .then(
+          (result) => {
+            setUser(result.data.user);
+          }
+        );
+      if (userdata.length == 0) {
+        var uid = user.uid;
+        var name = user.displayName;
+        var email = user.email;
+        var madhab = 'Hanafi';
+        var country = 'Bangladesh';
+        var city = 'Dhaka';
+        fetch('/adduser', {
+          method: 'POST',
+          body: JSON.stringify({ uid, name, email, madhab, country, city }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8"
+          }
         });
+      }
+      history.push("/")
     } catch {
       setError("Failed to log in with Google Account")
     }
     setLoading(false)
-  }
-
-  function call() {
-
   }
 
   const togglePasswordVisiblity = () => {

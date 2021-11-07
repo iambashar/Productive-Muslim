@@ -71,6 +71,7 @@ app.get("/emotiondua/:emo", async (req, res) => {
 //add new user
 app.post("/adduser", async (req, res) => {
   try {
+    console.log(req)
     const results = await db.query(
       "INSERT INTO users (userID, name, email, madhab, country, city) values ($1, $2, $3, $4, $5, $6) returning *",
       [req.body.uid, req.body.name, req.body.email, req.body.madhab, req.body.country, req.body.city]
