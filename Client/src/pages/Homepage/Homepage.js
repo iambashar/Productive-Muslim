@@ -85,7 +85,7 @@ const Homepage = (props) => {
                         setDisplayMydayTask(result.data.tasks);
                         console.log(result.data.tasks);
                     }));
-        fetch("http://127.0.0.1:3000/getfavdua/".concat(currentUser.uid))
+        fetch("/getfavdua/".concat(currentUser.uid))
             .then(res => res.json())
             .then(
                 (results) => {

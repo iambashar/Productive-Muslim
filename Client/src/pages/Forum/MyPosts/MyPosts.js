@@ -20,7 +20,7 @@ const MyPosts = () => {
     var cmnt = 0;
 
     useEffect(() => {
-        fetch("http://127.0.0.1:3000/userprofile/".concat(currentUser.uid))
+        fetch("/userprofile/".concat(currentUser.uid))
             .then(res => res.json())
             .then(
                 (result) => {
@@ -29,7 +29,7 @@ const MyPosts = () => {
                 }
             );
 
-        fetch("http://127.0.0.1:3000/showuserposts/".concat(currentUser.uid))
+        fetch("/showuserposts/".concat(currentUser.uid))
             .then(res => res.json())
             .then(
                 (results) => {
@@ -37,7 +37,7 @@ const MyPosts = () => {
                 }
             );
 
-        fetch("http://127.0.0.1:3000/showcomments")
+        fetch("/showcomments")
             .then(res => res.json())
             .then(
                 (results) => {
@@ -45,7 +45,7 @@ const MyPosts = () => {
                 }
             );
 
-        fetch("http://127.0.0.1:3000/getupvotes/".concat(currentUser.uid))
+        fetch("/getupvotes/".concat(currentUser.uid))
             .then(res => res.json())
             .then(
                 (results) => {
@@ -60,7 +60,7 @@ const MyPosts = () => {
         const description = document.getElementById("description").value;
         const upVote = 0;
         const comments = 0;
-        fetch('http://127.0.0.1:3000/createpost/'.concat(uid), {
+        fetch('/createpost/'.concat(uid), {
             method: 'POST',
             body: JSON.stringify({ userName, title, description, upVote, comments }),
             headers: {
@@ -73,7 +73,7 @@ const MyPosts = () => {
     const addnewcomment = (postID, index, comment) => {
         const userName = name;
         const commentcontent = document.getElementsByClassName("usercomment")[index].value;
-        fetch('http://127.0.0.1:3000/createcomment', {
+        fetch('/createcomment', {
             method: 'POST',
             body: JSON.stringify({ postID, uid, userName, commentcontent }),
             headers: {
@@ -105,7 +105,7 @@ const MyPosts = () => {
         if (document.getElementsByTagName("i")[index].className == "far fa-thumbs-up fa-2x") {
             document.getElementsByTagName("i")[index].className = "fas fa-thumbs-up fa-2x";
             document.getElementsByTagName("i")[index].innerHTML = (parseInt(document.getElementsByTagName("i")[index].innerHTML) + 1);
-            fetch('http://127.0.0.1:3000/addupvote', {
+            fetch('/addupvote', {
                 method: 'POST',
                 body: JSON.stringify({ postID, uid }),
                 headers: {
@@ -114,7 +114,7 @@ const MyPosts = () => {
             });
             vote++;
             console.log(vote);
-            fetch('http://127.0.0.1:3000/updateupvote', {
+            fetch('/updateupvote', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -124,7 +124,7 @@ const MyPosts = () => {
         }
         else {
             document.getElementsByTagName("i")[index].className = "far fa-thumbs-up fa-2x";
-            fetch('http://127.0.0.1:3000/deleteupvote', {
+            fetch('/deleteupvote', {
                 method: 'DELETE',
                 body: JSON.stringify({ postID, uid }),
                 headers: {
@@ -145,7 +145,7 @@ const MyPosts = () => {
 
     function deletePost(postID, index) {
         document.getElementsByClassName("forumbox")[index].style.display = "none";
-        fetch('http://127.0.0.1:3000/deleteforumpost', {
+        fetch('/deleteforumpost', {
             method: 'DELETE',
             body: JSON.stringify({ postID, uid }),
             headers: {
@@ -156,7 +156,7 @@ const MyPosts = () => {
 
     function deleteComment(commentid, idx, comment, postID, index) {
         document.getElementsByClassName("onecomment")[idx].style.display = "none";
-        fetch('http://127.0.0.1:3000/deletecomment', {
+        fetch('/deletecomment', {
             method: 'DELETE',
             body: JSON.stringify({ commentid, uid }),
             headers: {

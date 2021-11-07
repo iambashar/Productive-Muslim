@@ -20,7 +20,7 @@ export default function UpdateProfile() {
   const history = useHistory()
 
   useEffect(() => {
-    var link = "http://127.0.0.1:3000/userprofile/".concat(currentUser.uid);
+    var link = "/userprofile/".concat(currentUser.uid);
     fetch(link)
       .then(res => res.json())
       .then(
@@ -50,7 +50,7 @@ export default function UpdateProfile() {
       var country = countryRef.current.value;
       var city = cityRef.current.value;
       promises.push(
-        fetch('http://127.0.0.1:3000/updateuser/'.concat(uid), {
+        fetch('/updateuser/'.concat(uid), {
           method: 'POST',
           body: JSON.stringify({ name, email, madhab, country, city }),
           headers: {

@@ -12,7 +12,7 @@ const Favourites = () => {
     var ts = false;
 
     useEffect(() => {
-        fetch("http://127.0.0.1:3000/getfavdua/".concat(currentUser.uid))
+        fetch("/getfavdua/".concat(currentUser.uid))
             .then(res => res.json())
             .then(
                 (results) => {
@@ -26,7 +26,7 @@ const Favourites = () => {
         if (document.getElementsByTagName("i")[index].className == "far fa-thumbs-up fa-2x") {
             document.getElementsByTagName("i")[index].className = "fas fa-thumbs-up fa-2x";
             document.getElementsByTagName("i")[index].innerHTML = (parseInt(document.getElementsByTagName("i")[index].innerHTML) + 1);
-            fetch('http://127.0.0.1:3000/addfavdua', {
+            fetch('/addfavdua', {
                 method: 'POST',
                 body: JSON.stringify({ duaID, uid }),
                 headers: {
@@ -46,7 +46,7 @@ const Favourites = () => {
             console.log(fc)
             document.getElementsByTagName("i")[index].innerHTML = (parseInt(document.getElementsByTagName("i")[index].innerHTML) - 1);
             document.getElementsByTagName("i")[index].className = "far fa-thumbs-up fa-2x";
-            fetch('http://127.0.0.1:3000/deletefavdua', {
+            fetch('/deletefavdua', {
                 method: 'DELETE',
                 body: JSON.stringify({ duaID, uid }),
                 headers: {

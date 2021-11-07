@@ -55,7 +55,7 @@ export default function Login() {
       var len;
 
       promises.push(
-        await fetch("http://127.0.0.1:3000/userprofile/".concat(user.uid))
+        await fetch("/userprofile/".concat(user.uid))
           .then(res => res.json())
           .then(
             (result) => {

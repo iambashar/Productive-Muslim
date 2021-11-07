@@ -35,7 +35,7 @@ const Sawm = () => {
     }, []);
 
     useEffect(() => {
-        var link = "http://127.0.0.1:3000/showupcomingsawmdates/";
+        var link = "/showupcomingsawmdates/";
         link = link.concat(uid);
         fetch(link)
             .then(res => res.json())

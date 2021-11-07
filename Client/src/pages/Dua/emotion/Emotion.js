@@ -14,12 +14,12 @@ const Emotion = () => {
     var ts = false;
 
     useEffect(() => {
-        fetch("http://127.0.0.1:3000/duas")
+        fetch("/duas")
             .then(res => res.json())
             .then(
                 (result) => {
                     setDisplayDuaInfos(shuffle(result.data.duas));
-                    return fetch("http://127.0.0.1:3000/emotions").then(
+                    return fetch("/emotions").then(
                         console.log(result.data.duas));
                 })
             .then(res => res.json())
@@ -27,7 +27,7 @@ const Emotion = () => {
                 (result) => {
                     setDisplayOptions(result.data.emotions);
                 });
-        fetch("http://127.0.0.1:3000/getfavduacount/".concat(currentUser.uid))
+        fetch("/getfavduacount/".concat(currentUser.uid))
             .then(res => res.json())
             .then(
                 (results) => {
@@ -39,7 +39,7 @@ const Emotion = () => {
 
 
     const showSearchedDua = async (selectedEmotion) => {
-        var link = "http://127.0.0.1:3000/emotiondua/";
+        var link = "/emotiondua/";
         link = link.concat(selectedEmotion.target.outerText).toLowerCase();
         document.getElementById("dropdown-basic").innerHTML = selectedEmotion.target.outerText;
         await fetch(link)
@@ -55,7 +55,7 @@ const Emotion = () => {
         if (document.getElementsByTagName("i")[index].className == "far fa-thumbs-up fa-2x") {
             document.getElementsByTagName("i")[index].className = "fas fa-thumbs-up fa-2x";
             document.getElementsByTagName("i")[index].innerHTML = (parseInt(document.getElementsByTagName("i")[index].innerHTML) + 1);
-            fetch('http://127.0.0.1:3000/addfavdua', {
+            fetch('/addfavdua', {
                 method: 'POST',
                 body: JSON.stringify({ duaID, uid }),
                 headers: {
@@ -75,7 +75,7 @@ const Emotion = () => {
             console.log(fc)
             document.getElementsByTagName("i")[index].innerHTML = (parseInt(document.getElementsByTagName("i")[index].innerHTML) - 1);
             document.getElementsByTagName("i")[index].className = "far fa-thumbs-up fa-2x";
-            fetch('http://127.0.0.1:3000/deletefavdua', {
+            fetch('/deletefavdua', {
                 method: 'DELETE',
                 body: JSON.stringify({ duaID, uid }),
                 headers: {
