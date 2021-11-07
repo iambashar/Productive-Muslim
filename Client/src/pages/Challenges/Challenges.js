@@ -131,7 +131,6 @@ const Challenges = () => {
                 </header>
             <div className="trackerdiv">
                 <p>JOIN THE CHALLENGE <br /> Click below and join the 30 Days, 30 Deeds Challenge</p>
-                <Button className="btnjoin" variant="outline-success">Join Now</Button>{' '}
             </div>
             <div className="taskdiv">
                 <h2><b>30 DEEDS CHALLENGE</b></h2>
@@ -149,10 +148,10 @@ const Challenges = () => {
                         <img src={deedimg1} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                             <b>Day 1</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                             Have a healthy Sehr
                         </div>
                     </div>
@@ -168,10 +167,10 @@ const Challenges = () => {
                         <img src={deedimg2} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 2</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                             Learn a new dua
                         </div>
                     </div>
@@ -187,10 +186,10 @@ const Challenges = () => {
                         <img src={deedimg3} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 3</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Teach one good deed to a child
                         </div>
                     </div>
@@ -206,10 +205,10 @@ const Challenges = () => {
                         <img src={deedimg4} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 4</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Memorize last ayats of Surah Baqarah
                         </div>
                     </div>
@@ -225,10 +224,10 @@ const Challenges = () => {
                         <img src={deedimg5} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 5</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Refrain from backbiting and gossiping
                         </div>
                     </div>
@@ -244,10 +243,10 @@ const Challenges = () => {
                         <img src={deedimg6} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 6</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Give Sadqa
                         </div>
                     </div>
@@ -263,10 +262,10 @@ const Challenges = () => {
                         <img src={deedimg7} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 7</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Offer 3 missed prayers
                         </div>
                     </div>
@@ -282,10 +281,10 @@ const Challenges = () => {
                         <img src={deedimg8} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 8</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Give up on a grudge
                         </div>
                     </div>
@@ -301,10 +300,10 @@ const Challenges = () => {
                         <img src={deedimg9} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 9</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Empathize with people in your circle
                         </div>
                     </div>
@@ -320,10 +319,10 @@ const Challenges = () => {
                         <img src={deedimg10} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 10</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Feed the poor of your community
                         </div>
                     </div>
@@ -344,10 +343,10 @@ const Challenges = () => {
                         <img src={deedimg11} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 11</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Offer extra Nafl prayers
                         </div>
                     </div>
@@ -363,10 +362,10 @@ const Challenges = () => {
                         <img src={deedimg12} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 12</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Calculate your Zakat
                         </div>
                     </div>
@@ -382,10 +381,10 @@ const Challenges = () => {
                         <img src={deedimg13} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 13</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Read Surah Yaseen with translation
                         </div>
                     </div>
@@ -401,10 +400,10 @@ const Challenges = () => {
                         <img src={deedimg14} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 14</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Give up one bad deed
                         </div>
                     </div>
@@ -420,10 +419,10 @@ const Challenges = () => {
                         <img src={deedimg15} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 15</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Visit a sick person
                         </div>
                     </div>
@@ -439,10 +438,10 @@ const Challenges = () => {
                         <img src={deedimg16} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 16</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Read about the life of Prophet (PBUH)
                         </div>
                     </div>
@@ -458,10 +457,10 @@ const Challenges = () => {
                         <img src={deedimg17} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 17</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Realize the struggle of needy while fasting
                         </div>
                     </div>
@@ -477,10 +476,10 @@ const Challenges = () => {
                         <img src={deedimg18} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div  className="dayno">
                         <b>Day 18</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Contribute in making a good meal
                         </div>
                     </div>
@@ -496,10 +495,10 @@ const Challenges = () => {
                         <img src={deedimg19} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno" >
                         <b>Day 19</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Tell people about the beauty of Islam
                         </div>
                     </div>
@@ -515,10 +514,10 @@ const Challenges = () => {
                         <img src={deedimg20} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno" >
                         <b>Day 20</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Pray for your loved ones who passed away
                         </div>
                     </div>
@@ -539,10 +538,10 @@ const Challenges = () => {
                         <img src={deedimg21} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div  className="dayno">
                         <b>Day 21</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Make dua for Muslims all around the world
                         </div>
                     </div>
@@ -558,10 +557,10 @@ const Challenges = () => {
                         <img src={deedimg22} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 22</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Pray Salat-ut-Tasbeeh
                         </div>
                     </div>
@@ -577,10 +576,10 @@ const Challenges = () => {
                         <img src={deedimg23} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 23</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Recite Durood-e-Ibrahim
                         </div>
                     </div>
@@ -596,10 +595,10 @@ const Challenges = () => {
                         <img src={deedimg24} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 24</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Get a thoughtful gift for your loved ones
                         </div>
                     </div>
@@ -615,10 +614,10 @@ const Challenges = () => {
                         <img src={deedimg25} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 25</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Learn a new Hadith and act upon it
                         </div>
                     </div>
@@ -634,10 +633,10 @@ const Challenges = () => {
                         <img src={deedimg26} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 26</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Spend the night in Prayers
                         </div>
                     </div>
@@ -653,10 +652,10 @@ const Challenges = () => {
                         <img src={deedimg27} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 27</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Revise memorized Surahs
                         </div>
                     </div>
@@ -672,10 +671,10 @@ const Challenges = () => {
                         <img src={deedimg28} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 28</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Practice modesty
                         </div>
                     </div>
@@ -691,10 +690,10 @@ const Challenges = () => {
                         <img src={deedimg29} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 29</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Spend less on things and give more
                         </div>
                     </div>
@@ -710,10 +709,10 @@ const Challenges = () => {
                         <img src={deedimg30} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 30</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Give Sadaqa-al-Fitr and get ready for Eid!
                         </div>
                     </div>
