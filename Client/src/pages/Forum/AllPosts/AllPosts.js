@@ -179,7 +179,7 @@ const AllPosts = () => {
     const searchPost = () => {
         var text = document.getElementById("searchForum").value;
         text = "%25" + text + "%25";
-        var link = "http://127.0.0.1:3000/searchpost/";
+        var link = "/searchpost/";
         link = link.concat(text);
         console.log(link);
         fetch(link)

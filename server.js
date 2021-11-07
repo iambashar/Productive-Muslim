@@ -814,26 +814,6 @@ app.get("/searchpost/:id", async (req, res) => {
   }
 });
 
-
-//update commetcount
-app.put("/updatecommentcount", async (req, res) => {
-  try {
-    const results = await db.query(
-      "UPDATE forumpost SET commentcount=$1 where postid=$2 returning *",
-      [req.body.comment, req.body.postID]
-    );
-
-    res.status(200).json({
-      status: "success",
-      data: {
-        posts: results.rows,
-      },
-    });
-  } catch (err) {
-    console.log(err);
-  }
-});
-
 //update upvote
 app.put("/updateupvote", async (req, res) => {
   try {
