@@ -105,3 +105,11 @@ CREATE TABLE mysalah(
     isDone BOOL NOT NULL,
     day DATE DEFAULT CURRENT_DATE 
 );
+
+CREATE TABLE mychallenge(
+        ID SERIAL NOT NULL PRIMARY KEY,
+        userID VARCHAR NOT NULL,
+        challenge INT NOT NULL,
+        isChallengeDone BOOL NOT NULL,
+        day DATE DEFAULT CURRENT_DATE 
+);
