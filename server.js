@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const db = require("./db");
 const cors = require('cors');
-const path = require('path')
+const path = require('path');
 
 const app = express();
 
@@ -16,10 +16,6 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use(express.static('./Client/build'));
-app.get('*', (req, res)=> {
-  const index = path.join(__dirname, '/', './Client/build', 'index.html' );
-  res.sendFile(index);
-});
 
 // Get all duas
 app.get("/duas", async (req, res) => {
@@ -1132,8 +1128,9 @@ app.get("/challengedone/:uid", async (req, res) => {
   }
 });
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client/build/index.html"));
+app.get('*', (req, res)=> {
+  const index = path.join(__dirname, '/', './Client/build', 'index.html' );
+  res.sendFile(index);
 });
 
 const port = process.env.PORT || 3001;
