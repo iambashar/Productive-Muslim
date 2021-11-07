@@ -1,58 +1,203 @@
-.emotionBox2 {
-  background: rgba(0, 0, 0, 0.3);
-  width: 50%;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  color: #e0d2b4;
-  border: 4px;
-  border-style: solid;
-  border-color: rgb(168, 223, 215);
-  font-family: "El Messiri";
-  padding: 20px;
+@media only screen and (min-width: 768px)
+{
+  .emotionBox2 {
+    background: rgba(0, 0, 0, 0.3);
+    width: 50%;
+    height: 530px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: #e0d2b4;
+    border: 4px;
+    border-style: solid;
+    border-color: rgb(168, 223, 215);
+    font-family: "El Messiri";
+    padding: 20px;
+    margin-bottom: 60px;
+  }
+
+  .text-center {
+    font-size: 25px;
+  }
+  .link {
+    font-size: 18px;
+  }
+  
+  #avatar{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .form-control:not(focus) {
+    background: rgba(0, 0, 0, 0.3);
+    color: #e0d2b4;
+  }
+  
+  .form-control:disabled, .form-control[readonly] {
+    background: rgba(0, 0, 0, 0.3);
+    color: #e0d2b4;
+  }
+  
+  .form-control:focus {
+    background: rgba(0, 0, 0, 0.3);
+    color: #e0d2b4;
+  }
+  
+  .btng {
+    margin-top: 15px;
+  }
+  
+  .searchButton2{
+    background: rgba(0, 0, 0, 0.3);
+    color: #e0d2b4;
+    border-color: rgb(168, 223, 215);
+    font-family: 'El Messiri';
+    width:100%;
+    text-align: left;
+  }
+  .searchButton2:hover{
+    background: rgba(0, 0, 0, 0.3);
+    color: #e0d2b4;
+    border-color: rgb(168, 223, 215);
+  }
+  .searchButton2:focus, .searchButton2:focus-visible, .searchButton2:checked {
+    background: rgba(0, 0, 0, 0.3);
+    color: #e0d2b4;
+    border-color: rgb(168, 223, 215);
+  }
 }
 
-#avatar{
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+
+@media only screen and (max-width: 900px) and (min-width: 600px) {
+  .emotionBox2 {
+    background: rgba(0, 0, 0, 0.3);
+    width: 50%;
+    height: 350px;
+    overflow: auto;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: #e0d2b4;
+    border: 4px;
+    border-style: solid;
+    border-color: rgb(168, 223, 215);
+    font-family: "El Messiri";
+    padding: 20px;
+    margin-bottom: 60px;
+  }
+  
+  .text-center {
+    font-size: 20px;
+  }
+  .link {
+    font-size: 18px;
+  }
+  #avatar{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .form-control:not(focus) {
+    background: rgba(0, 0, 0, 0.3);
+    color: #e0d2b4;
+  }
+  
+  .form-control:disabled, .form-control[readonly] {
+    background: rgba(0, 0, 0, 0.3);
+    color: #e0d2b4;
+  }
+  
+  .form-control:focus {
+    background: rgba(0, 0, 0, 0.3);
+    color: #e0d2b4;
+  }
+  
+  .btng {
+    margin-top: 15px;
+  }
+  
+  .searchButton2{
+    background: rgba(0, 0, 0, 0.3);
+    color: #e0d2b4;
+    border-color: rgb(168, 223, 215);
+    font-family: 'El Messiri';
+    width:100%;
+    text-align: left;
+  }
+  .searchButton2:hover{
+    background: rgba(0, 0, 0, 0.3);
+    color: #e0d2b4;
+    border-color: rgb(168, 223, 215);
+  }
+  .searchButton2:focus, .searchButton2:focus-visible, .searchButton2:checked {
+    background: rgba(0, 0, 0, 0.3);
+    color: #e0d2b4;
+    border-color: rgb(168, 223, 215);
+  }
 }
 
-.form-control:not(focus) {
-  background: rgba(0, 0, 0, 0.3);
-  color: #e0d2b4;
-}
-
-.form-control:disabled, .form-control[readonly] {
-  background: rgba(0, 0, 0, 0.3);
-  color: #e0d2b4;
-}
-
-.form-control:focus {
-  background: rgba(0, 0, 0, 0.3);
-  color: #e0d2b4;
-}
-
-.btng {
-  margin-top: 15px;
-}
-
-.searchButton2{
-  background: rgba(0, 0, 0, 0.3);
-  color: #e0d2b4;
-  border-color: rgb(168, 223, 215);
-  font-family: 'El Messiri';
-  width:100%;
-  text-align: left;
-}
-.searchButton2:hover{
-  background: rgba(0, 0, 0, 0.3);
-  color: #e0d2b4;
-  border-color: rgb(168, 223, 215);
-}
-.searchButton2:focus, .searchButton2:focus-visible, .searchButton2:checked {
-  background: rgba(0, 0, 0, 0.3);
-  color: #e0d2b4;
-  border-color: rgb(168, 223, 215);
+@media screen and (max-width: 599px) {
+  .emotionBox2 {
+    background: rgba(0, 0, 0, 0.3);
+    width: 70%;
+    height: 340px;
+    overflow: auto;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #e0d2b4;
+    border: 4px;
+    border-style: solid;
+    border-color: rgb(168, 223, 215);
+    font-family: "El Messiri";
+    padding: 20px;
+    margin-bottom: 60px;
+  }
+  
+  #avatar{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .form-control:not(focus) {
+    background: rgba(0, 0, 0, 0.3);
+    color: #e0d2b4;
+  }
+  
+  .form-control:disabled, .form-control[readonly] {
+    background: rgba(0, 0, 0, 0.3);
+    color: #e0d2b4;
+  }
+  
+  .form-control:focus {
+    background: rgba(0, 0, 0, 0.3);
+    color: #e0d2b4;
+  }
+  
+  .btng {
+    margin-top: 15px;
+  }
+  
+  .searchButton2{
+    background: rgba(0, 0, 0, 0.3);
+    color: #e0d2b4;
+    border-color: rgb(168, 223, 215);
+    font-family: 'El Messiri';
+    width:100%;
+    text-align: left;
+  }
+  .searchButton2:hover{
+    background: rgba(0, 0, 0, 0.3);
+    color: #e0d2b4;
+    border-color: rgb(168, 223, 215);
+  }
+  .searchButton2:focus, .searchButton2:focus-visible, .searchButton2:checked {
+    background: rgba(0, 0, 0, 0.3);
+    color: #e0d2b4;
+    border-color: rgb(168, 223, 215);
+  }
 }

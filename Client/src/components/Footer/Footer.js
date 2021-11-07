@@ -38,6 +38,7 @@ const Footer = () => {
             }, (error) => {
                 console.log(error.text);
             });
+            e.target.reset();
         togglePopUp();
     };
 

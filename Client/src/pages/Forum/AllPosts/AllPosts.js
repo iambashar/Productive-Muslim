@@ -220,7 +220,7 @@ const AllPosts = () => {
                     </Dropdown.Menu>
                 </Dropdown>
 
-                <div>
+                <div className="forumContent">
                     {
                         displayPosts.map((allpost, index) =>
                             <div className="postdiv">
@@ -254,7 +254,7 @@ const AllPosts = () => {
                                                     {cmnt = allpost.commentcount,
                                                         displayComment.map((comment, idx) => comment.postid == allpost.postid ?
                                                             <Form.Group className="onecomment">
-                                                                <Form.Label>{comment.username}
+                                                                <Form.Label className="commentAuthor">{comment.username}
                                                                     <h2 className="forumTimeAndAuthor">Posted on {moment(allpost.posteddate).format('DD-MM-YYYY')}</h2>
                                                                 </Form.Label>
                                                                 <InputGroup>
