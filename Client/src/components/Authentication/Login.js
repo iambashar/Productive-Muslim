@@ -36,19 +36,10 @@ export default function Login() {
   async function googleSingin(e) {
     e.preventDefault()
     try {
-      const promises = []
       setError("")
       setLoading(true)
       const res = await signInWithGoogle();
       const user = res.user;
-
-
-      promises.push(
-        await signInWithGoogle()
-          .then((res) => {
-            setUser(res.user)
-          })
-      );
       var uid;
       var name;
       var email;
@@ -57,89 +48,88 @@ export default function Login() {
       var city;
       var len;
 
-      promises.push(
-        await fetch("/userprofile/".concat(user.uid))
-          .then(res => res.json())
-          .then(
-            (result) => {
-              len = result.results;
-              uid = user.uid;
-              name = user.displayName;
-              email = user.email;
-              madhab = 'Hanafi';
-              country = 'Bangladesh';
-              city = 'Dhaka';
-            }
-          )
-      );
-
-      Promise.all(promises)
-        .then(() => {
-          (len == 0) ?
-            fetch('/adduser', {
-              method: 'POST',
-              body: JSON.stringify({ uid, name, email, madhab, country, city }),
-              headers: {
-                "Content-type": "application/json; charset=UTF-8"
-              }
-            }) : call()
+      await signInWithGoogle()
+        .then((res) => {
+          setUser(res.user)
         })
-        .then(() => {
-          history.push("/")
-        });
-        } catch {
-          setError("Failed to log in with Google Account")
-        }
-      setLoading(false)
-    }
 
-    function call (){
 
+      await fetch("/userprofile/".concat(user.uid))
+        .then(res => res.json())
+        .then(
+          (result) => {
+            len = result.results
+            uid = user.uid
+            name = user.displayName
+            email = user.email
+            madhab = 'Hanafi'
+            country = 'Bangladesh'
+            city = 'Dhaka'
+
+          }
+        )
+
+      if (len == 0) {
+        await fetch('/adduser', {
+          method: 'POST',
+          body: JSON.stringify({ uid, name, email, madhab, country, city }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8"
+          }
+        })
+      }
+
+      history.push("/")
+
+    } catch {
+      setError("Failed to log in with Google Account")
     }
+    setLoading(false)
+  }
 
   const togglePasswordVisiblity = () => {
-      setPasswordShown(passwordShown ? false : true);
-    };
+    setPasswordShown(passwordShown ? false : true);
+  };
 
-    return (
-      <>
-        <Card className="emotionBox2">
-          <Card.Body>
-            <h1 className="text-center mb-4">Want to be a Productive Muslim?</h1>
-            {error && <Alert variant="danger">{error}</Alert>}
-            <Form onSubmit={handleSubmit}>
-              <Form.Group id="email">
-                <Form.Label>Email</Form.Label>
-                <Form.Control type="email" class="email1" ref={emailRef} required />
-              </Form.Group>
-              <Form.Group id="password">
-                <Form.Label>Password</Form.Label>
-                <InputGroup>
-                  <Form.Control className="pass-wrapper" type={passwordShown ? "text" : "password"} ref={passwordRef} required />
-                  <InputGroup.Append>
-                    <InputGroup.Text>
-                      <i onClick={togglePasswordVisiblity}>{passwordShown ? eye : eyeclose}</i>
-                    </InputGroup.Text>
-                  </InputGroup.Append>
-                </InputGroup>
-              </Form.Group>
-              <Button disabled={loading} className="w-100" id="btn" type="submit">
-                Log In
-              </Button>
-            </Form>
-            <div className="btng">
-              <Button disabled={loading} className="w-100" id="btn" onClick={googleSingin}>
-                Sign in With Google
-              </Button>
-            </div>
-            <div className="w-100 text-center mt-3">
-              <Link className="link" to="/reset">Forgot Password?</Link>
-            </div>
-            <div className="w-100 text-center mt-2">
-              Need an account? <Link className="link" to="/register">Sign Up</Link>
-            </div>
-          </Card.Body>
-        </Card>
-      </>
-    )
-  }
+  return (
+    <>
+      <Card className="emotionBox2">
+        <Card.Body>
+          <h1 className="text-center mb-4">Want to be a Productive Muslim?</h1>
+          {error && <Alert variant="danger">{error}</Alert>}
+          <Form onSubmit={handleSubmit}>
+            <Form.Group id="email">
+              <Form.Label>Email</Form.Label>
+              <Form.Control type="email" class="email1" ref={emailRef} required />
+            </Form.Group>
+            <Form.Group id="password">
+              <Form.Label>Password</Form.Label>
+              <InputGroup>
+                <Form.Control className="pass-wrapper" type={passwordShown ? "text" : "password"} ref={passwordRef} required />
+                <InputGroup.Append>
+                  <InputGroup.Text>
+                    <i onClick={togglePasswordVisiblity}>{passwordShown ? eye : eyeclose}</i>
+                  </InputGroup.Text>
+                </InputGroup.Append>
+              </InputGroup>
+            </Form.Group>
+            <Button disabled={loading} className="w-100" id="btn" type="submit">
+              Log In
+            </Button>
+          </Form>
+          <div className="btng">
+            <Button disabled={loading} className="w-100" id="btn" onClick={googleSingin}>
+              Sign in With Google
+            </Button>
+          </div>
+          <div className="w-100 text-center mt-3">
+            <Link className="link" to="/reset">Forgot Password?</Link>
+          </div>
+          <div className="w-100 text-center mt-2">
+            Need an account? <Link className="link" to="/register">Sign Up</Link>
+          </div>
+        </Card.Body>
+      </Card>
+    </>
+  )
+}
