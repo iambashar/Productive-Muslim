@@ -11,7 +11,7 @@
   padding: 20px;
 }
 
-.forumContetn{
+.forumContent{
   margin-bottom: 60px;
 }
 #forumbox2 {
@@ -103,6 +103,15 @@ h3{
   display: flex;
   justify-content: center;
 }
+#searchForum{
+  color: #e0d2b4;
+  border-color: rgb(168, 223, 215);
+  margin: 0 auto;
+}
+.searchDiv {
+  width: 50%;
+  margin: 0 auto;
+}
 #postbox:hover{
   background: rgba(0, 0, 0, 0.3);
   color: #e0d2b4;
@@ -171,7 +180,7 @@ h3{
 }
 
 @media only screen and (max-width: 900px) and (min-width: 700px){
-  .forumContetn{
+  .forumContent{
     margin-bottom: 60px;
   }
   .commentAuthor {
@@ -187,6 +196,10 @@ h3{
     border-color: rgb(168, 223, 215);
     font-family: "El Messiri";
     padding: 20px;
+  }
+  .searchDiv {
+    width: 50%;
+    margin: 0 auto;
   }
   
   #forumbox2 {
@@ -346,7 +359,7 @@ h3{
 }
 
 @media screen and (max-width: 699px) {
-  .forumContetn{
+  .forumContent{
     margin-bottom: 60px;
   }
   .commentAuthor {
@@ -362,6 +375,11 @@ h3{
     border-color: rgb(168, 223, 215);
     font-family: "El Messiri";
     padding: 20px;
+  }
+
+  .searchDiv {
+    width: 50%;
+    margin: 0 auto;
   }
   
   #forumbox2 {

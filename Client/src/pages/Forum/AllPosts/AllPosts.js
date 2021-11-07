@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import moment from 'moment';
 import { Dropdown, Form, InputGroup, Button } from "react-bootstrap"
 import './AllPosts.css';
@@ -6,6 +6,7 @@ import { useAuth } from "../../../components/Authentication/AuthContext";
 import deleteIcon from '../../../../src/Images/deleteIcon.svg';
 import mypost from '../../../Images/myPost.svg';
 import allpostact from '../../../Images/allPostActive.svg';
+import searchIcon from '../../../Images/searchIcon.svg'
 
 const AllPosts = () => {
     const titleRef = useRef()
@@ -175,6 +176,21 @@ const AllPosts = () => {
         console.log(index);
     }
 
+    const searchPost =() => {
+        var text = document.getElementById("searchForum").value;
+        text = "%25" + text + "%25";
+        var link = "http://127.0.0.1:3000/searchpost/";
+        link = link.concat(text);
+        console.log(link);
+        fetch(link)
+            .then(res => res.json())
+            .then(
+                (results) => {
+                    setPost(results.data.search);
+                }
+            );
+    }
+
     return (
         <div>
             <div class="sideMenuDua">
@@ -198,6 +214,19 @@ const AllPosts = () => {
             </div>
             <div className="rightDiv">
                 <br />
+                <div className="searchDiv">
+                <InputGroup>
+                    <Form.Control id="searchForum" type="text" placeholder="Search" autoComplete="off" />
+                    <InputGroup.Append>
+                        <InputGroup.Text>
+                            <div type="submit" className="deleteIcon" onClick={searchPost}>
+                                <img src={searchIcon} width="20"></img>
+                            </div>
+                        </InputGroup.Text>
+                    </InputGroup.Append>
+                </InputGroup>
+                </div>
+                <br/>
                 <Dropdown>
                     <Dropdown.Toggle id="postbox" variant="secondary">
                         Want to Post something
@@ -285,7 +314,7 @@ const AllPosts = () => {
                 </div>
             </div>
         </div>
-    ); 
+    );
 };
 
 export default AllPosts;
