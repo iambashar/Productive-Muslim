@@ -75,7 +75,7 @@ const Homepage = (props) => {
                     getSalahTimes(result.results.datetime);
                 });
 
-        link = "http://localhost:3000/showmyday/";
+        link = "/showmyday/";
         link = link.concat(currentUser.uid);
         console.log(currentUser.uid);
         fetch(link)

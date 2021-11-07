@@ -37,7 +37,7 @@ const Myday = () => {
     }, [uid]);
 
     useEffect(() => {
-        var link = "http://localhost:3000/showtasklist/";
+        var link = "/showtasklist/";
         link = link.concat(uid);
         fetch(link)
             .then(res => res.json()
@@ -46,7 +46,7 @@ const Myday = () => {
                         setDisplayTaskList(result.data.tasks);
                     }));
         console.log(selectedlistID);
-        link = "http://localhost:3000/showlistcontent/";
+        link = "/showlistcontent/";
         var id = selectedlistID;
         link = link.concat(id);
         console.log(link);
@@ -70,7 +70,7 @@ const Myday = () => {
         var task = document.getElementById("taskInput").value;
         var listID = selectedlistID;
         var isCompleted = false;
-        fetch('http://localhost:3000/addtasktolist', {
+        fetch('/addtasktolist', {
             method: 'POST',
             body: JSON.stringify({ listID, task, isCompleted }),
             headers: {
@@ -105,7 +105,7 @@ const Myday = () => {
 
     const createNewTaskList = () => {
         var listname = document.getElementsByClassName("newListInput")[0].value;
-        fetch('http://localhost:3000/createnewlist', {
+        fetch('/createnewlist', {
             method: 'POST',
             body: JSON.stringify({ uid, listname }),
             headers: {
@@ -137,7 +137,7 @@ const Myday = () => {
             document.getElementsByClassName("taskText")[divid].style.setProperty("color", "#e0d2b459");
             document.getElementsByClassName("check-input")[divid].src = check;
             var task = true;
-            var link = 'http://localhost:3000/setcompletedcontent/';
+            var link = '/setcompletedcontent/';
             link = link.concat(taskid);
             fetch(link, {
                 method: 'PUT',
@@ -153,7 +153,7 @@ const Myday = () => {
             document.getElementsByClassName("taskText")[divid].style.setProperty("color", "#e0d2b4");
             document.getElementsByClassName("check-input")[divid].src = circle;
             var task = false;
-            var link = 'http://localhost:3000/setcompletedcontent/';
+            var link = '/setcompletedcontent/';
             link = link.concat(taskid);
             fetch(link, {
                 method: 'PUT',
@@ -168,7 +168,7 @@ const Myday = () => {
 
     const addToMyday = (taskid, divid) => {
         var task = document.getElementsByClassName("taskText")[divid].innerHTML;
-        fetch('http://localhost:3000/addmydayfromlist', {
+        fetch('/addmydayfromlist', {
             method: 'POST',
             body: JSON.stringify({ uid, task }),
             headers: {
@@ -178,7 +178,7 @@ const Myday = () => {
             .then(res => res.json().then(
                 setCount(count + 1)
             ));
-        var link = 'http://localhost:3000/deletelistcontent/';
+        var link = '/deletelistcontent/';
         link = link.concat(taskid);
         fetch(link, {
             method: 'DELETE',
@@ -187,7 +187,7 @@ const Myday = () => {
 
     }
     const deleteTask = (taskid) => {
-        var link = 'http://localhost:3000/deletelistcontent/';
+        var link = '/deletelistcontent/';
         link = link.concat(taskid);
         fetch(link, {
             method: 'DELETE',
@@ -213,7 +213,7 @@ const Myday = () => {
         document.getElementsByClassName("taskBox")[divid].style.border = "none"
         document.getElementsByClassName("taskText")[divid].contentEditable = false;
         var task = document.getElementsByClassName("taskText")[divid].innerHTML;
-        var link = 'http://localhost:3000/editlistcontent/';
+        var link = '/editlistcontent/';
         link = link.concat(taskid);
         fetch(link, {
             method: 'PUT',
@@ -227,12 +227,12 @@ const Myday = () => {
     }
 
     const deleteTaskList = () => {
-        var link = 'http://localhost:3000/deletelistcontentagainstlist/';
+        var link = '/deletelistcontentagainstlist/';
         link = link.concat(selectedlistID);
         fetch(link, {
             method: 'DELETE',
         })
-        link = 'http://localhost:3000/deletelist/';
+        link = '/deletelist/';
         link = link.concat(selectedlistID);
         fetch(link, {
             method: 'DELETE',

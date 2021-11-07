@@ -39,7 +39,7 @@ export default function Signup() {
         var madhab = 'Hanafi';
         var country = 'Bangladesh';
         var city = 'Dhaka';
-        fetch('http://localhost:3000/adduser', {
+        fetch('/adduser', {
             method: 'POST',
             body: JSON.stringify({ uid, name, email, madhab, country, city }),
             headers: {

@@ -38,14 +38,14 @@ const Myday = () => {
     const history = useHistory();
 
     useEffect(() => {
-        fetch('http://localhost:3000/addmydayfromplannedauto', {
+        fetch('/addmydayfromplannedauto', {
             method: 'POST',
             headers: {
                 "Content-type": "application/json; charset=UTF-8"
             }
         })
             .then(res => res.json()).then(
-                fetch('http://localhost:3000/deleteplannedtaskauto', {
+                fetch('/deleteplannedtaskauto', {
                     method: 'DELETE',
                 })
             );
@@ -55,7 +55,7 @@ const Myday = () => {
 
     useEffect(() => {
 
-        var link = "http://localhost:3000/showplannedtask/";
+        var link = "/showplannedtask/";
         link = link.concat(uid);
         console.log(uid);
         fetch(link)
@@ -64,13 +64,13 @@ const Myday = () => {
                     (result) => {
                         setDisplayPlannnedTask(result.data.tasks);
                     }));
-        /*var link = 'http://localhost:3000/deleteplannedtask/';
+        /*var link = '/deleteplannedtask/';
     link = link.concat(taskid);
     fetch(link, {
         method: 'DELETE',
     }).then(
         setCount(count + 1));*/
-        link = "http://localhost:3000/showtasklist/";
+        link = "/showtasklist/";
         link = link.concat(uid);
         fetch(link)
             .then(res => res.json()
@@ -109,7 +109,7 @@ const Myday = () => {
         var task = document.getElementById("taskPlannedInput").value;
         var isCompleted = false;
         var isAddedToMyday = false;
-        fetch('http://localhost:3000/addplannedtask', {
+        fetch('/addplannedtask', {
             method: 'POST',
             body: JSON.stringify({ uid, task, isCompleted, isAddedToMyday }),
             headers: {
@@ -140,7 +140,7 @@ const Myday = () => {
         document.getElementsByClassName("test")[divid].style.border = "none"
         document.getElementsByClassName("test")[divid].contentEditable = false;
         var task = document.getElementsByClassName("taskPlanned")[divid].innerHTML;
-        var link = 'http://localhost:3000/editplannedtask/';
+        var link = '/editplannedtask/';
         link = link.concat(taskid);
         fetch(link, {
             method: 'PUT',
@@ -156,7 +156,7 @@ const Myday = () => {
         console.log(moment(date).format("yyyy-MM-DD"));
         handleDateChange(date);
         var dateValue = moment(date).format("yyyy-MM-DD");
-        var link = 'http://localhost:3000/editPlannedtaskdate/';
+        var link = '/editPlannedtaskdate/';
         link = link.concat(taskid);
         fetch(link, {
             method: 'PUT',
@@ -169,7 +169,7 @@ const Myday = () => {
     }
 
     const deleteTask = (taskid) => {
-        var link = 'http://localhost:3000/deleteplannedtask/';
+        var link = '/deleteplannedtask/';
         link = link.concat(taskid);
         fetch(link, {
             method: 'DELETE',
@@ -179,7 +179,7 @@ const Myday = () => {
 
     const addToMyday = (taskid, divid) => {
         var task = document.getElementsByClassName("taskPlanned")[divid].innerHTML;
-        fetch('http://localhost:3000/addmydayfromplanned', {
+        fetch('/addmydayfromplanned', {
             method: 'POST',
             body: JSON.stringify({ uid, task }),
             headers: {
@@ -189,7 +189,7 @@ const Myday = () => {
             .then(res => res.json().then(
                 setCount(count + 1)
             ));
-        var link = 'http://localhost:3000/deleteplannedtask/';
+        var link = '/deleteplannedtask/';
         link = link.concat(taskid);
         fetch(link, {
             method: 'DELETE',
@@ -204,7 +204,7 @@ const Myday = () => {
             document.getElementsByClassName("taskPlanned")[divid].style.setProperty("color", "#043b3b8a");
             document.getElementsByClassName("check-input")[divid].src= check;
             var task = true;
-            var link = 'http://localhost:3000/setplannedcompleted/';
+            var link = '/setplannedcompleted/';
             link = link.concat(taskid);
             console.log(link);
             fetch(link, {
@@ -221,7 +221,7 @@ const Myday = () => {
             document.getElementsByClassName("taskPlanned")[divid].style.setProperty("color", "#043b3b");
             document.getElementsByClassName("check-input")[divid].src= circle;
             var task = false;
-            var link = 'http://localhost:3000/setplannedcompleted/';
+            var link = '/setplannedcompleted/';
             link = link.concat(taskid);
             console.log(link);
             fetch(link, {
@@ -263,7 +263,7 @@ const Myday = () => {
     const createNewTaskList = () => {
 
         var listname = document.getElementsByClassName("newListInput")[0].value;
-        fetch('http://localhost:3000/createnewlist', {
+        fetch('/createnewlist', {
             method: 'POST',
             body: JSON.stringify({ uid, listname }),
             headers: {

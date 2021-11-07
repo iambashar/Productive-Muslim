@@ -73,7 +73,7 @@ export default function Login() {
       Promise.all(promises)
         .then(() => {
           (len != 0) ?
-            fetch('http://localhost:3000/adduser', {
+            fetch('/adduser', {
               method: 'POST',
               body: JSON.stringify({ uid, name, email, madhab, country, city }),
               headers: {

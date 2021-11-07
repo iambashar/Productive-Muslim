@@ -86,7 +86,7 @@ const Sawm = () => {
         var sawmReason = document.getElementById("reasonInput").value;
         var sawmDate = document.getElementById("dateInput").value;
         console.log(sawmReason, sawmDate);
-        fetch('http://localhost:3000/addsawmoath', {
+        fetch('/addsawmoath', {
             method: 'POST',
             body: JSON.stringify({
                 uid,
@@ -146,7 +146,7 @@ const Sawm = () => {
     }
 
     const deleteSawm = (sawmid) => {
-        var link = 'http://localhost:3000/deletesawm/';
+        var link = '/deletesawm/';
         link = link.concat(sawmid);
         fetch(link, {
             method: 'DELETE',

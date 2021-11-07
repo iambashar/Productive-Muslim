@@ -48,7 +48,7 @@ const Salah = () => {
                     //setdisplaySalahLocation(result.results.location);
                 });
         setUid(currentUser.uid);
-        fetch("http://localhost:3000/waqtdone/".concat(currentUser.uid))
+        fetch("/waqtdone/".concat(currentUser.uid))
             .then(res => res.json())
             .then(
                 (result) => {
@@ -71,7 +71,7 @@ const Salah = () => {
 
         var isDone = new Boolean(true);
 
-        fetch('http://localhost:3000/addwaqtdone', {
+        fetch('/addwaqtdone', {
             method: 'POST',
             body: JSON.stringify({
                 uid,

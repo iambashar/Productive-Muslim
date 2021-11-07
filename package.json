@@ -2,9 +2,14 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
+  "engines": {
+    "node": "16.11.0",
+    "npm": "8.0.0"
+  },
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node server.js",
+    "heroku-postbuild": "cd Client && npm install && npm run build"
   },
   "keywords": [],
   "author": "",
@@ -16,5 +21,6 @@
     "firebase": "^9.1.3",
     "nodemon": "^2.0.13",
     "pg": "^8.7.1"
-  }
+  },
+  "proxy": "http://localhost:3000"
 }

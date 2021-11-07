@@ -9,12 +9,14 @@ const corsOptions = {
   origin: '*',
   credentials: true,            //access-control-allow-credentials:true
   optionSuccessStatus: 200,
-}
+};
 
-app.use(cors(corsOptions))
-
+app.use(cors(corsOptions));
 app.use(express.json());
 
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "client/build")));
+}
 
 // Get all duas
 app.get("/duas", async (req, res) => {
@@ -1069,6 +1071,10 @@ app.get("/waqtdone/:uid", async (req, res) => {
   catch (err){
     console.log(err);
   }
+});
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client/build/index.html"));
 });
 
 const port = process.env.PORT || 3001;

@@ -83,7 +83,7 @@ const MyPosts = () => {
 
         comment++;
 
-        fetch('http://localhost:3000/updatecommentcount/', {
+        fetch('/updatecommentcount/', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -133,7 +133,7 @@ const MyPosts = () => {
             });
             vote--;
             document.getElementsByTagName("i")[index].innerHTML = (parseInt(document.getElementsByTagName("i")[index].innerHTML) - 1);
-            fetch('http://localhost:3000/updateupvote', {
+            fetch('/updateupvote', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -165,7 +165,7 @@ const MyPosts = () => {
         });
         comment--;
         document.getElementsByClassName("commentbtn")[index].innerHTML = cmnt + "&nbsp;&nbsp;&nbsp;Comments";
-        fetch('http://localhost:3000/updatecommentcount', {
+        fetch('/updatecommentcount', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'

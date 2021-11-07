@@ -34,7 +34,7 @@ const Favourites = () => {
                 }
             });
             fc++;
-            fetch('http://localhost:3000/updatefavdua', {
+            fetch('/updatefavdua', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -54,7 +54,7 @@ const Favourites = () => {
                 }
             });
             fc--;
-            fetch('http://localhost:3000/updatefavdua', {
+            fetch('/updatefavdua', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
