@@ -1,9 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Navbar, Container, Nav, FormCheck } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { Navbar, Container, Nav } from 'react-bootstrap';
 import textIcon from '../../Images/textIcon.svg'
 import mainIcon from '../../Images/mainIcon.svg'
 import './Challenges.css'
-import Button from 'react-bootstrap/Button';
 import deedimg1 from '../../Images/1.png';
 import deedimg2 from '../../Images/2.png';
 import deedimg3 from '../../Images/3.png';
@@ -52,7 +51,7 @@ const Challenges = () => {
 
     useEffect(() => {
         setUid(currentUser.uid);
-        fetch("http://localhost:3000/challengedone/".concat(currentUser.uid))
+        fetch("/challengedone/".concat(currentUser.uid))
             .then(res => res.json())
             .then(
                 (result) => {
@@ -73,7 +72,7 @@ const Challenges = () => {
             //document.getElementsByTagName("ck")[index+1].className = "";
         }
         var isChallengeDone = new Boolean(true);
-        fetch('http://localhost:3000/addchallengedone', {
+        fetch('/addchallengedone', {
             method: 'POST',
             body: JSON.stringify({
                 uid,
@@ -131,7 +130,6 @@ const Challenges = () => {
                 </header>
             <div className="trackerdiv">
                 <p>JOIN THE CHALLENGE <br /> Click below and join the 30 Days, 30 Deeds Challenge</p>
-                <Button className="btnjoin" variant="outline-success">Join Now</Button>{' '}
             </div>
             <div className="taskdiv">
                 <h2><b>30 DEEDS CHALLENGE</b></h2>
@@ -149,10 +147,10 @@ const Challenges = () => {
                         <img src={deedimg1} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                             <b>Day 1</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                             Have a healthy Sehr
                         </div>
                     </div>
@@ -168,16 +166,15 @@ const Challenges = () => {
                         <img src={deedimg2} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 2</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                             Learn a new dua
                         </div>
                     </div>
                     <div className="ck">
                         <div class="form-check d-flex justify-content-center">
-                            {/* <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /> */}
                             <img className="checkimg" onClick={() => setIsChallengeDone(1, 2)} src={ts = false, doneChallenge.map(mp => (mp.challenge == 2 && mp.ischallengedone == true) ? ts = true : ts = ts), ts ? check : circle} alt={ts? "check":"circle"} width="20" />
                         </div>
                     </div>
@@ -187,16 +184,15 @@ const Challenges = () => {
                         <img src={deedimg3} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 3</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Teach one good deed to a child
                         </div>
                     </div>
                     <div className="ck">
                         <div class="form-check d-flex justify-content-center">
-                            {/* <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /> */}
                             <img className="checkimg" onClick={() => setIsChallengeDone(2, 3)} src={ts = false, doneChallenge.map(mp => (mp.challenge == 3 && mp.ischallengedone == true) ? ts = true : ts = ts), ts ? check : circle} alt={ts? "check":"circle"} width="20" />
                         </div>
                     </div>
@@ -206,16 +202,15 @@ const Challenges = () => {
                         <img src={deedimg4} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 4</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Memorize last ayats of Surah Baqarah
                         </div>
                     </div>
                     <div className="ck">
                         <div class="form-check d-flex justify-content-center">
-                            {/* <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /> */}
                             <img className="checkimg" onClick={() => setIsChallengeDone(3, 4)} src={ts = false, doneChallenge.map(mp => (mp.challenge == 4 && mp.ischallengedone == true) ? ts = true : ts = ts), ts ? check : circle} alt={ts? "check":"circle"} width="20" />
                         </div>
                     </div>
@@ -225,16 +220,15 @@ const Challenges = () => {
                         <img src={deedimg5} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 5</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Refrain from backbiting and gossiping
                         </div>
                     </div>
                     <div className="ck">
                         <div class="form-check d-flex justify-content-center">
-                            {/* <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /> */}
                             <img className="checkimg" onClick={() => setIsChallengeDone(4, 5)} src={ts = false, doneChallenge.map(mp => (mp.challenge == 5 && mp.ischallengedone == true) ? ts = true : ts = ts), ts ? check : circle} alt={ts? "check":"circle"} width="20" />
                         </div>
                     </div>
@@ -244,16 +238,15 @@ const Challenges = () => {
                         <img src={deedimg6} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 6</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Give Sadqa
                         </div>
                     </div>
                     <div className="ck">
                         <div class="form-check d-flex justify-content-center">
-                            {/* <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /> */}
                             <img className="checkimg" onClick={() => setIsChallengeDone(5, 6)} src={ts = false, doneChallenge.map(mp => (mp.challenge == 6 && mp.ischallengedone == true) ? ts = true : ts = ts), ts ? check : circle} alt={ts? "check":"circle"} width="20" />
                         </div>
                     </div>
@@ -263,16 +256,15 @@ const Challenges = () => {
                         <img src={deedimg7} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 7</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Offer 3 missed prayers
                         </div>
                     </div>
                     <div className="ck">
                         <div class="form-check d-flex justify-content-center">
-                            {/* <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /> */}
                             <img className="checkimg" onClick={() => setIsChallengeDone(6, 7)} src={ts = false, doneChallenge.map(mp => (mp.challenge == 7 && mp.ischallengedone == true) ? ts = true : ts = ts), ts ? check : circle} alt={ts? "check":"circle"} width="20" />
                         </div>
                     </div>
@@ -282,16 +274,15 @@ const Challenges = () => {
                         <img src={deedimg8} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 8</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Give up on a grudge
                         </div>
                     </div>
                     <div className="ck">
                         <div class="form-check d-flex justify-content-center">
-                            {/* <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /> */}
                             <img className="checkimg" onClick={() => setIsChallengeDone(7, 8)} src={ts = false, doneChallenge.map(mp => (mp.challenge == 8 && mp.ischallengedone == true) ? ts = true : ts = ts), ts ? check : circle} alt={ts? "check":"circle"} width="20" />
                         </div>
                     </div>
@@ -301,16 +292,15 @@ const Challenges = () => {
                         <img src={deedimg9} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 9</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Empathize with people in your circle
                         </div>
                     </div>
                     <div className="ck">
                         <div class="form-check d-flex justify-content-center">
-                            {/* <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /> */}
                             <img className="checkimg" onClick={() => setIsChallengeDone(8, 9)} src={ts = false, doneChallenge.map(mp => (mp.challenge == 9 && mp.ischallengedone == true) ? ts = true : ts = ts), ts ? check : circle} alt={ts? "check":"circle"} width="20" />
                         </div>
                     </div>
@@ -320,16 +310,15 @@ const Challenges = () => {
                         <img src={deedimg10} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 10</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Feed the poor of your community
                         </div>
                     </div>
                     <div className="ck">
                         <div class="form-check d-flex justify-content-center">
-                            {/* <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /> */}
                             <img className="checkimg" onClick={() => setIsChallengeDone(9, 10)} src={ts = false, doneChallenge.map(mp => (mp.challenge == 10 && mp.ischallengedone == true) ? ts = true : ts = ts), ts ? check : circle} alt={ts? "check":"circle"} width="20" />
                         </div>
                     </div>
@@ -344,16 +333,15 @@ const Challenges = () => {
                         <img src={deedimg11} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 11</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Offer extra Nafl prayers
                         </div>
                     </div>
                     <div className="ck">
                         <div class="form-check d-flex justify-content-center">
-                            {/* <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /> */}
                             <img className="checkimg" onClick={() => setIsChallengeDone(10, 11)} src={ts = false, doneChallenge.map(mp => (mp.challenge == 11 && mp.ischallengedone == true) ? ts = true : ts = ts), ts ? check : circle} alt={ts? "check":"circle"} width="20" />
                         </div>
                     </div>
@@ -363,16 +351,15 @@ const Challenges = () => {
                         <img src={deedimg12} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 12</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Calculate your Zakat
                         </div>
                     </div>
                     <div className="ck">
                         <div class="form-check d-flex justify-content-center">
-                            {/* <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /> */}
                             <img className="checkimg" onClick={() => setIsChallengeDone(11, 12)} src={ts = false, doneChallenge.map(mp => (mp.challenge == 12 && mp.ischallengedone == true) ? ts = true : ts = ts), ts ? check : circle} alt={ts? "check":"circle"} width="20" />
                         </div>
                     </div>
@@ -382,16 +369,15 @@ const Challenges = () => {
                         <img src={deedimg13} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 13</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Read Surah Yaseen with translation
                         </div>
                     </div>
                     <div className="ck">
                         <div class="form-check d-flex justify-content-center">
-                            {/* <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /> */}
                             <img className="checkimg" onClick={() => setIsChallengeDone(12, 13)} src={ts = false, doneChallenge.map(mp => (mp.challenge == 13 && mp.ischallengedone == true) ? ts = true : ts = ts), ts ? check : circle} alt={ts? "check":"circle"} width="20" />
                         </div>
                     </div>
@@ -401,16 +387,15 @@ const Challenges = () => {
                         <img src={deedimg14} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 14</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Give up one bad deed
                         </div>
                     </div>
                     <div className="ck">
                         <div class="form-check d-flex justify-content-center">
-                            {/* <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /> */}
                             <img className="checkimg" onClick={() => setIsChallengeDone(13, 14)} src={ts = false, doneChallenge.map(mp => (mp.challenge == 14 && mp.ischallengedone == true) ? ts = true : ts = ts), ts ? check : circle} alt={ts? "check":"circle"} width="20" />
                         </div>
                     </div>
@@ -420,16 +405,15 @@ const Challenges = () => {
                         <img src={deedimg15} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 15</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Visit a sick person
                         </div>
                     </div>
                     <div className="ck">
                         <div class="form-check d-flex justify-content-center">
-                            {/* <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /> */}
                             <img className="checkimg" onClick={() => setIsChallengeDone(14, 15)} src={ts = false, doneChallenge.map(mp => (mp.challenge == 15 && mp.ischallengedone == true) ? ts = true : ts = ts), ts ? check : circle} alt={ts? "check":"circle"} width="20" />
                         </div>
                     </div>
@@ -439,16 +423,15 @@ const Challenges = () => {
                         <img src={deedimg16} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 16</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Read about the life of Prophet (PBUH)
                         </div>
                     </div>
                     <div className="ck">
                         <div class="form-check d-flex justify-content-center">
-                            {/* <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /> */}
                             <img className="checkimg" onClick={() => setIsChallengeDone(15, 16)} src={ts = false, doneChallenge.map(mp => (mp.challenge == 16 && mp.ischallengedone == true) ? ts = true : ts = ts), ts ? check : circle} alt={ts? "check":"circle"} width="20" />
                         </div>
                     </div>
@@ -458,16 +441,15 @@ const Challenges = () => {
                         <img src={deedimg17} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 17</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Realize the struggle of needy while fasting
                         </div>
                     </div>
                     <div className="ck">
                         <div class="form-check d-flex justify-content-center">
-                            {/* <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /> */}
                             <img className="checkimg" onClick={() => setIsChallengeDone(16, 17)} src={ts = false, doneChallenge.map(mp => (mp.challenge == 17 && mp.ischallengedone == true) ? ts = true : ts = ts), ts ? check : circle} alt={ts? "check":"circle"} width="20" />
                         </div>
                     </div>
@@ -477,16 +459,15 @@ const Challenges = () => {
                         <img src={deedimg18} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div  className="dayno">
                         <b>Day 18</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Contribute in making a good meal
                         </div>
                     </div>
                     <div className="ck">
                         <div class="form-check d-flex justify-content-center">
-                            {/* <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /> */}
                             <img className="checkimg" onClick={() => setIsChallengeDone(17, 18)} src={ts = false, doneChallenge.map(mp => (mp.challenge == 18 && mp.ischallengedone == true) ? ts = true : ts = ts), ts ? check : circle} alt={ts? "check":"circle"} width="20" />
                         </div>
                     </div>
@@ -496,16 +477,15 @@ const Challenges = () => {
                         <img src={deedimg19} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno" >
                         <b>Day 19</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Tell people about the beauty of Islam
                         </div>
                     </div>
                     <div className="ck">
                         <div class="form-check d-flex justify-content-center">
-                            {/* <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /> */}
                             <img className="checkimg" onClick={() => setIsChallengeDone(18, 19)} src={ts = false, doneChallenge.map(mp => (mp.challenge == 19 && mp.ischallengedone == true) ? ts = true : ts = ts), ts ? check : circle} alt={ts? "check":"circle"} width="20" />
                         </div>
                     </div>
@@ -515,16 +495,15 @@ const Challenges = () => {
                         <img src={deedimg20} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno" >
                         <b>Day 20</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Pray for your loved ones who passed away
                         </div>
                     </div>
                     <div className="ck">
                         <div class="form-check d-flex justify-content-center">
-                            {/* <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /> */}
                             <img className="checkimg" onClick={() => setIsChallengeDone(19, 20)} src={ts = false, doneChallenge.map(mp => (mp.challenge == 20 && mp.ischallengedone == true) ? ts = true : ts = ts), ts ? check : circle} alt={ts? "check":"circle"} width="20" />
                         </div>
                     </div>
@@ -539,16 +518,15 @@ const Challenges = () => {
                         <img src={deedimg21} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div  className="dayno">
                         <b>Day 21</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Make dua for Muslims all around the world
                         </div>
                     </div>
                     <div className="ck">
                         <div class="form-check d-flex justify-content-center">
-                            {/* <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /> */}
                             <img className="checkimg" onClick={() => setIsChallengeDone(20, 21)} src={ts = false, doneChallenge.map(mp => (mp.challenge == 21 && mp.ischallengedone == true) ? ts = true : ts = ts), ts ? check : circle} alt={ts? "check":"circle"} width="20" />
                         </div>
                     </div>
@@ -558,16 +536,15 @@ const Challenges = () => {
                         <img src={deedimg22} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 22</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Pray Salat-ut-Tasbeeh
                         </div>
                     </div>
                     <div className="ck">
                         <div class="form-check d-flex justify-content-center">
-                            {/* <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /> */}
                             <img className="checkimg" onClick={() => setIsChallengeDone(21, 22)} src={ts = false, doneChallenge.map(mp => (mp.challenge == 22 && mp.ischallengedone == true) ? ts = true : ts = ts), ts ? check : circle} alt={ts? "check":"circle"} width="20" />
                         </div>
                     </div>
@@ -577,16 +554,15 @@ const Challenges = () => {
                         <img src={deedimg23} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 23</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Recite Durood-e-Ibrahim
                         </div>
                     </div>
                     <div className="ck">
                         <div class="form-check d-flex justify-content-center">
-                            {/* <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /> */}
                             <img className="checkimg" onClick={() => setIsChallengeDone(22, 23)} src={ts = false, doneChallenge.map(mp => (mp.challenge == 23 && mp.ischallengedone == true) ? ts = true : ts = ts), ts ? check : circle} alt={ts? "check":"circle"} width="20" />
                         </div>
                     </div>
@@ -596,16 +572,15 @@ const Challenges = () => {
                         <img src={deedimg24} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 24</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Get a thoughtful gift for your loved ones
                         </div>
                     </div>
                     <div className="ck">
                         <div class="form-check d-flex justify-content-center">
-                            {/* <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /> */}
                             <img className="checkimg" onClick={() => setIsChallengeDone(23, 24)} src={ts = false, doneChallenge.map(mp => (mp.challenge == 24 && mp.ischallengedone == true) ? ts = true : ts = ts), ts ? check : circle} alt={ts? "check":"circle"} width="20" />
                         </div>
                     </div>
@@ -615,16 +590,15 @@ const Challenges = () => {
                         <img src={deedimg25} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 25</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Learn a new Hadith and act upon it
                         </div>
                     </div>
                     <div className="ck">
                         <div class="form-check d-flex justify-content-center">
-                            {/* <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /> */}
                             <img className="checkimg" onClick={() => setIsChallengeDone(24, 25)} src={ts = false, doneChallenge.map(mp => (mp.challenge == 25 && mp.ischallengedone == true) ? ts = true : ts = ts), ts ? check : circle} alt={ts? "check":"circle"} width="20" />
                         </div>
                     </div>
@@ -634,16 +608,15 @@ const Challenges = () => {
                         <img src={deedimg26} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 26</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Spend the night in Prayers
                         </div>
                     </div>
                     <div className="ck">
                         <div class="form-check d-flex justify-content-center">
-                            {/* <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /> */}
                             <img className="checkimg" onClick={() => setIsChallengeDone(25, 26)} src={ts = false, doneChallenge.map(mp => (mp.challenge == 26 && mp.ischallengedone == true) ? ts = true : ts = ts), ts ? check : circle} alt={ts? "check":"circle"} width="20" />
                         </div>
                     </div>
@@ -653,16 +626,15 @@ const Challenges = () => {
                         <img src={deedimg27} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 27</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Revise memorized Surahs
                         </div>
                     </div>
                     <div className="ck">
                         <div class="form-check d-flex justify-content-center">
-                            {/* <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /> */}
                             <img className="checkimg" onClick={() => setIsChallengeDone(26, 27)} src={ts = false, doneChallenge.map(mp => (mp.challenge == 27 && mp.ischallengedone == true) ? ts = true : ts = ts), ts ? check : circle} alt={ts? "check":"circle"} width="20" />
                         </div>
                     </div>
@@ -672,16 +644,15 @@ const Challenges = () => {
                         <img src={deedimg28} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 28</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Practice modesty
                         </div>
                     </div>
                     <div className="ck">
                         <div class="form-check d-flex justify-content-center">
-                            {/* <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /> */}
                             <img className="checkimg" onClick={() => setIsChallengeDone(27, 28)} src={ts = false, doneChallenge.map(mp => (mp.challenge == 28 && mp.ischallengedone == true) ? ts = true : ts = ts), ts ? check : circle} alt={ts? "check":"circle"} width="20" />
                         </div>
                     </div>
@@ -691,16 +662,15 @@ const Challenges = () => {
                         <img src={deedimg29} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 29</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Spend less on things and give more
                         </div>
                     </div>
                     <div className="ck">
                         <div class="form-check d-flex justify-content-center">
-                            {/* <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /> */}
                             <img className="checkimg" onClick={() => setIsChallengeDone(28, 29)} src={ts = false, doneChallenge.map(mp => (mp.challenge == 29 && mp.ischallengedone == true) ? ts = true : ts = ts), ts ? check : circle} alt={ts? "check":"circle"} width="20" />
                         </div>
                     </div>
@@ -710,16 +680,15 @@ const Challenges = () => {
                         <img src={deedimg30} />
                     </div>
                     <div class="deedItem">
-                        <div>
+                        <div className="dayno">
                         <b>Day 30</b>
                         </div>
-                        <div>
+                        <div className="challengeName">
                         Give Sadaqa-al-Fitr and get ready for Eid!
                         </div>
                     </div>
                     <div className="ck">
                         <div class="form-check d-flex justify-content-center">
-                            {/* <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /> */}
                             <img className="checkimg" onClick={() => setIsChallengeDone(29, 30)} src={ts = false, doneChallenge.map(mp => (mp.challenge == 30 && mp.ischallengedone == true) ? ts = true : ts = ts), ts ? check : circle} alt={ts? "check":"circle"} width="20" />
                         </div>
                     </div>

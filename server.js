@@ -795,6 +795,26 @@ app.get("/showcomments", async (req, res) => {
   }
 });
 
+//get searched post
+app.get("/searchpost/:id", async (req, res) => {
+  try {
+    const results = await db.query(
+      "select * from forumpost where title like $1;", [req.params.id]
+    );
+
+    res.status(200).json({
+      status: "success",
+      results: results.rows.length,
+      data: {
+        search: results.rows,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+
 //update commetcount
 app.put("/updatecommentcount", async (req, res) => {
   try {
