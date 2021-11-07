@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const db = require("./db");
 const cors = require('cors');
+const path = require('path')
 
 const app = express();
 
@@ -14,9 +15,11 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "client/build")));
-}
+app.use(express.static('./Client/build'));
+app.get('*', (req, res)=> {
+  const index = path.join(__dirname, '/', './Client/build', 'index.html' );
+  res.sendFile(index);
+});
 
 // Get all duas
 app.get("/duas", async (req, res) => {
