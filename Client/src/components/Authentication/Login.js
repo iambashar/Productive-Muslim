@@ -40,29 +40,22 @@ export default function Login() {
       setLoading(true)
       const res = await signInWithGoogle();
       const user = res.user;
-      var link = "/userprofile/".concat(user.uid);
-      fetch(link)
-        .then(res => res.json())
-        .then(
-          (result) => {
-            setUser(result.data.user);
-          }
-        );
-      if (userdata.length == 0) {
-        var uid = user.uid;
-        var name = user.displayName;
-        var email = user.email;
-        var madhab = 'Hanafi';
-        var country = 'Bangladesh';
-        var city = 'Dhaka';
-        fetch('/adduser', {
-          method: 'POST',
-          body: JSON.stringify({ uid, name, email, madhab, country, city }),
-          headers: {
-            "Content-type": "application/json; charset=UTF-8"
-          }
-        });
-      }
+
+      var uid = user.uid;
+      var name = user.displayName;
+      var email = user.email;
+      var madhab = 'Hanafi';
+      var country = 'Bangladesh';
+      var city = 'Dhaka';
+      
+      await fetch('/adduser', {
+        method: 'POST',
+        body: JSON.stringify({ uid, name, email, madhab, country, city }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        }
+      });
+
       history.push("/")
     } catch {
       setError("Failed to log in with Google Account")

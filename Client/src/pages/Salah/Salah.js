@@ -34,11 +34,11 @@ const Salah = () => {
 
     useEffect(() => {
         // if does not work then turn off your browser ad blocker :)
-        fetch("http://ip-api.com/json")
+        fetch("https://api.db-ip.com/v2/free/self")
             .then(res => res.json())
             .then(
                 (result) => {
-                    const link = "https://api.pray.zone/v2/times/today.json?ip=".concat("116.58.202.147");
+                    const link = "https://api.pray.zone/v2/times/today.json?ip=".concat(result.ipAddress);
                     return fetch(link)
                 }
             ).then(res => res.json())

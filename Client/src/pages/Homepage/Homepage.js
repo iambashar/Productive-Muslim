@@ -49,7 +49,7 @@ const Homepage = (props) => {
 
     useEffect(() => {
         var id = Math.floor(Math.random() * 6236) + 1;
-        var link = "http://api.alquran.cloud/v1/ayah/";
+        var link = "https://api.alquran.cloud/v1/ayah/";
         link = link.concat(id, "/en.asad");
         fetch(link)
             .then(res => res.json())
@@ -61,11 +61,11 @@ const Homepage = (props) => {
             });
 
         // if does not work then turn off your browser ad blocker :)
-        fetch("http://ip-api.com/json")
+        fetch("https://api.db-ip.com/v2/free/self")
             .then(res => res.json())
             .then(
                 (result) => {
-                    const link = "https://api.pray.zone/v2/times/today.json?ip=".concat(result.query);
+                    const link = "https://api.pray.zone/v2/times/today.json?ip=".concat(result.ipAddress);
                     return fetch(link)
                 }
             ).then(res => res.json())
