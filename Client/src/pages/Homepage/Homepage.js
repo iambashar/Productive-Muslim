@@ -6,9 +6,8 @@ import mainIcon from '../../Images/mainIcon.svg'
 import { useHistory } from "react-router";
 import { useAuth } from "../../components/Authentication/AuthContext";
 import userimg from '../../Images/user.png';
-import { SalahContext } from '../SalahContextProvider';
 import firebase from 'firebase/compat'
-import Footer from '../../components/Footer/Footer'
+
 
 
 
@@ -66,7 +65,7 @@ const Homepage = (props) => {
             .then(res => res.json())
             .then(
                 (result) => {
-                    const link = "https://api.pray.zone/v2/times/today.json?ip=".concat("116.58.202.147");
+                    const link = "https://api.pray.zone/v2/times/today.json?ip=".concat(result.query);
                     return fetch(link)
                 }
             ).then(res => res.json())
