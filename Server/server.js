@@ -1071,6 +1071,62 @@ app.get("/waqtdone/:uid", async (req, res) => {
   }
 });
 
+//add Challenge Done
+app.post("/addchallengedone", async (req, res) => {
+  try{
+    const res1 = await db.query(
+      "SELECT * from mychallenge where userid = $1 and challenge = $2 AND (day = CURRENT_DATE);", [req.body.uid, req.body.challenge]
+    )
+    if(res1.rows.length){
+      const res2 = await db.query(
+        "DELETE from mychallenge where userid = $1 and challenge = $2 AND (day = CURRENT_DATE) returning *;", [req.body.uid, req.body.challenge]
+      );
+      res.status(201).json({
+        status: "success",
+        data: {
+          myChallenge: res2.rows[0],
+        },
+      });
+    }
+    else{
+    const results = await db.query(
+      "INSERT INTO mychallenge (userid, challenge, isChallengeDone) values ($1, $2, $3) returning *",
+      [req.body.uid, req.body.challenge, req.body.isChallengeDone]
+    );
+    res.status(201).json({
+      status: "success",
+      data: {
+        myChallenge: results.rows[0],
+      },
+    });
+  }
+  }
+  catch (err){
+    //console.log(req.body.uid, req.body.date, req.body.reason);
+    console.log(err);
+  }
+});
+
+// get waqt done?
+app.get("/challengedone/:uid", async (req, res) => {
+  try{
+    const isChallengeDone = await db.query(
+      "SELECT * FROM mychallenge WHERE userID = $1;", 
+        [req.params.uid]
+    );
+    res.status(200).json({
+      status: "success",
+      results: isChallengeDone.rows.length,
+      data: {
+        challenges: isChallengeDone.rows,
+      },
+    });
+  }
+  catch (err){
+    console.log(err);
+  }
+});
+
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
   console.log(`server is up and listening on port ${port}`);
