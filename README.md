@@ -63,7 +63,7 @@
   # Team Members
   * Syed Rifat Raiyan- 180041205
   * Samia Islam- 180041237
-  * M. K. Bashar- 180041238
+  * [M. K. Bashar](http://linktr.ee/mkbashar)- 180041238
   
   # Features
 - [Signup](#signup)
