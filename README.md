@@ -45,10 +45,6 @@
       Prayer Times API
     </a>
     |
-    <a href="https://sunnah.api-docs.io/1.0/hadiths/get-a-randomly-selected-hadith">
-      Sunnah.com API
-    </a>
-    |
     <a href="https://ip-api.com/docs/api:json">
       Geolocation - IP-API
     </a>
