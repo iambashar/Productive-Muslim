@@ -45,8 +45,8 @@
       Prayer Times API
     </a>
     |
-    <a href="https://ip-api.com/docs/api:json">
-      Geolocation - IP-API
+    <a href="https://db-ip.com/api/doc.php">
+      Geolocation - DB-IP
     </a>
     </p>
 <h3 align="center">Production</h3>
