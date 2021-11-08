@@ -143,6 +143,9 @@ Users can update their profile credentials.
 ## Tutorials
 * [PERN Stack Tutorial](https://www.youtube.com/watch?v=J01rYl9T3BU&t=10223s)
 
+## Theme
+* [Arabic Culture & Language Lesson PPT Theme](https://slidesgo.com/theme/arabic-culture-language-lesson)
+
 ## Inspirations
 We were inspired by similar projects like:
 * [Sujood.co](https://www.sujood.co/)
