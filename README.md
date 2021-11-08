@@ -109,7 +109,7 @@ Users can view a calendar in which all the dates for voluntary fasting are highl
 ![DeleteSawm](demoImages/deletesawm.PNG)
 
 ## Ibadah Tracker
-Users can maintain a To-do list of all the tasks they have in mind. They can plan an event on a certain date and that event will be shifted to their "My Day" task-list on that day. They can also create multiple lists to fragment the different domains their lives and keep track of them. Clicking on the "Recurring Task" button will make that task appear on the user's daily task list everyday. Users can choose to mark any task as "Done" ny clicking on the checkbox or delete any task by clicking on the "Delete" button. They can also edit the task entries.
+Users can maintain a To-do list of all the tasks they have in mind. They can plan an event on a certain date and that event will be shifted to their "My Day" task-list on that day. They can also create multiple lists to fragment the different domains of their lives and keep track of them. Clicking on the "Recurring Task" button will make that task appear on the user's daily task list everyday. Users can choose to mark any task as "Done" by clicking on the checkbox or delete any task by clicking on the "Delete" button. They can also edit the task entries.
 ![Tracker1](demoImages/tracker1.PNG)
 ![NewTask](demoImages/newtask.PNG)
 ![UserListTask](demoImages/userlisttask.PNG)
