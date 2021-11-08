@@ -9,7 +9,7 @@
       <img alt="Tests Passing" src="https://github.com/anuraghazra/github-readme-stats/workflows/Test/badge.svg" />
     </a>
     <a href="https://img.shields.io/badge/Status-Work%20In%20Progress-yellow">
-      <img src="https://img.shields.io/badge/Status-Work%20In%20Progress-yellow" />
+      <img src="https://img.shields.io/badge/Status-Complete-green" />
     </a>
     <a href="https://img.shields.io/badge/license-MIT-orange.svg">
       <img alt="License" src="https://img.shields.io/badge/license-MIT-orange.svg" />
