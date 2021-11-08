@@ -109,7 +109,7 @@ Users can view a calendar in which all the dates for voluntary fasting are highl
 ![DeleteSawm](demoImages/deletesawm.PNG)
 
 ## Ibadah Tracker
-Users can maintain a To-do list of all the tasks they have in mind. They can plan an event on a certain date and that event will be shifted to their "My Day" task-list on that day. They can also create multiple lists to fragment the different domains of their lives and keep track of them. Clicking on the "Recurring Task" button will make that task appear on the user's daily task list everyday. Users can choose to mark any task as "Done" by clicking on the checkbox or delete any task by clicking on the "Delete" button. They can also edit the task entries.
+Users can maintain a To-do list of all the tasks they have in mind. They can plan an event on a certain date and that event will be shifted to their "My Day" task-list on that day. They can also create multiple lists to fragment the different domains of their lives and keep track of them. Clicking on the "Recurring Task" button will make that task appear on the user's daily task list every day. Users can choose to mark any task as "Done" by clicking on the checkbox or delete any task by clicking on the "Delete" button. They can also edit the task entries.
 ![Tracker1](demoImages/tracker1.PNG)
 ![NewTask](demoImages/newtask.PNG)
 ![UserListTask](demoImages/userlisttask.PNG)
@@ -118,7 +118,7 @@ Users can maintain a To-do list of all the tasks they have in mind. They can pla
 ![RedirectToAllTasks](demoImages/redirectedtoalltasks.PNG)
 
 ## Challenges
-Users can choose to participate on a 30-days 30-deeds challenge mainly created for the Holy month of Ramadan. Each day constitutes a challenge of performing a good deed which the users can mark as "Done" after they complete it.
+Users can choose to participate in a 30-days 30-deeds challenge mainly created for the Holy month of Ramadan. Each day constitutes a challenge of performing a good deed which the users can mark as "Done" after they complete it.
 ![Challenges1](demoImages/challenges.PNG)
 ![Challenges2](demoImages/challenges2.PNG)
 ![Challenges3](demoImages/challenges3.PNG)
