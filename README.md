@@ -118,7 +118,7 @@ Users can maintain a To-do list of all the tasks they have in mind. They can pla
 ![RedirectToAllTasks](demoImages/redirectedtoalltasks.PNG)
 
 ## Challenges
-Users can choose to participate on a 30-days 30-deeds challenge mainly created for the Holy month of Ramadan. Each day constitutes a challaenge of performing a good deed which the users can mark as "Done" after they complete it.
+Users can choose to participate on a 30-days 30-deeds challenge mainly created for the Holy month of Ramadan. Each day constitutes a challenge of performing a good deed which the users can mark as "Done" after they complete it.
 ![Challenges1](demoImages/challenges.PNG)
 ![Challenges2](demoImages/challenges2.PNG)
 ![Challenges3](demoImages/challenges3.PNG)
