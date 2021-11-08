@@ -79,7 +79,7 @@
 
 ## Signup
 Users can create a new account by registering with an email.
-![Signup](demoImages/signup.PNG)
+![Signup](demoImages/signup2.PNG)
 
 ## Login
 Users can login to an already existing account. They can opt to login with their Google account as well. If they forget their password, a reset password link will be sent to their email.
