@@ -80,9 +80,9 @@ export default function UpdateProfile() {
     <>
       {currentUser.displayName == null ?
         <>
-          <div className="annonimousdiv"><h1 className="annonimousalingment">Please login with an account to see the posts!<br />
+          <div className="annonimousdiv"><h1 className="annonimousalingment">Please login with an account to update your profile!<br />
             <br />Jazakumullah Khair</h1> </div>
-          <div className="btng" id="cancelbtn">
+          <div className="btnng" id="cancelbtnn">
             <Button className="w-100" id="btn" onClick={() => history.push("/")}>
               Cancel
             </Button>

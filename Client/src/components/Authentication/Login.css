@@ -1,4 +1,68 @@
+@media only screen and (min-width: 768px) {
 
+  .emotionBox2{
+    background: rgba(0, 0, 0, 0.3);
+    width: 50%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: #e0d2b4;
+    border: 4px;
+    border-style: solid;
+    border-color: rgb(168, 223, 215);
+    font-family: 'El Messiri';
+    padding: 20px;
+  }
+  .form-control:not(focus){
+    background: rgba(0, 0, 0, 0.3);
+    color:#e0d2b4;
+  }
+  
+  .form-control:focus{
+    background: rgba(0, 0, 0, 0.3);
+    color:#e0d2b4;
+  }
+  
+  .email1:-internal-autofill-selected, .email1:-internal-autofill-previewed {
+    appearance: menulist-button;
+    background-image: none !important;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #e0d2b4;
+  }
+  
+  .btng{
+    margin-top: 15px;
+  }
+  
+  #btn, #btn:visited{
+    background-color: #e0d2b4;
+    color: #044444;
+    border: #044444;
+    font-family: 'El Messiri';
+    font-weight: bold;
+    font-size: 1.2rem;
+    width: 300px;
+  }
+  #btn:hover{
+    background-color: #ad976a;
+    color: #044444;
+    border: #044444
+  }
+  #btn:focus, #btn:focus-visible, #btn:checked {
+    background-color: #e0d2b4;
+    color: #044444;
+    border: #044444;
+  }
+  
+  .passwordbox{
+    width: fit-content;
+  }
+
+}
+@media only screen and (max-width: 900px) and (min-width: 600px) {
+
+  
 .emotionBox2{
   background: rgba(0, 0, 0, 0.3);
   width: 50%;
@@ -56,4 +120,68 @@
 
 .passwordbox{
   width: fit-content;
+}
+
+}
+@media screen and (max-width: 599px) {
+
+.emotionBox2{
+  background: rgba(0, 0, 0, 0.3);
+  width: 50%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: #e0d2b4;
+  border: 4px;
+  border-style: solid;
+  border-color: rgb(168, 223, 215);
+  font-family: 'El Messiri';
+  padding: 10px
+}
+.form-control:not(focus){
+  background: rgba(0, 0, 0, 0.3);
+  color:#e0d2b4;
+}
+
+.form-control:focus{
+  background: rgba(0, 0, 0, 0.3);
+  color:#e0d2b4;
+}
+
+.email1:-internal-autofill-selected, .email1:-internal-autofill-previewed {
+  appearance: menulist-button;
+  background-image: none !important;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: #e0d2b4;
+}
+
+.btng{
+  margin-top: 10px;
+}
+
+#btn, #btn:visited{
+  background-color: #e0d2b4;
+  color: #044444;
+  border: #044444;
+  font-family: 'El Messiri';
+  font-weight: bold;
+  font-size: 0.8rem;
+  width: 300px;
+}
+#btn:hover{
+  background-color: #ad976a;
+  color: #044444;
+  border: #044444
+}
+#btn:focus, #btn:focus-visible, #btn:checked {
+  background-color: #e0d2b4;
+  color: #044444;
+  border: #044444;
+}
+
+.passwordbox{
+  width: fit-content;
+}
+
 }
