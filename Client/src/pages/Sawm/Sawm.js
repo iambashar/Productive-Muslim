@@ -27,7 +27,6 @@ const Sawm = () => {
         if (firebase.auth().currentUser !== null) {
             setUid(firebase.auth().currentUser.uid);
         }
-        console.log(uid);
     }, [uid]);
 
     useEffect(() => {
@@ -42,7 +41,6 @@ const Sawm = () => {
             .then(
                 (result) => {
                     setDisplayUpcomingSawmDates(result.data.dates);
-                    console.log(result.data.dates);
                     setUserSawmDates(result.data.dates.map((userData) => {
                         return moment(userData.sawmdate).format('DD-MM-YYYY');
                     }))
@@ -78,14 +76,10 @@ const Sawm = () => {
 
 
     const addSawmOath = () => {
-        console.log(date);
         var val = date.getDate().toString().padStart(2, '0') + "-" + (date.getMonth() + 1).toString().padStart(2, '0') + "-" + date.getFullYear();
-        console.log(val);
         gSawmDates.push(val);
-        console.log(gSawmDates.slice(-1)[0]);
         var sawmReason = document.getElementById("reasonInput").value;
         var sawmDate = document.getElementById("dateInput").value;
-        console.log(sawmReason, sawmDate);
         fetch('/addsawmoath', {
             method: 'POST',
             body: JSON.stringify({
@@ -98,7 +92,6 @@ const Sawm = () => {
             }
         })
             .then(
-                console.log(sawmReason, sawmDate)
             );
         handleClose();
         setChange(change + 1);
@@ -123,7 +116,7 @@ const Sawm = () => {
                 val2[4] = temp;
                 val2 = val2.join('');
                 var nDate = new Date(val2);
-                //console.log(val);
+
                 upcomingDates1.push(<div>{val} - Ayyam al-Beed - ایّام البیض‎ (The White Days)</div>);
             }
             else if (days.find(x => x === currentDate.getDay())) {

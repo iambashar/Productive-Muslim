@@ -67,7 +67,6 @@ const MyPosts = () => {
                 "Content-type": "application/json; charset=UTF-8"
             }
         });
-        console.log(name);
     }
 
     const addnewcomment = (postID, index, comment) => {
@@ -113,7 +112,6 @@ const MyPosts = () => {
                 }
             });
             vote++;
-            console.log(vote);
             fetch('/updateupvote', {
                 method: 'PUT',
                 headers: {
@@ -172,7 +170,6 @@ const MyPosts = () => {
             },
             body: JSON.stringify({ comment, postID })
         });
-        console.log(index);
     }
 
     return (

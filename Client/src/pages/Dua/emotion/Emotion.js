@@ -19,8 +19,7 @@ const Emotion = () => {
             .then(
                 (result) => {
                     setDisplayDuaInfos(shuffle(result.data.duas));
-                    return fetch("/emotions").then(
-                        console.log(result.data.duas));
+                    return fetch("/emotions")
                 })
             .then(res => res.json())
             .then(
@@ -70,9 +69,7 @@ const Emotion = () => {
                 },
                 body: JSON.stringify({ fc, duaID })
             });
-        }
-        else {
-            console.log(fc)
+    
             document.getElementsByTagName("i")[index].innerHTML = (parseInt(document.getElementsByTagName("i")[index].innerHTML) - 1);
             document.getElementsByTagName("i")[index].className = "far fa-thumbs-up fa-2x";
             fetch('/deletefavdua', {

@@ -57,19 +57,12 @@ const Myday = () => {
 
         var link = "/showplannedtask/";
         link = link.concat(uid);
-        console.log(uid);
         fetch(link)
             .then(res => res.json()
                 .then(
                     (result) => {
                         setDisplayPlannnedTask(result.data.tasks);
                     }));
-        /*var link = '/deleteplannedtask/';
-    link = link.concat(taskid);
-    fetch(link, {
-        method: 'DELETE',
-    }).then(
-        setCount(count + 1));*/
         link = "/showtasklist/";
         link = link.concat(uid);
         fetch(link)
@@ -77,7 +70,6 @@ const Myday = () => {
                 .then(
                     (result) => {
                         setDisplayTaskList(result.data.tasks);
-                        console.log(displayTaskList);
                     }));
 
     }, [count]);
@@ -119,7 +111,6 @@ const Myday = () => {
             .then(res => res.json().then(
                 setCount(count + 1)
             ));
-        console.log(moment(new Date()).format("yyyy-MM-DD"));
     }
 
     const editTask = (divid) => {
@@ -153,7 +144,6 @@ const Myday = () => {
 
     }
     const updateDate = (taskid, divid, date) => {
-        console.log(moment(date).format("yyyy-MM-DD"));
         handleDateChange(date);
         var dateValue = moment(date).format("yyyy-MM-DD");
         var link = '/editPlannedtaskdate/';
@@ -206,7 +196,6 @@ const Myday = () => {
             var task = true;
             var link = '/setplannedcompleted/';
             link = link.concat(taskid);
-            console.log(link);
             fetch(link, {
                 method: 'PUT',
                 headers: {
@@ -223,7 +212,6 @@ const Myday = () => {
             var task = false;
             var link = '/setplannedcompleted/';
             link = link.concat(taskid);
-            console.log(link);
             fetch(link, {
                 method: 'PUT',
                 headers: {

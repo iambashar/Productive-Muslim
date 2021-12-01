@@ -68,7 +68,6 @@ const AllPosts = () => {
                 "Content-type": "application/json; charset=UTF-8"
             }
         });
-        console.log(name);
     }
 
     const addnewcomment = (postID, index, comment) => {
@@ -114,7 +113,6 @@ const AllPosts = () => {
                 }
             });
             vote++;
-            console.log(vote);
             fetch('/updateupvote', {
                 method: 'PUT',
                 headers: {
@@ -122,6 +120,7 @@ const AllPosts = () => {
                 },
                 body: JSON.stringify({ vote, postID })
             });
+            vote--;
         }
         else {
             document.getElementsByTagName("i")[index].className = "far fa-thumbs-up fa-2x";
@@ -141,6 +140,7 @@ const AllPosts = () => {
                 },
                 body: JSON.stringify({ vote, postID })
             });
+            vote++;
         }
     }
 
@@ -173,7 +173,7 @@ const AllPosts = () => {
             },
             body: JSON.stringify({ comment, postID })
         });
-        console.log(index);
+        comment++;
     }
 
     const searchPost = () => {
@@ -181,7 +181,6 @@ const AllPosts = () => {
         text = "%25" + text + "%25";
         var link = "/searchpost/";
         link = link.concat(text);
-        console.log(link);
         fetch(link)
             .then(res => res.json())
             .then(

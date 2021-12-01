@@ -55,7 +55,6 @@ const Challenges = () => {
             .then(res => res.json())
             .then(
                 (result) => {
-                    console.log(result.data.challenges)
                     setDoneChallenge(result.data.challenges);
                 }
             )

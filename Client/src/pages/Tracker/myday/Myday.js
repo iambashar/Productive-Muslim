@@ -49,10 +49,9 @@ const Myday = () => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ task })
-        }).then(console.log("update"));
+        })
         var link = "/showmyday/";
         link = link.concat(uid);
-        console.log(uid);
         fetch(link)
             .then(res => res.json()
                 .then(
@@ -70,7 +69,6 @@ const Myday = () => {
                 .then(
                     (result) => {
                         setDisplayTaskList(result.data.tasks);
-                        console.log(displayTaskList);
                     }));
 
     }, [count]);
@@ -167,7 +165,6 @@ const Myday = () => {
             var task = true;
             var link = '/setrecurred/';
             link = link.concat(taskid);
-            console.log(link);
             fetch(link, {
                 method: 'PUT',
                 headers: {
@@ -183,7 +180,6 @@ const Myday = () => {
             var task = false;
             var link = '/setrecurred/';
             link = link.concat(taskid);
-            console.log(link);
             fetch(link, {
                 method: 'PUT',
                 headers: {
@@ -206,7 +202,6 @@ const Myday = () => {
             var task = true;
             var link = '/setcompleted/';
             link = link.concat(taskid);
-            console.log(link);
             fetch(link, {
                 method: 'PUT',
                 headers: {
@@ -223,7 +218,6 @@ const Myday = () => {
             var task = false;
             var link = '/setcompleted/';
             link = link.concat(taskid);
-            console.log(link);
             fetch(link, {
                 method: 'PUT',
                 headers: {

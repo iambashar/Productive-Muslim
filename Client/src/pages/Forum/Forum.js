@@ -62,7 +62,7 @@ const Forum = () => {
                 </header>
             </div>
             <div className="pageContent">
-                {currentUser.displayName == null ? <div className="annonimousdiv"><h1 className="annonimousalingment">Please login with an account to see the posts!<br/><br/>Jazakumullah Khair</h1> </div> :
+                {currentUser.isAnonymous == true ? <div className="annonimousdiv"><h1 className="annonimousalingment">Please login with an account to see the posts!<br/><br/>Jazakumullah Khair</h1> </div> :
 
                     <Switch>
                         <Route path="/pages/forum/myposts">

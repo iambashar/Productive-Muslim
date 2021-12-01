@@ -61,23 +61,17 @@ export default function Login() {
       signInWithGoogle()
         .then((res) => {          
           user = res.user;
-          console.log(user)
           return fetch("/userprofile/".concat(res.user.uid))
         })
         .then(res => res.json())
         .then(
           (result) => {
-            console.log(result)
             return result.results
           }
         ).then((len) => {
           const uid = user.uid;
           const name = user.displayName;
           const email = user.email;
-          console.log("len is :       ", len)
-          console.log("uid is :       ", uid)
-          console.log("name is :       ", name)
-          console.log("email is :       ", email)
           if (len == 0) {
               fetch('/adduser', {
               method: 'POST',
@@ -86,12 +80,10 @@ export default function Login() {
                 "Content-type": "application/json; charset=UTF-8"
               }
             }).then((res)=>{
-              console.log(res)
             })
           }
         })
         .then(() => {
-          console.log("History")
           setLoading(false)
           history.push("/")
         })

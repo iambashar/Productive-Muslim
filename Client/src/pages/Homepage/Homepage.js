@@ -57,7 +57,6 @@ const Homepage = (props) => {
                 setAyah(data.data.text);
                 setSurah(data.data.surah.englishName);
                 setAyahNo(data.data.numberInSurah);
-                console.log(data.data);
             });
 
         // if does not work then turn off your browser ad blocker :)
@@ -76,20 +75,17 @@ const Homepage = (props) => {
 
         link = "/showmyday/";
         link = link.concat(currentUser.uid);
-        console.log(currentUser.uid);
         fetch(link)
             .then(res => res.json()
                 .then(
                     (result) => {
                         setDisplayMydayTask(result.data.tasks);
-                        console.log(result.data.tasks);
                     }));
         fetch("/getfavdua/".concat(currentUser.uid))
             .then(res => res.json())
             .then(
                 (results) => {
                     setDisplayfarourite(results.data.dua);
-                    console.log(results.data.dua);
                 }
             );
     }, []);

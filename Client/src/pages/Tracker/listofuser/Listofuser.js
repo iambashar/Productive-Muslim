@@ -45,11 +45,9 @@ const Myday = () => {
                     (result) => {
                         setDisplayTaskList(result.data.tasks);
                     }));
-        console.log(selectedlistID);
         link = "/showlistcontent/";
         var id = selectedlistID;
         link = link.concat(id);
-        console.log(link);
         fetch(link)
             .then(res => res.json()
                 .then(

@@ -15,8 +15,6 @@ const Salah = () => {
 
     const [displaySalahTime, setdisplaySalahTime] = useState([]);
     const [uid, setUid] = useState();
-    //const [displaySalahLocation, setdisplaySalahLocation] = useState([]);
-    //const [time, setTime] = useState(new Date().toLocaleTimeString('en-US', { hour12: false, hour: "numeric", minute: "numeric"}));
     const [date, setDate] = useState(new Date());
     const dummy = { date };
     const [donesalah, setdonesalah] = useState([]);
@@ -25,7 +23,6 @@ const Salah = () => {
     const history = useHistory()
     const [done, setdone] = useState([false])
     var ts;
-    //console.log(Date.parse('01/01/2011 '+dummy.toString().substr(16,5)));
     //const date = new Date();
     const onChange = date => {
         setDate(date);
@@ -153,9 +150,7 @@ const Salah = () => {
                                 displaySalahTime.map((Salah, index) =>
                                     <tr className={
                                         ((Date.parse('01/01/2011 ' + moment(Date(dummy)).format("HH:mm").toString()) < Date.parse('01/01/2011 ' + Salah.times.Imsak))) ?
-                                            //console.log((Date.parse('01/01/2011 '+time) > Date.parse('01/01/2011 '+Salah.times.Dhuhr)) || (Date.parse('01/01/2011 '+time) < Date.parse('01/01/2011 '+Salah.times.Asr)))
                                             "highlightNextWaqt" : ""
-                                        //console.log((Date.parse('01/01/2011 '+time) > Date.parse('01/01/2011 '+Salah.times.Dhuhr)) || (Date.parse('01/01/2011 '+time) < Date.parse('01/01/2011 '+Salah.times.Asr)))
 
                                     }>
                                         {/* <td>
@@ -177,9 +172,7 @@ const Salah = () => {
                                 displaySalahTime.map((Salah, index) =>
                                     <tr className={
                                         ((Date.parse('01/01/2011 ' + moment(Date(dummy)).format("HH:mm").toString()) >= Date.parse('01/01/2011 ' + Salah.times.Fajr)) && (Date.parse('01/01/2011 ' + moment(Date(dummy)).format("HH:mm").toString()) < Date.parse('01/01/2011 ' + Salah.times.Sunrise))) ?
-                                            //console.log((Date.parse('01/01/2011 '+time) > Date.parse('01/01/2011 '+Salah.times.Dhuhr)) || (Date.parse('01/01/2011 '+time) < Date.parse('01/01/2011 '+Salah.times.Asr)))
                                             "highlightNextWaqt" : ""
-                                        //console.log((Date.parse('01/01/2011 '+time) > Date.parse('01/01/2011 '+Salah.times.Dhuhr)) || (Date.parse('01/01/2011 '+time) < Date.parse('01/01/2011 '+Salah.times.Asr)))
 
                                     }>
                                         {/* <td>
@@ -201,9 +194,7 @@ const Salah = () => {
                                 displaySalahTime.map((Salah, index) =>
                                     <tr className={
                                         ((Date.parse('01/01/2011 ' + moment(Date(dummy)).format("HH:mm").toString()) >= Date.parse('01/01/2011 ' + Salah.times.Sunrise)) && (Date.parse('01/01/2011 ' + moment(Date(dummy)).format("HH:mm").toString()) < Date.parse('01/01/2011 ' + Salah.times.Dhuhr))) ?
-                                            //console.log((Date.parse('01/01/2011 '+time) > Date.parse('01/01/2011 '+Salah.times.Dhuhr)) || (Date.parse('01/01/2011 '+time) < Date.parse('01/01/2011 '+Salah.times.Asr)))
                                             "highlightNextWaqt" : ""
-                                        //console.log((Date.parse('01/01/2011 '+time) > Date.parse('01/01/2011 '+Salah.times.Dhuhr)) || (Date.parse('01/01/2011 '+time) < Date.parse('01/01/2011 '+Salah.times.Asr)))
 
                                     }>
                                         {/* <td>
@@ -225,9 +216,7 @@ const Salah = () => {
                                 displaySalahTime.map((Salah, index) =>
                                     <tr className={
                                         ((Date.parse('01/01/2011 ' + moment(Date(dummy)).format("HH:mm").toString()) >= Date.parse('01/01/2011 ' + Salah.times.Dhuhr)) && (Date.parse('01/01/2011 ' + moment(Date(dummy)).format("HH:mm").toString()) < Date.parse('01/01/2011 ' + Salah.times.Asr))) ?
-                                            //console.log((Date.parse('01/01/2011 '+time) > Date.parse('01/01/2011 '+Salah.times.Dhuhr)) || (Date.parse('01/01/2011 '+time) < Date.parse('01/01/2011 '+Salah.times.Asr)))
                                             "highlightNextWaqt" : ""
-                                        //console.log((Date.parse('01/01/2011 '+time) > Date.parse('01/01/2011 '+Salah.times.Dhuhr)) || (Date.parse('01/01/2011 '+time) < Date.parse('01/01/2011 '+Salah.times.Asr)))
 
                                     }>
                                         {/* <td>
@@ -250,9 +239,7 @@ const Salah = () => {
                                 displaySalahTime.map((Salah, index) =>
                                     <tr className={
                                         ((Date.parse('01/01/2011 ' + moment(Date(dummy)).format("HH:mm").toString()) >= Date.parse('01/01/2011 ' + Salah.times.Asr)) && (Date.parse('01/01/2011 ' + moment(Date(dummy)).format("HH:mm").toString()) < Date.parse('01/01/2011 ' + Salah.times.Maghrib))) ?
-                                            //console.log((Date.parse('01/01/2011 '+time) > Date.parse('01/01/2011 '+Salah.times.Dhuhr)) || (Date.parse('01/01/2011 '+time) < Date.parse('01/01/2011 '+Salah.times.Asr)))
                                             "highlightNextWaqt" : ""
-                                        //console.log((Date.parse('01/01/2011 '+time) > Date.parse('01/01/2011 '+Salah.times.Dhuhr)) || (Date.parse('01/01/2011 '+time) < Date.parse('01/01/2011 '+Salah.times.Asr)))
 
                                     }>
                                         {/* <td>
@@ -275,9 +262,7 @@ const Salah = () => {
                                 displaySalahTime.map((Salah, index) =>
                                     <tr className={
                                         ((Date.parse('01/01/2011 ' + moment(Date(dummy)).format("HH:mm").toString()) >= Date.parse('01/01/2011 ' + Salah.times.Maghrib)) && (Date.parse('01/01/2011 ' + moment(Date(dummy)).format("HH:mm").toString()) < Date.parse('01/01/2011 ' + Salah.times.Isha))) ?
-                                            //console.log((Date.parse('01/01/2011 '+time) > Date.parse('01/01/2011 '+Salah.times.Dhuhr)) || (Date.parse('01/01/2011 '+time) < Date.parse('01/01/2011 '+Salah.times.Asr)))
                                             "highlightNextWaqt" : ""
-                                        //console.log((Date.parse('01/01/2011 '+time) > Date.parse('01/01/2011 '+Salah.times.Dhuhr)) || (Date.parse('01/01/2011 '+time) < Date.parse('01/01/2011 '+Salah.times.Asr)))
 
                                     }>
                                         {/* <td>
@@ -300,9 +285,7 @@ const Salah = () => {
                                 displaySalahTime.map((Salah, index) =>
                                     <tr className={
                                         (Date.parse('01/01/2011 ' + moment(Date(dummy)).format("HH:mm").toString()) >= Date.parse('01/01/2011 ' + Salah.times.Isha)) ?
-                                            //console.log((Date.parse('01/01/2011 '+time) > Date.parse('01/01/2011 '+Salah.times.Dhuhr)) || (Date.parse('01/01/2011 '+time) < Date.parse('01/01/2011 '+Salah.times.Asr)))
                                             "highlightNextWaqt" : ""
-                                        //console.log((Date.parse('01/01/2011 '+time) > Date.parse('01/01/2011 '+Salah.times.Dhuhr)) || (Date.parse('01/01/2011 '+time) < Date.parse('01/01/2011 '+Salah.times.Asr)))
 
                                     }>
                                         {/* <td>

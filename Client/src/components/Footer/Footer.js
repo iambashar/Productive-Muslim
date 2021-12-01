@@ -36,7 +36,6 @@ const Footer = () => {
         emailjs.sendForm('service_k9mhf6a', 'template_gzy07xl', e.target, 'user_h5X8uPzDtZgUtgmSD6wmW')
             .then((result) => {
             }, (error) => {
-                console.log(error.text);
             });
             e.target.reset();
         togglePopUp();

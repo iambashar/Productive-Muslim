@@ -78,7 +78,7 @@ export default function UpdateProfile() {
 
   return (
     <>
-      {currentUser.displayName == null ?
+      {currentUser.isAnonymous == true ?
         <>
           <div className="annonimousdiv"><h1 className="annonimousalingment">Please login with an account to update your profile!<br />
             <br />Jazakumullah Khair</h1> </div>

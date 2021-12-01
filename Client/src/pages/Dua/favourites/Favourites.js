@@ -43,7 +43,6 @@ const Favourites = () => {
             });
         }
         else {
-            console.log(fc)
             document.getElementsByTagName("i")[index].innerHTML = (parseInt(document.getElementsByTagName("i")[index].innerHTML) - 1);
             document.getElementsByTagName("i")[index].className = "far fa-thumbs-up fa-2x";
             fetch('/deletefavdua', {
